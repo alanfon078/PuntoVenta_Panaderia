@@ -13,7 +13,7 @@ namespace Panaderia
         public Ventas()
         {
             InitializeComponent();
-            lblFecha.Text = DateTime.Now.ToLongDateString();
+            lblFecha.Text +=DateTime.Now.ToLongDateString();
         }
 
     }
