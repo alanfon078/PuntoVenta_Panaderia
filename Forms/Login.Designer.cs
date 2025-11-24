@@ -94,7 +94,7 @@
             txtUser.TabIndex = 5;
             txtUser.TextAlign = HorizontalAlignment.Center;
             // 
-            // Form1
+            // Login
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -104,7 +104,7 @@
             Controls.Add(btnLogin);
             Controls.Add(txtPassword);
             Controls.Add(txtUser);
-            Name = "Form1";
+            Name = "Login";
             Text = "Form1";
             ResumeLayout(false);
             PerformLayout();
