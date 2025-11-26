@@ -1,24 +1,15 @@
 ﻿using MySql.Data.MySqlClient;
-using Panaderia.Clases;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Panaderia.Conexion;
+using Mysqlx.Connection;
 
-namespace Panaderia.ConexionDAO
+namespace Panaderia.DAO
 {
-    internal class Conexion
+    internal class DAOcls
     {
-        /// <summary>
-        /// Obtiene una conexión a la base de datos MySQL.
-        /// </summary
-        /// <returns> Objeto MySqlConnection abierto.</returns>
-
-        public static MySqlConnection ObtenerConexion()
-        {
-            MySqlConnection conexion = new MySqlConnection("server=localhost; database=Panaderia; user=root; pwd=root");
-            conexion.Open();
-            return conexion;
-        }
+        private MySqlConnection cn;
 
         /// <summary>
         /// Verifica las credenciales del usuario en la base de datos.
@@ -31,10 +22,11 @@ namespace Panaderia.ConexionDAO
             bool loginExitoso = false;
             try
             {
-                using (MySqlConnection conexion = ObtenerConexion())
+                Conection c = new Conection();
+                cn =  c.ObtenerConexion(user, password);
                 {
-                    string query = "set @usuarioActivo=0; call spLogin(@user, @password, @usuarioActivo);";
-                    MySqlCommand comando = new MySqlCommand(query, conexion);
+                    string query = "call spLogin(@user, @password);";
+                    MySqlCommand comando = new MySqlCommand(query, cn);
                     comando.Parameters.AddWithValue("@user", user);
                     comando.Parameters.AddWithValue("@password", password);
                     int count = Convert.ToInt32(comando.ExecuteScalar());
@@ -47,7 +39,7 @@ namespace Panaderia.ConexionDAO
             }
             catch (MySqlException ex)
             {
-                // Manejar la excepción (por ejemplo, mostrar un mensaje de error)
+                // Manejar la excepción
                 Console.WriteLine("Error de conexión: " + ex.Message);
             }
             return loginExitoso;
@@ -64,10 +56,9 @@ namespace Panaderia.ConexionDAO
             bool UsuarioDisponible = true;
             try
             {
-                using (MySqlConnection conexion = ObtenerConexion())
                 {
                     string query = "SELECT COUNT(*) FROM user WHERE user = @user";
-                    MySqlCommand comando = new MySqlCommand(query, conexion);
+                    MySqlCommand comando = new MySqlCommand(query, cn);
                     comando.Parameters.AddWithValue("@user", user);
 
                     int count = Convert.ToInt32(comando.ExecuteScalar());
