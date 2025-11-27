@@ -41,6 +41,7 @@ namespace Panaderia.DAO
             {
                 // Manejar la excepción
                 Console.WriteLine("Error de conexión: " + ex.Message);
+                MessageBox.Show("Usuario o Contraseña Incorrectos", "Error al iniciar Sesion", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             return loginExitoso;
         }
