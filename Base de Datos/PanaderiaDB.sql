@@ -1,17 +1,18 @@
-create database panaderia;
+create database if not exists panaderia;
 use panaderia;
 
+-- 1. Tablas
 create table Usuarios (
     userID int primary key auto_increment,
     user varchar(20) unique not null,
     nombre varchar(50) not null,
     apellidos varchar(50) not null,
-    email varchar(100),
-    telefono varchar(10) not null,
+    email varchar(100) unique,
+    telefono varchar(15) not null unique, 
     password varchar(255),
     fechaNacimiento date not null,
     fechaCreacion datetime default current_timestamp,
-    rol enum('Administrador', 'Empleado') not null
+    rol enum('Admin', 'Empleado') not null
 );
 
 
@@ -39,7 +40,7 @@ create table DetalleVentas (
     productoID int,
     cantidad int not null,
     precioUnitario decimal(10,2) not null, 
-    importe decimal(10,2),
+    total decimal(10,2),
     primary key (ventaID, productoID),
     foreign key (ventaID) references Ventas(ventaID),
     foreign key (productoID) references Productos(ProductoID)
@@ -51,69 +52,98 @@ create table AuditoriaProductos (
     fecha date,
     hora time,
     tipoCambio varchar(20),
-    valorAnterior text,    
+    valorAnterior text,     
     valorNuevo text,
-    usuario varchar(50)
+    usuario varchar(50) -- Aquí guardaremos el usuario de la App, no el 'root'
 );
 
-insert into usuarios(user, nombre, apellidos, email, telefono, password, fechaNacimiento, rol)
-values('Admin1', 'Alan', 'Fonseca', 'yalan@gmail.com', '4451234567', sha2('admin', 256), '2005-12-30', 1);
+-- 2. Insert inicial
+INSERT INTO Usuarios (user, nombre, apellidos, email, telefono, password, fechaNacimiento, rol)
+VALUES ('Admin', 'Yael', 'Ruiz', 'yalan@gmail.com', '1234567890', SHA2('admin', 256), '2005-12-30', 'Admin');
 
-select * from usuarios;
-
-/*
+-- 3. SP Login
 delimiter $$
--- 1. Trigger para insertar (No hay valor anterior, solo nuevo)
+create procedure spLogin(in us varchar(20), in pas varchar(255))
+begin
+    select * from Usuarios u 
+    where u.user = us and u.password = sha2(pas, 256);
+end $$
+delimiter ;
+
+-- 4. Triggers
+-- El trigger buscará una variable definida desde C#
+
+delimiter $$
+-- Insert
 create trigger trInsertProducto
 after insert on Productos
 for each row
 begin
+    -- Usar COALESCE para leer la variable de sesión
+    declare appUser varchar(50);
+    set appUser = COALESCE(@UsuarioActual, 'Sistema/Root');
+
     insert into AuditoriaProductos (fecha, hora, tipoCambio, valorAnterior, valorNuevo, usuario)
     values (
         curdate(), 
         curtime(), 
         'INSERT', 
         'N/A', 
-        concat('ID:', new.clave, ' | ', new.nombre, ' | Stock:', new.stock, ' | $', new.precio), 
-        user()
+        concat('ID:', new.ProductoID, ' | ', new.nombre, ' | Stock:', new.stock, ' | $', new.precio),
+        appUser
     );
 end $$
 delimiter ;
 
-
-delimiter $$
--- 2. Trigger para actualizar (Hay valor anterior y nuevo)
+-- Update
 create trigger trUpdateProducto
 after update on Productos
 for each row
 begin
+    declare appUser varchar(50);
+    set appUser = COALESCE(@UsuarioActual, 'Sistema/Root');
+
     insert into AuditoriaProductos (fecha, hora, tipoCambio, valorAnterior, valorNuevo, usuario)
     values (curdate(), curtime(), 'UPDATE', 
         concat('ID:', old.ProductoID, ' | ', old.nombre, ' | Stock:', old.stock, ' | $', old.precio), 
-        concat('ID:', new.ProductoID, ' | ', new.nombre, ' | Stock:', new.stock, ' | $', new.precio));
+        concat('ID:', new.ProductoID, ' | ', new.nombre, ' | Stock:', new.stock, ' | $', new.precio),
+        appUser);
 end $$
 delimiter ;
 
 
 
-delimiter $$
--- 3. Trigger para eliminar (Solo hay valor anterior)
+-- Delete
 create trigger trBorrarProducto
 after delete on Productos
 for each row
 begin
+    declare appUser varchar(50);
+    set appUser = COALESCE(@UsuarioActual, 'Sistema/Root');
+
     insert into AuditoriaProductos (fecha, hora, tipoCambio, valorAnterior, valorNuevo, usuario)
-    values (curdate(), curtime(), 'DELETE', concat('ID:', old.ProductoID, ' | ', old.nombre, ' | Stock:', old.stock, ' | $', old.precio),'Eliminado');
+    values (curdate(), curtime(),
+    'DELETE', concat('ID:', old.ProductoID, ' | ', old.nombre, ' | Stock:', old.stock, ' | $', old.precio),'Eliminado',
+    appUser);
 end $$
 delimiter ;
 
+-- 5. SP CRUD Empleados
 
 delimiter $$
--- crear Empleado
-create procedure spCrearEmp(in usu varchar(20), nom varchar(50), in ape varchar(50), in emaill varchar(100), in tel int , in pass varchar(255), in feNac datetime, in roll varchar(20))
+create procedure spCrearEmp(
+    in usu varchar(20), 
+    in nom varchar(50), 
+    in ape varchar(50), 
+    in emaill varchar(100), 
+    in tel varchar(15), 
+    in pass varchar(255), 
+    in feNac date,      
+    in roll varchar(20)
+)
 begin
     insert into Usuarios (user, nombre, apellidos, email, telefono, password, fechaNacimiento, rol)
-    values (usu, nombre, apellidos, emaill, tel, sha2(pass, 256), fecNac, roll);
+    values (usu, nom, ape, emaill, tel, sha2(pass, 256), feNac, roll);
 end $$
 delimiter ;
 
@@ -128,13 +158,17 @@ delimiter ;
 
 
 
-delimiter $$
--- Aactualizar Empleado
-create procedure spActualizarEmp(in uID int, in us varchar(20), in nom varchar(50), in ape varchar(50), in roll varchar(20))
+create procedure spActualizarEmp(
+    in uID int, 
+    in us varchar(20), 
+    in nom varchar(50), 
+    in ape varchar(50), 
+    in roll varchar(20)
+)
 begin
     update Usuarios 
-    set usuario = us, nombre = nom, apellidos = ape, rol = roll
-    where usuarioID = uID;
+    set user = us, nombre = nom, apellidos = ape, rol = roll
+    where userID = uID;
 end $$
 delimiter ;
 
@@ -144,7 +178,7 @@ delimiter $$
 -- Eliminar Empleado
 create procedure spEliminarEmp(in uID int)
 begin
-    delete from Usuarios where usuarioID = uID;
+    delete from Usuarios where userID = uID; 
 end $$
 delimiter ;
 */

@@ -1,4 +1,4 @@
-using Panaderia.ConexionDAO;
+using Panaderia.DAO;
 
 namespace Panaderia
 {
@@ -14,8 +14,8 @@ namespace Panaderia
             // Lógica de autenticación aquí
             string user = txtUser.Text;
             string password = txtPassword.Text;
-            Conexion c = new Conexion();
-            bool b = c.Login(user, password);
+            DAOcls d = new DAOcls();
+            bool b = d.Login(user, password);
             b=true;
             if (b)
             {

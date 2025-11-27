@@ -28,8 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            button1 = new Button();
-            button3 = new Button();
+            btnRight = new Button();
             pictureBox1 = new PictureBox();
             pictureBox2 = new PictureBox();
             pictureBox3 = new PictureBox();
@@ -55,6 +54,7 @@
             label10 = new Label();
             label11 = new Label();
             label12 = new Label();
+            btnLeft = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
@@ -69,25 +69,16 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox12).BeginInit();
             SuspendLayout();
             // 
-            // button1
+            // btnRight
             // 
-            button1.Font = new Font("Showcard Gothic", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button1.Location = new Point(12, 361);
-            button1.Name = "button1";
-            button1.Size = new Size(76, 68);
-            button1.TabIndex = 0;
-            button1.Text = "<";
-            button1.UseVisualStyleBackColor = true;
-            // 
-            // button3
-            // 
-            button3.Font = new Font("Showcard Gothic", 19.8000011F, FontStyle.Bold);
-            button3.Location = new Point(1689, 361);
-            button3.Name = "button3";
-            button3.Size = new Size(76, 68);
-            button3.TabIndex = 2;
-            button3.Text = ">";
-            button3.UseVisualStyleBackColor = true;
+            btnRight.Font = new Font("Showcard Gothic", 19.8000011F, FontStyle.Bold);
+            btnRight.Location = new Point(1689, 361);
+            btnRight.Name = "btnRight";
+            btnRight.Size = new Size(76, 68);
+            btnRight.TabIndex = 2;
+            btnRight.Text = ">";
+            btnRight.UseVisualStyleBackColor = true;
+            btnRight.Click += btnRight_Click;
             // 
             // pictureBox1
             // 
@@ -315,11 +306,23 @@
             label12.TabIndex = 31;
             label12.Text = "label12";
             // 
+            // btnLeft
+            // 
+            btnLeft.Font = new Font("Showcard Gothic", 19.8000011F, FontStyle.Bold);
+            btnLeft.Location = new Point(12, 361);
+            btnLeft.Name = "btnLeft";
+            btnLeft.Size = new Size(76, 68);
+            btnLeft.TabIndex = 32;
+            btnLeft.Text = "<";
+            btnLeft.UseVisualStyleBackColor = true;
+            btnLeft.Click += btnLeft_Click_1;
+            // 
             // Ventas
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1777, 857);
+            Controls.Add(btnLeft);
             Controls.Add(label12);
             Controls.Add(label11);
             Controls.Add(label10);
@@ -345,8 +348,7 @@
             Controls.Add(pictureBox3);
             Controls.Add(pictureBox2);
             Controls.Add(pictureBox1);
-            Controls.Add(button3);
-            Controls.Add(button1);
+            Controls.Add(btnRight);
             Name = "Ventas";
             Text = "Form2";
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
@@ -368,7 +370,7 @@
         #endregion
 
         private Button button1;
-        private Button button3;
+        private Button btnRight;
         private PictureBox pictureBox1;
         private PictureBox pictureBox2;
         private PictureBox pictureBox3;
@@ -394,5 +396,6 @@
         private Label label10;
         private Label label11;
         private Label label12;
+        private Button btnLeft;
     }
 }
