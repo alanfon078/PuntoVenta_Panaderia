@@ -7,6 +7,11 @@ using Mysqlx.Connection;
 
 namespace Panaderia.DAO
 {
+    public static class UsuarioSesion
+    {
+        public static string UsuarioActual { get; set; } = "Desconocido";
+    }
+
     internal class DAOcls
     {
         private MySqlConnection cn;
@@ -23,7 +28,7 @@ namespace Panaderia.DAO
             try
             {
                 Conection c = new Conection();
-                cn =  c.ObtenerConexion(user, password);
+                cn =  c.ObtenerConexion();
                 {
                     string query = "call spLogin(@user, @password);";
                     MySqlCommand comando = new MySqlCommand(query, cn);
@@ -34,6 +39,8 @@ namespace Panaderia.DAO
                     if (count > 0)
                     {
                         loginExitoso = true;
+                        UsuarioSesion.UsuarioActual = user;
+                        Console.WriteLine(UsuarioSesion.UsuarioActual);
                     }
                 }
             }
@@ -41,9 +48,12 @@ namespace Panaderia.DAO
             {
                 // Manejar la excepción
                 Console.WriteLine("Error de conexión: " + ex.Message);
+                MessageBox.Show("Usuario o Contraseña Incorrectos", "Error al iniciar Sesion", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             return loginExitoso;
         }
+
+
 
         /// <summary>
         /// Función para validar si un usuario está disponible.

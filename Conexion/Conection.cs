@@ -13,9 +13,9 @@ namespace Panaderia.Conexion
         /// </summary
         /// <returns> Objeto MySqlConnection abierto.</returns>
 
-        public MySqlConnection ObtenerConexion(string user, string password)
+        public MySqlConnection ObtenerConexion()
         {
-            MySqlConnection conexion = new MySqlConnection("server=localhost; database=Panaderia; user="+user+"; pwd="+password+";");
+            MySqlConnection conexion = new MySqlConnection("server=localhost; database=Panaderia; user='root'; pwd='root';");
             conexion.Open();
             return conexion;
         }
