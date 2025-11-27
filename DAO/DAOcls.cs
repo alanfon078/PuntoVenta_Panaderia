@@ -1,9 +1,10 @@
 ﻿using MySql.Data.MySqlClient;
+using Mysqlx.Connection;
+using Panaderia.Clases;
+using Panaderia.Conexion;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Panaderia.Conexion;
-using Mysqlx.Connection;
 
 namespace Panaderia.DAO
 {
@@ -28,7 +29,7 @@ namespace Panaderia.DAO
             try
             {
                 Conection c = new Conection();
-                cn =  c.ObtenerConexion();
+                cn = c.ObtenerConexion();
                 {
                     string query = "call spLogin(@user, @password);";
                     MySqlCommand comando = new MySqlCommand(query, cn);
@@ -85,5 +86,55 @@ namespace Panaderia.DAO
             }
             return UsuarioDisponible;
         }
+
+        /// <summary>
+        /// Obtiene la lista de productos con sus imágenes.
+        /// </summary>
+        public List<clsProducto> ObtenerProductos()
+        {
+            List<clsProducto> lista = new List<clsProducto>();
+            try
+            {
+                Conection c = new Conection();
+                cn = c.ObtenerConexion();
+
+                string query = "SELECT ProductoID, nombre, precio, stock, fotoProducto FROM Productos";
+                MySqlCommand comando = new MySqlCommand(query, cn);
+
+                MySqlDataReader reader = comando.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    clsProducto p = new clsProducto();
+                    p.ProductoID = reader.GetInt32("ProductoID");
+                    p.Nombre = reader.GetString("nombre");
+                    p.Precio = reader.GetDecimal("precio");
+                    p.Stock = reader.GetInt32("stock");
+
+                    // Convertir BLOB a Imagen
+                    if (!reader.IsDBNull(reader.GetOrdinal("fotoProducto")))
+                    {
+                        byte[] imgBytes = (byte[])reader["fotoProducto"];
+                        using (MemoryStream ms = new MemoryStream(imgBytes))
+                        {
+                            p.Imagen = Image.FromStream(ms);
+                        }
+                    }
+                    else
+                    {
+                        p.Imagen = null;
+                    }
+
+                    lista.Add(p);
+                }
+                reader.Close();
+            }
+            catch (MySqlException ex)
+            {
+                Console.WriteLine("Error al obtener productos: " + ex.Message);
+            }
+            return lista;
+        }
+
     }
 }
