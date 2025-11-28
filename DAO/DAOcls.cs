@@ -4,6 +4,7 @@ using Panaderia.Clases;
 using Panaderia.Conexion;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Text;
 
 namespace Panaderia.DAO
@@ -23,35 +24,35 @@ namespace Panaderia.DAO
         /// <param name="user">Nombre de usuario</param>
         /// <param name="password">Contraseña sin encriptar</param>
         /// <returns>True si el login es exitoso, False en caso contrario.</returns>
-        public bool Login(string user, string password)
-        {
-            bool loginExitoso = false;
-            try
-            {
+        public string Login(string user, string password){
+            string rolEncontrado = null; 
+            try{
                 Conection c = new Conection();
-                cn = c.ObtenerConexion();
-                {
-                    string query = "call spLogin(@user, @password);";
-                    MySqlCommand comando = new MySqlCommand(query, cn);
-                    comando.Parameters.AddWithValue("@user", user);
-                    comando.Parameters.AddWithValue("@password", password);
-                    int count = Convert.ToInt32(comando.ExecuteScalar());
+                using (cn = c.ObtenerConexion()){
+                    MySqlCommand comando = new MySqlCommand("spLogin", cn);
+                    comando.CommandType = CommandType.StoredProcedure;
 
-                    if (count > 0)
-                    {
-                        loginExitoso = true;
-                        UsuarioSesion.UsuarioActual = user;
-                        Console.WriteLine(UsuarioSesion.UsuarioActual);
+                    comando.Parameters.AddWithValue("@us", user);
+                    comando.Parameters.AddWithValue("@pas", password);
+
+                    using (MySqlDataReader lect = comando.ExecuteReader()){
+                        // Si hay filas, leemos los datos
+                        if (lect.Read())
+                        {
+                            // Se obtiene el rol del usuario en la base de datos
+                            rolEncontrado = lect["rol"].ToString();
+
+                            // Guardamos el usuario en la sesion actual
+                            UsuarioSesion.UsuarioActual = user;
+                        }
                     }
                 }
             }
             catch (MySqlException ex)
             {
-                // Manejar la excepción
                 Console.WriteLine("Error de conexión: " + ex.Message);
-                MessageBox.Show("Usuario o Contraseña Incorrectos", "Error al iniciar Sesion", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            return loginExitoso;
+            return rolEncontrado; 
         }
 
 
@@ -68,7 +69,7 @@ namespace Panaderia.DAO
             try
             {
                 {
-                    string query = "SELECT COUNT(*) FROM user WHERE user = @user";
+                    string query = "SELECT COUNT(*) FROM usuarios WHERE user = @user";
                     MySqlCommand comando = new MySqlCommand(query, cn);
                     comando.Parameters.AddWithValue("@user", user);
 
@@ -134,6 +135,57 @@ namespace Panaderia.DAO
                 Console.WriteLine("Error al obtener productos: " + ex.Message);
             }
             return lista;
+        }
+        /// Funcion para insertar nuevos usuarios en el formulario "RegistroUsuarios.cs"
+        public bool RegistrarUsuario(string usuario, string nombre, string apellidos, string email, string telefono, string password, DateTime fechaNacimiento, string rol){
+            MySqlConnection cn = null;
+            MySqlTransaction transaccion = null;
+            bool exito = false;
+            try{ 
+                Conection c = new Conection();
+                cn = c.ObtenerConexion(); 
+                transaccion = cn.BeginTransaction();
+                // Configurar el comando para usar la transaccion
+                MySqlCommand comando = new MySqlCommand("spCrearEmp", cn);
+                // Cambiar de consulta a procedimiento almacenado
+                comando.CommandType = CommandType.StoredProcedure;
+                // Asignar la transacción al comando 
+                comando.Transaction = transaccion;
+                // Parametros 
+                comando.Parameters.AddWithValue("@usu", usuario);
+                comando.Parameters.AddWithValue("@nom", nombre);
+                comando.Parameters.AddWithValue("@ape", apellidos);
+                comando.Parameters.AddWithValue("@emaill", email);
+                comando.Parameters.AddWithValue("@tel", telefono);
+                comando.Parameters.AddWithValue("@pass", password);
+                comando.Parameters.AddWithValue("@feNac", fechaNacimiento.ToString("yyyy-MM-dd"));
+                comando.Parameters.AddWithValue("@roll", rol);
+
+                comando.ExecuteNonQuery();
+                transaccion.Commit();
+                exito = true;
+            }
+            catch (Exception ex){
+                // Rollback
+                if (transaccion != null)
+                {
+                    try { 
+                        transaccion.Rollback(); 
+                    } 
+                    catch { 
+                    }
+                }
+
+                Console.WriteLine("Error al realizar la transaccion: " + ex.Message);
+            }
+            finally
+            {
+                // Cerrar conexion
+                if (cn != null && cn.State == ConnectionState.Open){
+                    cn.Close();
+                }
+            }
+            return exito;
         }
 
     }

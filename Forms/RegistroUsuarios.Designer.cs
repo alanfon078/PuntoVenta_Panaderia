@@ -206,6 +206,7 @@
             btnAgregar.TabIndex = 19;
             btnAgregar.Text = "Agregar";
             btnAgregar.UseVisualStyleBackColor = true;
+            btnAgregar.Click += btnAgregar_Click;
             // 
             // RegistroUsuarios
             // 

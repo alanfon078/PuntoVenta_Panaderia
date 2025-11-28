@@ -1,4 +1,5 @@
 using Panaderia.DAO;
+using Panaderia.Forms;
 
 namespace Panaderia
 {
@@ -15,14 +16,21 @@ namespace Panaderia
             string user = txtUser.Text;
             string password = txtPassword.Text;
             DAOcls d = new DAOcls();
-            bool b = d.Login(user, password);
-            b=true;
-            if (b)
+            string rol = d.Login(user, password);
+            if (rol != null)
             {
                 // Autenticación exitosa
                 this.Hide();
-                Ventas v = new Ventas();
-                v.Show();
+                if (rol == "Admin")
+                {
+                    // Si es administrador va a MenuAdmin
+                    MenuAdmin menu = new MenuAdmin();
+                    menu.Show();
+                }
+                else { 
+                    Ventas v = new Ventas();
+                    v.Show();
+                }
             }
             else
             {
