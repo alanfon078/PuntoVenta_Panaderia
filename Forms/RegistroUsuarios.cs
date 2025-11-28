@@ -14,13 +14,12 @@ namespace Panaderia.Forms
         public RegistroUsuarios()
         {
             InitializeComponent();
-            // Un empleado no es admin por defecto
             cmbRol.SelectedIndex = 1;
+            dtpFechaNacimiento.CustomFormat = "yyyy-mm-dd";
         }
 
         private void btnAgregar_Click(object sender, EventArgs e)
         {
-            // Validar campos obligatorios
             if (string.IsNullOrWhiteSpace(txtUsuario.Text) ||
                 string.IsNullOrWhiteSpace(txtNombre.Text) ||
                 string.IsNullOrWhiteSpace(txtApellidos.Text) ||
@@ -32,9 +31,8 @@ namespace Panaderia.Forms
                     "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            // Validacion de contraseñas (minimo 8 caracteres y entre ellos un numero)
             string passTemporal = txtContrasena.Text;
-            // Validar longitud
+
             if (passTemporal.Length < 8)
             {
                 MessageBox.Show("La contraseña debe tener al menos 8 caracteres.",
