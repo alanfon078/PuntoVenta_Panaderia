@@ -69,6 +69,8 @@ namespace Panaderia.DAO
             try
             {
                 {
+                    Conection c = new Conection();
+                    cn = c.ObtenerConexion();
                     string query = "SELECT COUNT(*) FROM usuarios WHERE user = @user";
                     MySqlCommand comando = new MySqlCommand(query, cn);
                     comando.Parameters.AddWithValue("@user", user);
@@ -83,7 +85,14 @@ namespace Panaderia.DAO
             }
             catch (MySqlException ex)
             {
-                Console.WriteLine("Error de conexión: " + ex.Message);
+                Console.WriteLine("Error de conexion: " + ex.Message);
+            }
+            finally 
+            {
+                if (cn != null && cn.State == ConnectionState.Open)
+                {
+                    cn.Close();
+                }
             }
             return UsuarioDisponible;
         }
