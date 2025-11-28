@@ -12,7 +12,6 @@ namespace Panaderia.Conexion
         /// Obtiene una conexión a la base de datos MySQL.
         /// </summary
         /// <returns> Objeto MySqlConnection abierto.</returns>
-
         public MySqlConnection ObtenerConexion()
         {
             MySqlConnection conexion = new MySqlConnection("server=localhost; database=Panaderia; user='root'; pwd='root';");

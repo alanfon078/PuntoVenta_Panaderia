@@ -12,18 +12,15 @@ namespace Panaderia
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            // Lógica de autenticación aquí
             string user = txtUser.Text;
             string password = txtPassword.Text;
             DAOcls d = new DAOcls();
             string rol = d.Login(user, password);
             if (rol != null)
             {
-                // Autenticación exitosa
                 this.Hide();
                 if (rol == "Admin")
                 {
-                    // Si es administrador va a MenuAdmin
                     MenuAdmin menu = new MenuAdmin();
                     menu.Show();
                 }

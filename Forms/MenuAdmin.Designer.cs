@@ -28,22 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            txtRegistro = new TextBox();
             btnRegistrarUsuarios = new Button();
             button1 = new Button();
             btnRegistrarVenta = new Button();
             btnEliminarUsuarios = new Button();
+            label1 = new Label();
             SuspendLayout();
-            // 
-            // txtRegistro
-            // 
-            txtRegistro.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtRegistro.Location = new Point(174, 21);
-            txtRegistro.Name = "txtRegistro";
-            txtRegistro.Size = new Size(367, 38);
-            txtRegistro.TabIndex = 1;
-            txtRegistro.Text = "Menu de Administrador";
-            txtRegistro.TextAlign = HorizontalAlignment.Center;
             // 
             // btnRegistrarUsuarios
             // 
@@ -85,16 +75,26 @@
             btnEliminarUsuarios.UseVisualStyleBackColor = true;
             btnEliminarUsuarios.Click += btnEliminarUsuarios_Click;
             // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Arial Rounded MT Bold", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label1.Location = new Point(197, 51);
+            label1.Name = "label1";
+            label1.Size = new Size(357, 34);
+            label1.TabIndex = 6;
+            label1.Text = "Menu de Administrador";
+            // 
             // MenuAdmin
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(770, 424);
+            Controls.Add(label1);
             Controls.Add(btnEliminarUsuarios);
             Controls.Add(btnRegistrarVenta);
             Controls.Add(button1);
             Controls.Add(btnRegistrarUsuarios);
-            Controls.Add(txtRegistro);
             Name = "MenuAdmin";
             Text = "MenuAdmin";
             ResumeLayout(false);
@@ -102,11 +102,10 @@
         }
 
         #endregion
-
-        private TextBox txtRegistro;
         private Button btnRegistrarUsuarios;
         private Button button1;
         private Button btnRegistrarVenta;
         private Button btnEliminarUsuarios;
+        private Label label1;
     }
 }
