@@ -32,6 +32,7 @@
             btnRegistrarUsuarios = new Button();
             button1 = new Button();
             btnRegistrarVenta = new Button();
+            btnEliminarUsuarios = new Button();
             SuspendLayout();
             // 
             // txtRegistro
@@ -56,7 +57,7 @@
             // 
             // button1
             // 
-            button1.Location = new Point(385, 139);
+            button1.Location = new Point(437, 139);
             button1.Name = "button1";
             button1.Size = new Size(232, 85);
             button1.TabIndex = 3;
@@ -66,7 +67,7 @@
             // 
             // btnRegistrarVenta
             // 
-            btnRegistrarVenta.Location = new Point(223, 263);
+            btnRegistrarVenta.Location = new Point(437, 271);
             btnRegistrarVenta.Name = "btnRegistrarVenta";
             btnRegistrarVenta.Size = new Size(232, 85);
             btnRegistrarVenta.TabIndex = 4;
@@ -74,11 +75,22 @@
             btnRegistrarVenta.UseVisualStyleBackColor = true;
             btnRegistrarVenta.Click += btnRegistrarVenta_Click;
             // 
+            // btnEliminarUsuarios
+            // 
+            btnEliminarUsuarios.Location = new Point(67, 271);
+            btnEliminarUsuarios.Name = "btnEliminarUsuarios";
+            btnEliminarUsuarios.Size = new Size(232, 85);
+            btnEliminarUsuarios.TabIndex = 5;
+            btnEliminarUsuarios.Text = "Eliminarr Usuarios";
+            btnEliminarUsuarios.UseVisualStyleBackColor = true;
+            btnEliminarUsuarios.Click += btnEliminarUsuarios_Click;
+            // 
             // MenuAdmin
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(770, 424);
+            Controls.Add(btnEliminarUsuarios);
             Controls.Add(btnRegistrarVenta);
             Controls.Add(button1);
             Controls.Add(btnRegistrarUsuarios);
@@ -95,5 +107,6 @@
         private Button btnRegistrarUsuarios;
         private Button button1;
         private Button btnRegistrarVenta;
+        private Button btnEliminarUsuarios;
     }
 }

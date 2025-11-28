@@ -197,5 +197,67 @@ namespace Panaderia.DAO
             return exito;
         }
 
+        /// Metodo para eliminar  un empleado por su ID usando el SP spEliminarEmp.
+        public bool EliminarUsuario(int idUsuario){
+            bool exito = false;
+            try{
+                Conection c = new Conection();
+                using (MySqlConnection cn = c.ObtenerConexion()){
+                    MySqlCommand comando = new MySqlCommand("spEliminarEmp", cn);
+                    comando.CommandType = CommandType.StoredProcedure;
+                    // Parametro que coincida con el del SP
+                    comando.Parameters.AddWithValue("@uID", idUsuario);
+
+                    int filas = comando.ExecuteNonQuery();
+
+                    // Si se afecto al menos una fila, la eliminacion fue exitosa
+                    if (filas > 0)
+                    {
+                        exito = true;
+                    }
+                }
+            }
+            catch (MySqlException ex)
+            {
+                Console.WriteLine("Error al eliminar usuario: " + ex.Message);
+            }
+            return exito;
+        }
+        public List<clsUsuario> ObtenerUsuarios(){
+            List<clsUsuario> lista = new List<clsUsuario>();
+            try{
+                Conection c = new Conection();
+                using (MySqlConnection conexion = c.ObtenerConexion()){
+                    MySqlCommand comando = new MySqlCommand("spLeerEmp", conexion);
+                    comando.CommandType = CommandType.StoredProcedure;
+
+                    using (MySqlDataReader reader = comando.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            clsUsuario u = new clsUsuario();
+                            // Cargar los datos del usuario desde el reader
+                            u.UsuarioID = reader.GetInt32("userID");
+                            u.User = reader.GetString("user");
+                            u.Nombre = reader.GetString("nombre");
+                            u.Apellidos = reader.GetString("apellidos");
+                            // Manejo de nulos para email
+                            u.Correo = reader.IsDBNull(reader.GetOrdinal("email")) ? "" : reader.GetString("email");
+                            u.Telefono = reader.GetString("telefono");
+                            u.Rol = reader.GetString("rol");
+                            u.FechaNacimiento = reader.GetDateTime("fechaNacimiento").ToShortDateString();
+                            u.FechaCreacion = reader.GetDateTime("fechaCreacion").ToString();
+                            lista.Add(u);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error al cargar los usuarios " + ex.Message);
+            }
+            return lista;
+        }
+
     }
 }

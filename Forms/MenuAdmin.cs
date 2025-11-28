@@ -31,5 +31,11 @@ namespace Panaderia.Forms
         {
 
         }
+
+        private void btnEliminarUsuarios_Click(object sender, EventArgs e)
+        {
+            EliminarUsuarios E = new EliminarUsuarios();
+            E.Show();
+        }
     }
 }

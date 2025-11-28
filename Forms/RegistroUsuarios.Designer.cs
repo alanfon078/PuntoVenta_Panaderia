@@ -53,8 +53,9 @@
             // txtRegistro
             // 
             txtRegistro.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtRegistro.Location = new Point(128, 12);
+            txtRegistro.Location = new Point(168, 12);
             txtRegistro.Name = "txtRegistro";
+            txtRegistro.ReadOnly = true;
             txtRegistro.Size = new Size(367, 38);
             txtRegistro.TabIndex = 0;
             txtRegistro.Text = "Registro";
