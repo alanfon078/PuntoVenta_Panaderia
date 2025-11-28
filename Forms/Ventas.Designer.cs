@@ -55,6 +55,10 @@
             label11 = new Label();
             label12 = new Label();
             btnLeft = new Button();
+            dwvCarrito = new DataGridView();
+            lblTotal = new Label();
+            btnCobrar = new Button();
+            btnEliminar = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
@@ -67,12 +71,13 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox6).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox11).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox12).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dwvCarrito).BeginInit();
             SuspendLayout();
             // 
             // btnRight
             // 
             btnRight.Font = new Font("Showcard Gothic", 19.8000011F, FontStyle.Bold);
-            btnRight.Location = new Point(1689, 361);
+            btnRight.Location = new Point(913, 361);
             btnRight.Name = "btnRight";
             btnRight.Size = new Size(76, 68);
             btnRight.TabIndex = 2;
@@ -83,7 +88,7 @@
             // pictureBox1
             // 
             pictureBox1.BackColor = Color.Gainsboro;
-            pictureBox1.Location = new Point(144, 81);
+            pictureBox1.Location = new Point(94, 81);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(162, 155);
             pictureBox1.TabIndex = 3;
@@ -92,7 +97,7 @@
             // pictureBox2
             // 
             pictureBox2.BackColor = Color.Gainsboro;
-            pictureBox2.Location = new Point(381, 81);
+            pictureBox2.Location = new Point(305, 81);
             pictureBox2.Name = "pictureBox2";
             pictureBox2.Size = new Size(163, 155);
             pictureBox2.TabIndex = 4;
@@ -101,7 +106,7 @@
             // pictureBox3
             // 
             pictureBox3.BackColor = Color.Gainsboro;
-            pictureBox3.Location = new Point(618, 81);
+            pictureBox3.Location = new Point(510, 81);
             pictureBox3.Name = "pictureBox3";
             pictureBox3.Size = new Size(159, 155);
             pictureBox3.TabIndex = 5;
@@ -110,7 +115,7 @@
             // pictureBox4
             // 
             pictureBox4.BackColor = Color.Gainsboro;
-            pictureBox4.Location = new Point(857, 81);
+            pictureBox4.Location = new Point(748, 81);
             pictureBox4.Name = "pictureBox4";
             pictureBox4.Size = new Size(159, 155);
             pictureBox4.TabIndex = 6;
@@ -119,7 +124,7 @@
             // pictureBox7
             // 
             pictureBox7.BackColor = Color.Gainsboro;
-            pictureBox7.Location = new Point(144, 326);
+            pictureBox7.Location = new Point(94, 326);
             pictureBox7.Name = "pictureBox7";
             pictureBox7.Size = new Size(162, 155);
             pictureBox7.TabIndex = 9;
@@ -128,7 +133,7 @@
             // pictureBox8
             // 
             pictureBox8.BackColor = Color.Gainsboro;
-            pictureBox8.Location = new Point(381, 326);
+            pictureBox8.Location = new Point(305, 326);
             pictureBox8.Name = "pictureBox8";
             pictureBox8.Size = new Size(163, 155);
             pictureBox8.TabIndex = 10;
@@ -137,7 +142,7 @@
             // pictureBox9
             // 
             pictureBox9.BackColor = Color.Gainsboro;
-            pictureBox9.Location = new Point(618, 326);
+            pictureBox9.Location = new Point(510, 326);
             pictureBox9.Name = "pictureBox9";
             pictureBox9.Size = new Size(159, 155);
             pictureBox9.TabIndex = 11;
@@ -146,7 +151,7 @@
             // pictureBox10
             // 
             pictureBox10.BackColor = Color.Gainsboro;
-            pictureBox10.Location = new Point(857, 326);
+            pictureBox10.Location = new Point(748, 326);
             pictureBox10.Name = "pictureBox10";
             pictureBox10.Size = new Size(159, 155);
             pictureBox10.TabIndex = 12;
@@ -165,7 +170,7 @@
             // pictureBox5
             // 
             pictureBox5.BackColor = Color.Gainsboro;
-            pictureBox5.Location = new Point(857, 562);
+            pictureBox5.Location = new Point(748, 562);
             pictureBox5.Name = "pictureBox5";
             pictureBox5.Size = new Size(159, 155);
             pictureBox5.TabIndex = 19;
@@ -174,7 +179,7 @@
             // pictureBox6
             // 
             pictureBox6.BackColor = Color.Gainsboro;
-            pictureBox6.Location = new Point(618, 562);
+            pictureBox6.Location = new Point(510, 562);
             pictureBox6.Name = "pictureBox6";
             pictureBox6.Size = new Size(159, 155);
             pictureBox6.TabIndex = 18;
@@ -183,7 +188,7 @@
             // pictureBox11
             // 
             pictureBox11.BackColor = Color.Gainsboro;
-            pictureBox11.Location = new Point(381, 562);
+            pictureBox11.Location = new Point(305, 562);
             pictureBox11.Name = "pictureBox11";
             pictureBox11.Size = new Size(163, 155);
             pictureBox11.TabIndex = 17;
@@ -192,7 +197,7 @@
             // pictureBox12
             // 
             pictureBox12.BackColor = Color.Gainsboro;
-            pictureBox12.Location = new Point(144, 562);
+            pictureBox12.Location = new Point(94, 562);
             pictureBox12.Name = "pictureBox12";
             pictureBox12.Size = new Size(162, 155);
             pictureBox12.TabIndex = 16;
@@ -210,7 +215,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(381, 239);
+            label2.Location = new Point(305, 239);
             label2.Name = "label2";
             label2.Size = new Size(50, 20);
             label2.TabIndex = 21;
@@ -219,7 +224,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(618, 239);
+            label3.Location = new Point(510, 239);
             label3.Name = "label3";
             label3.Size = new Size(50, 20);
             label3.TabIndex = 22;
@@ -228,7 +233,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(857, 239);
+            label4.Location = new Point(748, 239);
             label4.Name = "label4";
             label4.Size = new Size(50, 20);
             label4.TabIndex = 23;
@@ -246,7 +251,7 @@
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(381, 484);
+            label6.Location = new Point(305, 484);
             label6.Name = "label6";
             label6.Size = new Size(50, 20);
             label6.TabIndex = 25;
@@ -255,7 +260,7 @@
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(618, 484);
+            label7.Location = new Point(510, 484);
             label7.Name = "label7";
             label7.Size = new Size(50, 20);
             label7.TabIndex = 26;
@@ -264,7 +269,7 @@
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new Point(857, 484);
+            label8.Location = new Point(748, 484);
             label8.Name = "label8";
             label8.Size = new Size(50, 20);
             label8.TabIndex = 27;
@@ -282,7 +287,7 @@
             // label10
             // 
             label10.AutoSize = true;
-            label10.Location = new Point(381, 720);
+            label10.Location = new Point(305, 720);
             label10.Name = "label10";
             label10.Size = new Size(58, 20);
             label10.TabIndex = 29;
@@ -291,7 +296,7 @@
             // label11
             // 
             label11.AutoSize = true;
-            label11.Location = new Point(618, 720);
+            label11.Location = new Point(510, 720);
             label11.Name = "label11";
             label11.Size = new Size(58, 20);
             label11.TabIndex = 30;
@@ -300,7 +305,7 @@
             // label12
             // 
             label12.AutoSize = true;
-            label12.Location = new Point(857, 720);
+            label12.Location = new Point(748, 720);
             label12.Name = "label12";
             label12.Size = new Size(58, 20);
             label12.TabIndex = 31;
@@ -317,11 +322,57 @@
             btnLeft.UseVisualStyleBackColor = true;
             btnLeft.Click += btnLeft_Click_1;
             // 
+            // dwvCarrito
+            // 
+            dwvCarrito.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dwvCarrito.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dwvCarrito.Location = new Point(1027, 12);
+            dwvCarrito.Name = "dwvCarrito";
+            dwvCarrito.RowHeadersWidth = 51;
+            dwvCarrito.Size = new Size(738, 748);
+            dwvCarrito.TabIndex = 33;
+            // 
+            // lblTotal
+            // 
+            lblTotal.AutoSize = true;
+            lblTotal.Font = new Font("Arial Rounded MT Bold", 24F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblTotal.Location = new Point(1027, 790);
+            lblTotal.Name = "lblTotal";
+            lblTotal.Size = new Size(0, 46);
+            lblTotal.TabIndex = 34;
+            // 
+            // btnCobrar
+            // 
+            btnCobrar.Font = new Font("Arial Rounded MT Bold", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnCobrar.Location = new Point(1341, 790);
+            btnCobrar.Name = "btnCobrar";
+            btnCobrar.Size = new Size(140, 46);
+            btnCobrar.TabIndex = 35;
+            btnCobrar.Text = "Cobrar";
+            btnCobrar.UseVisualStyleBackColor = true;
+            btnCobrar.Click += btnCobrar_Click;
+            // 
+            // btnEliminar
+            // 
+            btnEliminar.Font = new Font("Arial Rounded MT Bold", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnEliminar.ForeColor = Color.Red;
+            btnEliminar.Location = new Point(1487, 790);
+            btnEliminar.Name = "btnEliminar";
+            btnEliminar.Size = new Size(149, 46);
+            btnEliminar.TabIndex = 36;
+            btnEliminar.Text = "Eliminar";
+            btnEliminar.UseVisualStyleBackColor = true;
+            btnEliminar.Click += btnEliminar_Click;
+            // 
             // Ventas
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1777, 857);
+            Controls.Add(btnEliminar);
+            Controls.Add(btnCobrar);
+            Controls.Add(lblTotal);
+            Controls.Add(dwvCarrito);
             Controls.Add(btnLeft);
             Controls.Add(label12);
             Controls.Add(label11);
@@ -363,6 +414,7 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox6).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox11).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox12).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dwvCarrito).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -397,5 +449,9 @@
         private Label label11;
         private Label label12;
         private Button btnLeft;
+        private DataGridView dwvCarrito;
+        private Label lblTotal;
+        private Button btnCobrar;
+        private Button btnEliminar;
     }
 }

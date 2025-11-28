@@ -136,5 +136,81 @@ namespace Panaderia.DAO
             return lista;
         }
 
+
+        // Agrega esto dentro de la clase DAOcls en DAOcls.cs
+
+        public bool GuardarVenta(decimal total, List<clsDetalleVenta> detalles)
+        {
+            bool exito = false;
+            MySqlConnection conexion = null;
+            MySqlTransaction transaccion = null;
+
+            try
+            {
+                Conection c = new Conection();
+                conexion = c.ObtenerConexion();
+
+                // Iniciamos una transacción para asegurar que todo se guarde o nada se guarde
+                transaccion = conexion.BeginTransaction();
+
+                // 1. Obtener el ID del usuario actual (basado en el nombre guardado en Login)
+                string queryUser = "SELECT userID FROM Usuarios WHERE user = @user LIMIT 1";
+                int usuarioID = 1; // ID por defecto (o Admin) si no se encuentra
+
+                MySqlCommand cmdUser = new MySqlCommand(queryUser, conexion, transaccion);
+                cmdUser.Parameters.AddWithValue("@user", UsuarioSesion.UsuarioActual);
+                object result = cmdUser.ExecuteScalar();
+                if (result != null) usuarioID = Convert.ToInt32(result);
+
+                // 2. Insertar la Venta (Cabecera)
+                string queryVenta = "INSERT INTO Ventas (fecha, total, userID) VALUES (NOW(), @total, @userID); SELECT LAST_INSERT_ID();";
+                MySqlCommand cmdVenta = new MySqlCommand(queryVenta, conexion, transaccion);
+                cmdVenta.Parameters.AddWithValue("@total", total);
+                cmdVenta.Parameters.AddWithValue("@userID", usuarioID);
+
+                // Obtener el ID de la venta recién creada
+                int ventaID = Convert.ToInt32(cmdVenta.ExecuteScalar());
+
+                // 3. Insertar los Detalles y Descontar Stock
+                foreach (var item in detalles)
+                {
+                    // Insertar detalle
+                    string queryDetalle = "INSERT INTO DetalleVentas (ventaID, productoID, cantidad, precioUnitario, total) VALUES (@ventaID, @prodID, @cant, @precio, @subtotal)";
+                    MySqlCommand cmdDetalle = new MySqlCommand(queryDetalle, conexion, transaccion);
+                    cmdDetalle.Parameters.AddWithValue("@ventaID", ventaID);
+                    cmdDetalle.Parameters.AddWithValue("@prodID", item.ProductoID);
+                    cmdDetalle.Parameters.AddWithValue("@cant", item.Cantidad);
+                    cmdDetalle.Parameters.AddWithValue("@precio", item.Precio);
+                    cmdDetalle.Parameters.AddWithValue("@subtotal", item.Subtotal);
+                    cmdDetalle.ExecuteNonQuery();
+
+                    // Descontar Stock del inventario
+                    string queryStock = "UPDATE Productos SET stock = stock - @cant WHERE ProductoID = @prodID";
+                    MySqlCommand cmdStock = new MySqlCommand(queryStock, conexion, transaccion);
+                    cmdStock.Parameters.AddWithValue("@cant", item.Cantidad);
+                    cmdStock.Parameters.AddWithValue("@prodID", item.ProductoID);
+                    cmdStock.ExecuteNonQuery();
+                }
+
+                // Si todo salió bien, confirmamos los cambios
+                transaccion.Commit();
+                exito = true;
+            }
+            catch (Exception ex)
+            {
+                // Si hubo error, revertimos todo
+                if (transaccion != null) transaccion.Rollback();
+                Console.WriteLine("Error en transacción: " + ex.Message);
+                exito = false;
+            }
+            finally
+            {
+                if (conexion != null && conexion.State == System.Data.ConnectionState.Open)
+                    conexion.Close();
+            }
+
+            return exito;
+        }
+
     }
 }
