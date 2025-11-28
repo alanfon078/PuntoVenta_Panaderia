@@ -170,7 +170,9 @@ begin
         appUser
     );
 end $$
+delimiter ;
 
+delimiter $$
 -- Update
 create trigger trUpdateProducto
 after update on Productos
@@ -185,7 +187,9 @@ begin
         concat('ID:', new.ProductoID, ' | ', new.nombre, ' | Stock:', new.stock, ' | $', new.precio),
         appUser);
 end $$
+delimiter ;
 
+delimiter $$
 -- Delete
 create trigger trBorrarProducto
 after delete on Productos
@@ -218,12 +222,16 @@ begin
     insert into Usuarios (user, nombre, apellidos, email, telefono, password, fechaNacimiento, rol)
     values (usu, nom, ape, emaill, tel, sha2(pass, 256), feNac, roll);
 end $$
+delimiter ;
 
+delimiter $$
 create procedure spLeerEmp()
 begin
     select * from Usuarios;
 end $$
+delimiter ;
 
+delimiter $$
 create procedure spActualizarEmp(
     in uID int, 
     in us varchar(20), 
@@ -236,7 +244,9 @@ begin
     set user = us, nombre = nom, apellidos = ape, rol = roll
     where userID = uID;
 end $$
+delimiter ;
 
+delimiter $$
 create procedure spEliminarEmp(in uID int)
 begin
     delete from Usuarios where userID = uID; 
