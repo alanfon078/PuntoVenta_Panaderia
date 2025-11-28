@@ -59,6 +59,7 @@
             lblTotal = new Label();
             btnCobrar = new Button();
             btnEliminar = new Button();
+            lblUser = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
@@ -160,10 +161,11 @@
             // lblFecha
             // 
             lblFecha.AutoSize = true;
-            lblFecha.BackColor = Color.AntiqueWhite;
-            lblFecha.Location = new Point(12, 9);
+            lblFecha.BackColor = Color.Transparent;
+            lblFecha.Font = new Font("Arial Rounded MT Bold", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblFecha.Location = new Point(12, 12);
             lblFecha.Name = "lblFecha";
-            lblFecha.Size = new Size(54, 20);
+            lblFecha.Size = new Size(68, 20);
             lblFecha.TabIndex = 15;
             lblFecha.Text = "Fecha: ";
             // 
@@ -365,11 +367,22 @@
             btnEliminar.UseVisualStyleBackColor = true;
             btnEliminar.Click += btnEliminar_Click;
             // 
+            // lblUser
+            // 
+            lblUser.AutoSize = true;
+            lblUser.Font = new Font("Arial Rounded MT Bold", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblUser.Location = new Point(455, 12);
+            lblUser.Name = "lblUser";
+            lblUser.Size = new Size(112, 27);
+            lblUser.TabIndex = 37;
+            lblUser.Text = "Usuario: ";
+            // 
             // Ventas
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1777, 857);
+            Controls.Add(lblUser);
             Controls.Add(btnEliminar);
             Controls.Add(btnCobrar);
             Controls.Add(lblTotal);
@@ -454,5 +467,6 @@
         private Label lblTotal;
         private Button btnCobrar;
         private Button btnEliminar;
+        private Label lblUser;
     }
 }

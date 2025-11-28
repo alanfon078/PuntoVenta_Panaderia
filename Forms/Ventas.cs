@@ -15,13 +15,15 @@ namespace Panaderia
         private List<clsProducto> inventario;
         private int indiceInicio = 0;
         private List<clsDetalleVenta> carrito;
+        public static string usuarioActual;
 
         public Ventas()
         {
             InitializeComponent();
             this.WindowState = FormWindowState.Maximized;
-
             lblFecha.Text = "Fecha: " + DateTime.Now.ToLongDateString();
+            usuarioActual = UsuarioSesion.UsuarioActual;
+            lblUser.Text +=usuarioActual;
 
             carrito = new List<clsDetalleVenta>();
 

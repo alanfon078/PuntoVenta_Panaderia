@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             btnRegistrarUsuarios = new Button();
-            button1 = new Button();
+            btnRegistrarProductos = new Button();
             btnRegistrarVenta = new Button();
             btnEliminarUsuarios = new Button();
             label1 = new Label();
@@ -44,16 +44,20 @@
             btnRegistrarUsuarios.Text = "Registrar Usuarios";
             btnRegistrarUsuarios.UseVisualStyleBackColor = true;
             btnRegistrarUsuarios.Click += btnRegistrarUsuarios_Click;
+            btnRegistrarUsuarios.KeyDown += btnRegistrarUsuarios_KeyDown;
+            btnRegistrarUsuarios.PreviewKeyDown += btnRegistrarUsuarios_PreviewKeyDown;
             // 
-            // button1
+            // btnRegistrarProductos
             // 
-            button1.Location = new Point(437, 139);
-            button1.Name = "button1";
-            button1.Size = new Size(232, 85);
-            button1.TabIndex = 3;
-            button1.Text = "Registrar Productos";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+            btnRegistrarProductos.Location = new Point(437, 139);
+            btnRegistrarProductos.Name = "btnRegistrarProductos";
+            btnRegistrarProductos.Size = new Size(232, 85);
+            btnRegistrarProductos.TabIndex = 3;
+            btnRegistrarProductos.Text = "Registrar Productos";
+            btnRegistrarProductos.UseVisualStyleBackColor = true;
+            btnRegistrarProductos.Click += btnRegistrarProductos_Click;
+            btnRegistrarProductos.KeyDown += btnRegistrarProductos_KeyDown;
+            btnRegistrarProductos.PreviewKeyDown += btnRegistrarProductos_PreviewKeyDown;
             // 
             // btnRegistrarVenta
             // 
@@ -64,6 +68,8 @@
             btnRegistrarVenta.Text = "Registrar Venta";
             btnRegistrarVenta.UseVisualStyleBackColor = true;
             btnRegistrarVenta.Click += btnRegistrarVenta_Click;
+            btnRegistrarVenta.KeyDown += btnRegistrarVenta_KeyDown;
+            btnRegistrarVenta.PreviewKeyDown += btnRegistrarVenta_PreviewKeyDown;
             // 
             // btnEliminarUsuarios
             // 
@@ -71,9 +77,11 @@
             btnEliminarUsuarios.Name = "btnEliminarUsuarios";
             btnEliminarUsuarios.Size = new Size(232, 85);
             btnEliminarUsuarios.TabIndex = 5;
-            btnEliminarUsuarios.Text = "Eliminarr Usuarios";
+            btnEliminarUsuarios.Text = "Eliminar Usuarios";
             btnEliminarUsuarios.UseVisualStyleBackColor = true;
             btnEliminarUsuarios.Click += btnEliminarUsuarios_Click;
+            btnEliminarUsuarios.KeyDown += btnEliminarUsuarios_KeyDown;
+            btnEliminarUsuarios.PreviewKeyDown += btnEliminarUsuarios_PreviewKeyDown;
             // 
             // label1
             // 
@@ -93,7 +101,7 @@
             Controls.Add(label1);
             Controls.Add(btnEliminarUsuarios);
             Controls.Add(btnRegistrarVenta);
-            Controls.Add(button1);
+            Controls.Add(btnRegistrarProductos);
             Controls.Add(btnRegistrarUsuarios);
             Name = "MenuAdmin";
             Text = "MenuAdmin";
@@ -103,7 +111,7 @@
 
         #endregion
         private Button btnRegistrarUsuarios;
-        private Button button1;
+        private Button btnRegistrarProductos;
         private Button btnRegistrarVenta;
         private Button btnEliminarUsuarios;
         private Label label1;

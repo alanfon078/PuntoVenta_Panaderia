@@ -30,7 +30,7 @@
         {
             dgvUsuarios = new DataGridView();
             btnEliminar = new Button();
-            txtRegistro = new TextBox();
+            label1 = new Label();
             ((System.ComponentModel.ISupportInitialize)dgvUsuarios).BeginInit();
             SuspendLayout();
             // 
@@ -56,23 +56,22 @@
             btnEliminar.UseVisualStyleBackColor = true;
             btnEliminar.Click += btnEliminar_Click;
             // 
-            // txtRegistro
+            // label1
             // 
-            txtRegistro.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtRegistro.Location = new Point(254, 12);
-            txtRegistro.Name = "txtRegistro";
-            txtRegistro.ReadOnly = true;
-            txtRegistro.Size = new Size(367, 38);
-            txtRegistro.TabIndex = 2;
-            txtRegistro.Text = "Eliminar Usuarios";
-            txtRegistro.TextAlign = HorizontalAlignment.Center;
+            label1.AutoSize = true;
+            label1.Font = new Font("Arial Rounded MT Bold", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label1.Location = new Point(370, 32);
+            label1.Name = "label1";
+            label1.Size = new Size(257, 32);
+            label1.TabIndex = 3;
+            label1.Text = "Eliminar Usuarios";
             // 
             // EliminarUsuarios
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1162, 546);
-            Controls.Add(txtRegistro);
+            Controls.Add(label1);
             Controls.Add(btnEliminar);
             Controls.Add(dgvUsuarios);
             Name = "EliminarUsuarios";
@@ -86,6 +85,6 @@
 
         private DataGridView dgvUsuarios;
         private Button btnEliminar;
-        private TextBox txtRegistro;
+        private Label label1;
     }
 }

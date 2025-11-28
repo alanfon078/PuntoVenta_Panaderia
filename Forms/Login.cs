@@ -24,7 +24,8 @@ namespace Panaderia
                     MenuAdmin menu = new MenuAdmin();
                     menu.Show();
                 }
-                else { 
+                else
+                {
                     Ventas v = new Ventas();
                     v.Show();
                 }
@@ -34,6 +35,33 @@ namespace Panaderia
                 MessageBox.Show("Usuario o Contraseña Incorrectos", "Error al iniciar Sesion", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
+        }
+
+        private void txtUser_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                this.SelectNextControl((Control)sender, true, true, true, true);
+                e.SuppressKeyPress = true;
+            }
+        }
+
+        private void txtPassword_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                this.SelectNextControl((Control)sender, true, true, true, true);
+                e.SuppressKeyPress = true;
+            }
+        }
+
+        private void btnLogin_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnLogin.PerformClick();
+                e.SuppressKeyPress = true;
+            }
         }
     }
 }

@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            txtRegistro = new TextBox();
             lblUsuario = new Label();
             txtUsuario = new TextBox();
             lblNombre = new Label();
@@ -48,18 +47,8 @@
             label1 = new Label();
             dtpFechaNacimiento = new DateTimePicker();
             btnAgregar = new Button();
+            label2 = new Label();
             SuspendLayout();
-            // 
-            // txtRegistro
-            // 
-            txtRegistro.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtRegistro.Location = new Point(168, 12);
-            txtRegistro.Name = "txtRegistro";
-            txtRegistro.ReadOnly = true;
-            txtRegistro.Size = new Size(367, 38);
-            txtRegistro.TabIndex = 0;
-            txtRegistro.Text = "Registro";
-            txtRegistro.TextAlign = HorizontalAlignment.Center;
             // 
             // lblUsuario
             // 
@@ -75,6 +64,7 @@
             txtUsuario.Name = "txtUsuario";
             txtUsuario.Size = new Size(159, 27);
             txtUsuario.TabIndex = 2;
+            txtUsuario.KeyDown += txtUsuario_KeyDown;
             // 
             // lblNombre
             // 
@@ -98,6 +88,7 @@
             txtNombre.Name = "txtNombre";
             txtNombre.Size = new Size(159, 27);
             txtNombre.TabIndex = 5;
+            txtNombre.KeyDown += txtNombre_KeyDown;
             // 
             // txtApellidos
             // 
@@ -105,6 +96,7 @@
             txtApellidos.Name = "txtApellidos";
             txtApellidos.Size = new Size(159, 27);
             txtApellidos.TabIndex = 6;
+            txtApellidos.KeyDown += txtApellidos_KeyDown;
             // 
             // lblEmail
             // 
@@ -120,6 +112,7 @@
             txtEmail.Name = "txtEmail";
             txtEmail.Size = new Size(159, 27);
             txtEmail.TabIndex = 8;
+            txtEmail.KeyDown += txtEmail_KeyDown;
             // 
             // lblTelefono
             // 
@@ -135,6 +128,7 @@
             txtTelefono.Name = "txtTelefono";
             txtTelefono.Size = new Size(159, 27);
             txtTelefono.TabIndex = 10;
+            txtTelefono.KeyDown += txtTelefono_KeyDown;
             // 
             // lblContrasenia
             // 
@@ -150,6 +144,7 @@
             txtContrasena.Name = "txtContrasena";
             txtContrasena.Size = new Size(159, 27);
             txtContrasena.TabIndex = 12;
+            txtContrasena.KeyDown += txtContrasena_KeyDown;
             // 
             // lblConfirContrasenia
             // 
@@ -165,6 +160,7 @@
             txtConfirContrasenia.Name = "txtConfirContrasenia";
             txtConfirContrasenia.Size = new Size(159, 27);
             txtConfirContrasenia.TabIndex = 14;
+            txtConfirContrasenia.KeyDown += txtConfirContrasenia_KeyDown;
             // 
             // lblRol
             // 
@@ -208,12 +204,24 @@
             btnAgregar.Text = "Agregar";
             btnAgregar.UseVisualStyleBackColor = true;
             btnAgregar.Click += btnAgregar_Click;
+            btnAgregar.KeyDown += btnAgregar_KeyDown;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Font = new Font("Arial Rounded MT Bold", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label2.Location = new Point(215, 9);
+            label2.Name = "label2";
+            label2.Size = new Size(250, 23);
+            label2.TabIndex = 20;
+            label2.Text = "Registrar Nuevo Usuario";
             // 
             // RegistroUsuarios
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(685, 450);
+            Controls.Add(label2);
             Controls.Add(btnAgregar);
             Controls.Add(dtpFechaNacimiento);
             Controls.Add(label1);
@@ -233,7 +241,6 @@
             Controls.Add(lblNombre);
             Controls.Add(txtUsuario);
             Controls.Add(lblUsuario);
-            Controls.Add(txtRegistro);
             Name = "RegistroUsuarios";
             Text = "RegistroUsuarios";
             ResumeLayout(false);
@@ -241,8 +248,6 @@
         }
 
         #endregion
-
-        private TextBox txtRegistro;
         private Label lblUsuario;
         private TextBox txtUsuario;
         private Label lblNombre;
@@ -262,5 +267,6 @@
         private Label label1;
         private DateTimePicker dtpFechaNacimiento;
         private Button btnAgregar;
+        private Label label2;
     }
 }

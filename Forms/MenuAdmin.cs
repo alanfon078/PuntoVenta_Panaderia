@@ -27,7 +27,7 @@ namespace Panaderia.Forms
             r.Show();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnRegistrarProductos_Click(object sender, EventArgs e)
         {
 
         }
@@ -38,10 +38,140 @@ namespace Panaderia.Forms
             E.Show();
         }
 
-        private void label1_Click(object sender, EventArgs e)
+        private void btnRegistrarUsuarios_KeyDown(object sender, KeyEventArgs e)
         {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnRegistrarUsuarios.PerformClick();
+                e.SuppressKeyPress = true;
 
+            }
+            else if (e.KeyCode == Keys.Down || e.KeyCode == Keys.Up)
+            {
+                btnEliminarUsuarios.Focus();
+                e.SuppressKeyPress = true;
+
+            }
+            else if (e.KeyCode == Keys.Left || e.KeyCode == Keys.Right)
+            {
+                btnRegistrarProductos.Focus();
+                e.SuppressKeyPress = true;
+
+            }
+        }
+        private void btnRegistrarProductos_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnRegistrarProductos.PerformClick();
+                e.SuppressKeyPress = true;
+            }
+            else if (e.KeyCode == Keys.Down || e.KeyCode == Keys.Up)
+            {
+                btnRegistrarVenta.Focus();
+                e.SuppressKeyPress = true;
+
+            }
+            else if (e.KeyCode == Keys.Left || e.KeyCode == Keys.Right)
+            {
+                btnRegistrarUsuarios.Focus();
+                e.SuppressKeyPress = true;
+
+            }
         }
 
+        private void btnEliminarUsuarios_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnEliminarUsuarios.PerformClick();
+                e.SuppressKeyPress = true;
+            }
+            else if (e.KeyCode == Keys.Down || e.KeyCode == Keys.Up)
+            {
+                btnRegistrarUsuarios.Focus();
+                e.SuppressKeyPress = true;
+
+            }
+            else if (e.KeyCode == Keys.Left || e.KeyCode == Keys.Right)
+            {
+                btnRegistrarVenta.Focus();
+                e.SuppressKeyPress = true;
+
+            }
+        }
+
+        private void btnRegistrarVenta_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnRegistrarVenta.PerformClick();
+                e.SuppressKeyPress = true;
+            }
+            else if (e.KeyCode == Keys.Left || e.KeyCode == Keys.Right)
+            {
+                btnEliminarUsuarios.Focus();
+                e.SuppressKeyPress = true;
+
+            }
+            else if (e.KeyCode == Keys.Up || e.KeyCode == Keys.Down)
+            {
+                btnRegistrarProductos.Focus();
+                e.SuppressKeyPress = true;
+
+            }
+        }
+
+        private void btnRegistrarUsuarios_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.Down:
+                case Keys.Up:
+                case Keys.Left:
+                case Keys.Right:
+                    e.IsInputKey = true;
+                    break;
+            }
+        }
+
+        private void btnRegistrarProductos_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.Down:
+                case Keys.Up:
+                case Keys.Left:
+                case Keys.Right:
+                    e.IsInputKey = true;
+                    break;
+            }
+        }
+
+        private void btnEliminarUsuarios_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.Down:
+                case Keys.Up:
+                case Keys.Left:
+                case Keys.Right:
+                    e.IsInputKey = true;
+                    break;
+            }
+        }
+
+        private void btnRegistrarVenta_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.Down:
+                case Keys.Up:
+                case Keys.Left:
+                case Keys.Right:
+                    e.IsInputKey = true;
+                    break;
+            }
+        }
     }
 }

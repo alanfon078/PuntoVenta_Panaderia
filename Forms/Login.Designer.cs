@@ -71,6 +71,7 @@
             btnLogin.Text = "Ingresar";
             btnLogin.UseVisualStyleBackColor = false;
             btnLogin.Click += btnLogin_Click;
+            btnLogin.KeyDown += btnLogin_KeyDown;
             // 
             // txtPassword
             // 
@@ -82,6 +83,7 @@
             txtPassword.Size = new Size(309, 30);
             txtPassword.TabIndex = 6;
             txtPassword.TextAlign = HorizontalAlignment.Center;
+            txtPassword.KeyDown += txtPassword_KeyDown;
             // 
             // txtUser
             // 
@@ -93,6 +95,7 @@
             txtUser.Size = new Size(309, 30);
             txtUser.TabIndex = 5;
             txtUser.TextAlign = HorizontalAlignment.Center;
+            txtUser.KeyDown += txtUser_KeyDown;
             // 
             // Login
             // 
