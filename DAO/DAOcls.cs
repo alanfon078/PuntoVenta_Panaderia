@@ -282,6 +282,11 @@ namespace Panaderia.DAO
                 AsegurarConexion();
                 transaccion = cn.BeginTransaction();
 
+                string queryUsuarioActual="set @UsuarioApp = @us";
+                MySqlCommand cmdUsuarioActual = new MySqlCommand(queryUsuarioActual, cn, transaccion);
+                cmdUsuarioActual.Parameters.AddWithValue("@us", UsuarioSesion.UsuarioActual);
+                cmdUsuarioActual.ExecuteNonQuery();
+
                 string queryUser = "SELECT userID FROM Usuarios WHERE user = @user LIMIT 1";
                 int usuarioID = 1;
 
@@ -320,6 +325,7 @@ namespace Panaderia.DAO
             }
             catch (Exception ex)
             {
+                MessageBox.Show(ex.Message);
                 if (transaccion != null) transaccion.Rollback();
                 Console.WriteLine("Error en transacción: " + ex.Message);
                 exito = false;
