@@ -146,6 +146,7 @@
             tbEliminar.Controls.Add(pictureBox3);
             tbEliminar.Controls.Add(pictureBox2);
             tbEliminar.Controls.Add(pictureBox1);
+            tbEliminar.Font = new Font("Calibri", 9F);
             tbEliminar.Location = new Point(4, 29);
             tbEliminar.Name = "tbEliminar";
             tbEliminar.Padding = new Padding(3);
@@ -209,7 +210,7 @@
             label12.AutoSize = true;
             label12.Location = new Point(743, 701);
             label12.Name = "label12";
-            label12.Size = new Size(58, 20);
+            label12.Size = new Size(53, 18);
             label12.TabIndex = 55;
             label12.Text = "label12";
             // 
@@ -218,7 +219,7 @@
             label11.AutoSize = true;
             label11.Location = new Point(505, 701);
             label11.Name = "label11";
-            label11.Size = new Size(58, 20);
+            label11.Size = new Size(53, 18);
             label11.TabIndex = 54;
             label11.Text = "label11";
             // 
@@ -227,7 +228,7 @@
             label10.AutoSize = true;
             label10.Location = new Point(299, 701);
             label10.Name = "label10";
-            label10.Size = new Size(58, 20);
+            label10.Size = new Size(53, 18);
             label10.TabIndex = 53;
             label10.Text = "label10";
             // 
@@ -236,7 +237,7 @@
             label9.AutoSize = true;
             label9.Location = new Point(139, 701);
             label9.Name = "label9";
-            label9.Size = new Size(50, 20);
+            label9.Size = new Size(46, 18);
             label9.TabIndex = 52;
             label9.Text = "label9";
             // 
@@ -245,7 +246,7 @@
             label8.AutoSize = true;
             label8.Location = new Point(743, 469);
             label8.Name = "label8";
-            label8.Size = new Size(50, 20);
+            label8.Size = new Size(46, 18);
             label8.TabIndex = 51;
             label8.Text = "label8";
             // 
@@ -254,7 +255,7 @@
             label7.AutoSize = true;
             label7.Location = new Point(505, 469);
             label7.Name = "label7";
-            label7.Size = new Size(50, 20);
+            label7.Size = new Size(46, 18);
             label7.TabIndex = 50;
             label7.Text = "label7";
             // 
@@ -263,7 +264,7 @@
             label6.AutoSize = true;
             label6.Location = new Point(299, 469);
             label6.Name = "label6";
-            label6.Size = new Size(50, 20);
+            label6.Size = new Size(46, 18);
             label6.TabIndex = 49;
             label6.Text = "label6";
             // 
@@ -272,7 +273,7 @@
             label5.AutoSize = true;
             label5.Location = new Point(151, 469);
             label5.Name = "label5";
-            label5.Size = new Size(50, 20);
+            label5.Size = new Size(46, 18);
             label5.TabIndex = 48;
             label5.Text = "label5";
             // 
@@ -281,7 +282,7 @@
             label4.AutoSize = true;
             label4.Location = new Point(743, 227);
             label4.Name = "label4";
-            label4.Size = new Size(50, 20);
+            label4.Size = new Size(46, 18);
             label4.TabIndex = 47;
             label4.Text = "label4";
             // 
@@ -290,7 +291,7 @@
             label3.AutoSize = true;
             label3.Location = new Point(505, 227);
             label3.Name = "label3";
-            label3.Size = new Size(50, 20);
+            label3.Size = new Size(46, 18);
             label3.TabIndex = 46;
             label3.Text = "label3";
             // 
@@ -299,7 +300,7 @@
             label2.AutoSize = true;
             label2.Location = new Point(299, 227);
             label2.Name = "label2";
-            label2.Size = new Size(50, 20);
+            label2.Size = new Size(46, 18);
             label2.TabIndex = 45;
             label2.Text = "label2";
             // 
@@ -308,7 +309,7 @@
             label1.AutoSize = true;
             label1.Location = new Point(139, 227);
             label1.Name = "label1";
-            label1.Size = new Size(50, 20);
+            label1.Size = new Size(46, 18);
             label1.TabIndex = 44;
             label1.Text = "label1";
             // 
