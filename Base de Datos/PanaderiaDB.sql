@@ -202,8 +202,40 @@ begin
     usuario_final);
 end $$
 delimiter ;
+
 #---------------------------------------------------------------------
 
+delimiter $$
+create procedure spEliminarProducto(in uID int)
+begin
+    delete from Usuarios where userID = uID; 
+end $$
+delimiter ;
+
+#---------------------------------------------------------------------
+delimiter $$
+create procedure spAgregarProducto(in nom varchar(50), in des varchar(100), in pr decimal(10,2),in st int, in img mediumblob)
+begin
+    insert into Productos(nombre, descripcion, precio, stock, fotoProducto)
+    values (nom, des, pr, st, st, img);
+end $$
+delimiter ;
+
+#---------------------------------------------------------------------
+
+delimiter $$
+create procedure spActProducto(in id int, in nom varchar(50), in des varchar(100), in pr decimal(10,2),in st int, in img mediumblob)
+begin
+    update Productos
+    set nombre =nom, descripcion = des, precio = pr, stock = st, fotoProducto = img
+    where ProductoID=id;
+end $$
+delimiter ;
+
+#---------------------------------------------------------------------
+
+
+#---------------------------------------------------------------------
 
 # Stored Procedures y Triggers para Usuarios
 delimiter $$
