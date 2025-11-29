@@ -194,7 +194,7 @@ delimiter ;
 delimiter $$
 create procedure spAgregarProducto(in nom varchar(50), in pr decimal(10,2),in st int, in act bool, in img mediumblob)
 begin
-    insert into Productos(nombre, precio, stock, fotoProducto)
+    insert into Productos(nombre, precio, stock, activo, fotoProducto)
     values (nom, pr, st, act, img);
 end $$
 delimiter ;
