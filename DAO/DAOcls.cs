@@ -5,6 +5,7 @@ using Panaderia.Conexion;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Common;
 using System.Drawing;
 using System.Text;
 using System.Transactions;
@@ -128,11 +129,9 @@ namespace Panaderia.DAO
 
                         if (!reader.IsDBNull(reader.GetOrdinal("fotoProducto")))
                         {
+                            Imagen_A_Bloop imgConverter = new Imagen_A_Bloop();
                             byte[] imgBytes = (byte[])reader["fotoProducto"];
-                            using (MemoryStream ms = new MemoryStream(imgBytes))
-                            {
-                                p.Imagen = Image.FromStream(ms);
-                            }
+                            p.Imagen = Image.FromStream(imgConverter.ConvertirBlobAImagen(imgBytes));
                         }
                         else
                         {
@@ -376,6 +375,8 @@ namespace Panaderia.DAO
         /// Realiza un borrado lógico del producto estableciendo 'activo' a 0.
         /// Esto evita errores de llave foránea con DetalleVentas.
         /// </summary>
+        /// <param name="idProducto">ID del producto a eliminar.</param>
+        /// <returns>True si la eliminación fue exitosa, False en caso contrario.</returns>
         public bool EliminarProducto(int idProducto)
         {
             bool exito = false;
@@ -411,6 +412,55 @@ namespace Panaderia.DAO
                     catch { }
                 }
                 Console.WriteLine("Error al eliminar producto: " + ex.Message);
+            }
+            return exito;
+        }
+
+        /// <summary>
+        /// Registra un nuevo producto con su imagen en la base de datos
+        /// </summary>
+        /// <param name="nombre">Nombre del producto</param>
+        /// <param name="precio">Precio del producto</param>
+        /// <param name="stock">Cantidad en stock</param>
+        /// <param name="imagen">Imagen del producto en formato BLOB (array de bytes)</param>
+        /// returns>True si el registro fue exitoso, False en caso contrario.</returns>
+        public bool RegistrarProducto(string nombre, double precio, int stock, byte[] imagen)
+        {
+            bool exito = false;
+            MySqlTransaction transaction = null;
+            try
+            {
+                AsegurarConexion();
+                transaction = cn.BeginTransaction();
+                string queryUserAct = "SET @usuarioapp = @us;";
+                MySqlCommand cmdUserAct = new MySqlCommand(queryUserAct, cn, transaction);
+                cmdUserAct.Parameters.AddWithValue("@us", UsuarioSesion.UsuarioActual);
+                cmdUserAct.ExecuteNonQuery();
+
+                Imagen_A_Bloop imgConverter = new Imagen_A_Bloop();
+                String img = imgConverter.BytesAStringHex(imagen);
+
+                string query = "call spAgregarProducto (nombre, precio, stock, activo, fotoProducto) values (@nom, @prec, @stk, true, 0x"+img+");";
+                MySqlCommand comando = new MySqlCommand(query, cn);
+                comando.Parameters.AddWithValue("@nom", nombre);
+                comando.Parameters.AddWithValue("@prec", precio);
+                comando.Parameters.AddWithValue("@stk", stock);
+
+                int filas = comando.ExecuteNonQuery();
+                if (filas > 0) exito = true;
+                transaction.Commit();
+            }
+            catch (Exception ex)
+            {
+                if (transaction != null)
+                {
+                    try
+                    {
+                        transaction.Rollback();
+                    }
+                    catch { }
+                }
+                MessageBox.Show("Error al registrar producto: " + ex.Message);
             }
             return exito;
         }

@@ -15,6 +15,7 @@ namespace Panaderia
         private List<clsProducto> inventario;
         private List<clsProducto> listaEliminar;
         private int indiceInicio = 0;
+        private string filePath = string.Empty;
 
         public frmProductos()
         {
@@ -214,7 +215,7 @@ namespace Panaderia
             if (ofdArchivo.ShowDialog() == DialogResult.OK)
             {
                 Imagen_A_Bloop imgablop = new Imagen_A_Bloop();
-                string filePath = ofdArchivo.FileName;
+                filePath = ofdArchivo.FileName;
                 picBoxvp.Image = Image.FromFile(filePath);
                 picBoxvp.SizeMode = PictureBoxSizeMode.StretchImage;
 
@@ -223,6 +224,26 @@ namespace Panaderia
 
         private void btnAgregarProducto_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrEmpty(txtPrecio.Text) || string.IsNullOrEmpty(txtNombre.Text) || picBoxvp.Image == null)
+            {
+                MessageBox.Show("Por favor, complete todos los campos y seleccione una imagen antes de agregar el producto","Administrador de productos" ,MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+                
+            }
+
+            DAOcls dao = new DAOcls();
+            byte[] imagenBlob = null;
+
+            if (!string.IsNullOrEmpty(filePath))
+            {
+                Imagen_A_Bloop imgABlob = new Imagen_A_Bloop();
+                imagenBlob = imgABlob.ConvertirImagenABlob(filePath);
+            }
+
+            if (dao.RegistrarProducto(txtNombre.Text, Double.Parse(txtPrecio.Text), int.Parse(nudStock.Value.ToString()), imagenBlob))
+            {
+                MessageBox.Show("Producto registrado correctamente.");
+            }
 
         }
 
@@ -233,12 +254,28 @@ namespace Panaderia
 
         private void txtPrecio_TextChanged(object sender, EventArgs e)
         {
-            lblPreciovp.Text = "Precio: $"+txtPrecio.Text;
+            lblPreciovp.Text = "Precio: $" + txtPrecio.Text;
         }
 
         private void nudPrecio_ValueChanged(object sender, EventArgs e)
         {
             lblStockvp.Text = "Stock: " + nudStock.Value.ToString();
         }
+        private void nudStock_TabIndexChanged(object sender, EventArgs e)
+        {
+            lblStockvp.Text = "Stock: " + nudStock.Value.ToString();
+        }
+
+        private bool verificarDatos()
+        {
+            if (string.IsNullOrEmpty(txtPrecio.Text) || string.IsNullOrEmpty(txtNombre.Text) || picBoxvp.Image == null)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        
     }
 }

@@ -451,6 +451,7 @@
             nudStock.TabIndex = 21;
             nudStock.Value = new decimal(new int[] { 1, 0, 0, 0 });
             nudStock.ValueChanged += nudPrecio_ValueChanged;
+            nudStock.TabIndexChanged += nudStock_TabIndexChanged;
             // 
             // btnAgregarProducto
             // 
@@ -469,9 +470,9 @@
             lblStockvp.Font = new Font("Calibri", 12F);
             lblStockvp.Location = new Point(1049, 382);
             lblStockvp.Name = "lblStockvp";
-            lblStockvp.Size = new Size(64, 24);
+            lblStockvp.Size = new Size(74, 24);
             lblStockvp.TabIndex = 16;
-            lblStockvp.Text = "Stock: ";
+            lblStockvp.Text = "Stock: 1";
             // 
             // lblPreciovp
             // 
