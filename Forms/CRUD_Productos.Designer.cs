@@ -59,7 +59,9 @@
             pictureBox2 = new PictureBox();
             pictureBox1 = new PictureBox();
             tbAgregar = new TabPage();
+            button1 = new Button();
             tbModificar = new TabPage();
+            ofdArchivo = new OpenFileDialog();
             tbCtrlProductos.SuspendLayout();
             tbEliminar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvLista).BeginInit();
@@ -75,6 +77,7 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            tbAgregar.SuspendLayout();
             SuspendLayout();
             // 
             // tbCtrlProductos
@@ -387,6 +390,7 @@
             // 
             // tbAgregar
             // 
+            tbAgregar.Controls.Add(button1);
             tbAgregar.Location = new Point(4, 29);
             tbAgregar.Name = "tbAgregar";
             tbAgregar.Padding = new Padding(3);
@@ -394,6 +398,16 @@
             tbAgregar.TabIndex = 2;
             tbAgregar.Text = "Agregar";
             tbAgregar.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            button1.Location = new Point(344, 269);
+            button1.Name = "button1";
+            button1.Size = new Size(94, 29);
+            button1.TabIndex = 0;
+            button1.Text = "button1";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
             // 
             // tbModificar
             // 
@@ -428,6 +442,7 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            tbAgregar.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -466,5 +481,7 @@
         private Button btnRight;
         private Button btnEliminar;
         private DataGridView dgvLista;
+        private Button button1;
+        private OpenFileDialog ofdArchivo;
     }
 }

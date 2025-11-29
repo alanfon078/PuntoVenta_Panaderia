@@ -12,16 +12,15 @@ namespace Panaderia
     {
         private List<PictureBox> listaPictureZones;
         private List<Label> listaLabels;
-        private List<clsProducto> inventario; 
-        private List<clsProducto> listaEliminar; 
-        private int indiceInicio = 0; 
+        private List<clsProducto> inventario;
+        private List<clsProducto> listaEliminar;
+        private int indiceInicio = 0;
 
         public frmProductos()
         {
             this.WindowState = FormWindowState.Maximized;
             listaEliminar = new List<clsProducto>();
             InitializeComponent();
-
             CargarListasDeControles();
             CargarDatosDeBaseDatos();
             RenderizarProductos();
@@ -36,7 +35,6 @@ namespace Panaderia
                 dgvLista.DataSource = null;
                 dgvLista.Columns.Clear();
 
-                // Columna ID
                 DataGridViewTextBoxColumn colId = new DataGridViewTextBoxColumn();
                 colId.Name = "id";
                 colId.HeaderText = "ProductoID";
@@ -47,7 +45,7 @@ namespace Panaderia
                 DataGridViewTextBoxColumn colNombre = new DataGridViewTextBoxColumn();
                 colNombre.Name = "Nombre";
                 colNombre.HeaderText = "Producto";
-                colNombre.DataPropertyName = "Nombre"; 
+                colNombre.DataPropertyName = "Nombre";
                 colNombre.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                 dgvLista.Columns.Add(colNombre);
             }
@@ -160,7 +158,7 @@ namespace Panaderia
 
         private void btnRight_Click(object sender, EventArgs e)
         {
-            if (indiceInicio + listaPictureZones.Count < inventario.Count + 1) 
+            if (indiceInicio + listaPictureZones.Count < inventario.Count + 1)
             {
                 indiceInicio++;
                 RenderizarProductos();
@@ -198,14 +196,26 @@ namespace Panaderia
                     listaEliminar.Clear();
                     RefrescarGridUI();
 
-                    CargarDatosDeBaseDatos(); 
-                    indiceInicio = 0; 
-                    RenderizarProductos(); 
+                    CargarDatosDeBaseDatos();
+                    indiceInicio = 0;
+                    RenderizarProductos();
                 }
                 else
                 {
                     MessageBox.Show("Ocurrió un error al intentar eliminar los productos.");
                 }
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            ofdArchivo.Title = "Seleccione un archivo";
+
+            if (ofdArchivo.ShowDialog() == DialogResult.OK)
+            {
+                string filePath = ofdArchivo.FileName;
+
+                MessageBox.Show("Archivo seleccionado: " + filePath);
             }
         }
     }
