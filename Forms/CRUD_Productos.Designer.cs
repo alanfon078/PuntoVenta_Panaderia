@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            Label lblPrecio;
             tbCtrlProductos = new TabControl();
             tbEliminar = new TabPage();
             btnEliminar = new Button();
@@ -59,9 +60,21 @@
             pictureBox2 = new PictureBox();
             pictureBox1 = new PictureBox();
             tbAgregar = new TabPage();
-            button1 = new Button();
+            nudStock = new NumericUpDown();
+            btnAgregarProducto = new Button();
+            lblStockvp = new Label();
+            lblPreciovp = new Label();
+            lblNombrevp = new Label();
+            picBoxvp = new PictureBox();
+            label13 = new Label();
+            btnSelectImg = new Button();
+            lblStock = new Label();
+            txtPrecio = new TextBox();
+            lblNombre = new Label();
+            txtNombre = new TextBox();
             tbModificar = new TabPage();
             ofdArchivo = new OpenFileDialog();
+            lblPrecio = new Label();
             tbCtrlProductos.SuspendLayout();
             tbEliminar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvLista).BeginInit();
@@ -78,7 +91,19 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             tbAgregar.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)nudStock).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)picBoxvp).BeginInit();
             SuspendLayout();
+            // 
+            // lblPrecio
+            // 
+            lblPrecio.AutoSize = true;
+            lblPrecio.Font = new Font("Calibri", 12F);
+            lblPrecio.Location = new Point(20, 172);
+            lblPrecio.Name = "lblPrecio";
+            lblPrecio.Size = new Size(61, 24);
+            lblPrecio.TabIndex = 8;
+            lblPrecio.Text = "Precio";
             // 
             // tbCtrlProductos
             // 
@@ -131,11 +156,12 @@
             // 
             // btnEliminar
             // 
+            btnEliminar.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             btnEliminar.Font = new Font("Arial Rounded MT Bold", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnEliminar.ForeColor = Color.Red;
-            btnEliminar.Location = new Point(1046, 646);
+            btnEliminar.Location = new Point(1046, 645);
             btnEliminar.Name = "btnEliminar";
-            btnEliminar.Size = new Size(204, 52);
+            btnEliminar.Size = new Size(203, 52);
             btnEliminar.TabIndex = 59;
             btnEliminar.Text = "Eliminar Productos";
             btnEliminar.UseVisualStyleBackColor = true;
@@ -143,19 +169,25 @@
             // 
             // dgvLista
             // 
+            dgvLista.AllowUserToAddRows = false;
+            dgvLista.AllowUserToDeleteRows = false;
+            dgvLista.AllowUserToResizeColumns = false;
+            dgvLista.AllowUserToResizeRows = false;
+            dgvLista.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvLista.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllHeaders;
             dgvLista.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvLista.Location = new Point(1046, 6);
+            dgvLista.Location = new Point(1046, 5);
             dgvLista.Name = "dgvLista";
             dgvLista.RowHeadersWidth = 51;
-            dgvLista.Size = new Size(704, 634);
+            dgvLista.Size = new Size(701, 635);
             dgvLista.TabIndex = 58;
             // 
             // btnRight
             // 
             btnRight.Font = new Font("Showcard Gothic", 19.8000011F, FontStyle.Bold);
-            btnRight.Location = new Point(908, 360);
+            btnRight.Location = new Point(907, 360);
             btnRight.Name = "btnRight";
-            btnRight.Size = new Size(76, 68);
+            btnRight.Size = new Size(75, 68);
             btnRight.TabIndex = 57;
             btnRight.Text = ">";
             btnRight.UseVisualStyleBackColor = true;
@@ -166,7 +198,7 @@
             btnLeft.Font = new Font("Showcard Gothic", 19.8000011F, FontStyle.Bold);
             btnLeft.Location = new Point(7, 347);
             btnLeft.Name = "btnLeft";
-            btnLeft.Size = new Size(76, 68);
+            btnLeft.Size = new Size(75, 68);
             btnLeft.TabIndex = 56;
             btnLeft.Text = "<";
             btnLeft.UseVisualStyleBackColor = true;
@@ -193,7 +225,7 @@
             // label10
             // 
             label10.AutoSize = true;
-            label10.Location = new Point(300, 701);
+            label10.Location = new Point(299, 701);
             label10.Name = "label10";
             label10.Size = new Size(58, 20);
             label10.TabIndex = 53;
@@ -211,7 +243,7 @@
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new Point(743, 470);
+            label8.Location = new Point(743, 469);
             label8.Name = "label8";
             label8.Size = new Size(50, 20);
             label8.TabIndex = 51;
@@ -220,7 +252,7 @@
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(505, 470);
+            label7.Location = new Point(505, 469);
             label7.Name = "label7";
             label7.Size = new Size(50, 20);
             label7.TabIndex = 50;
@@ -229,7 +261,7 @@
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(300, 470);
+            label6.Location = new Point(299, 469);
             label6.Name = "label6";
             label6.Size = new Size(50, 20);
             label6.TabIndex = 49;
@@ -238,7 +270,7 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(151, 470);
+            label5.Location = new Point(151, 469);
             label5.Name = "label5";
             label5.Size = new Size(50, 20);
             label5.TabIndex = 48;
@@ -265,7 +297,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(300, 227);
+            label2.Location = new Point(299, 227);
             label2.Name = "label2";
             label2.Size = new Size(50, 20);
             label2.TabIndex = 45;
@@ -301,7 +333,7 @@
             // pictureBox11
             // 
             pictureBox11.BackColor = Color.Gainsboro;
-            pictureBox11.Location = new Point(300, 543);
+            pictureBox11.Location = new Point(299, 543);
             pictureBox11.Name = "pictureBox11";
             pictureBox11.Size = new Size(163, 155);
             pictureBox11.TabIndex = 41;
@@ -337,7 +369,7 @@
             // pictureBox8
             // 
             pictureBox8.BackColor = Color.Gainsboro;
-            pictureBox8.Location = new Point(300, 312);
+            pictureBox8.Location = new Point(299, 312);
             pictureBox8.Name = "pictureBox8";
             pictureBox8.Size = new Size(163, 155);
             pictureBox8.TabIndex = 37;
@@ -373,7 +405,7 @@
             // pictureBox2
             // 
             pictureBox2.BackColor = Color.Gainsboro;
-            pictureBox2.Location = new Point(300, 69);
+            pictureBox2.Location = new Point(299, 69);
             pictureBox2.Name = "pictureBox2";
             pictureBox2.Size = new Size(163, 155);
             pictureBox2.TabIndex = 33;
@@ -390,7 +422,19 @@
             // 
             // tbAgregar
             // 
-            tbAgregar.Controls.Add(button1);
+            tbAgregar.Controls.Add(nudStock);
+            tbAgregar.Controls.Add(btnAgregarProducto);
+            tbAgregar.Controls.Add(lblStockvp);
+            tbAgregar.Controls.Add(lblPreciovp);
+            tbAgregar.Controls.Add(lblNombrevp);
+            tbAgregar.Controls.Add(picBoxvp);
+            tbAgregar.Controls.Add(label13);
+            tbAgregar.Controls.Add(btnSelectImg);
+            tbAgregar.Controls.Add(lblStock);
+            tbAgregar.Controls.Add(lblPrecio);
+            tbAgregar.Controls.Add(txtPrecio);
+            tbAgregar.Controls.Add(lblNombre);
+            tbAgregar.Controls.Add(txtNombre);
             tbAgregar.Location = new Point(4, 29);
             tbAgregar.Name = "tbAgregar";
             tbAgregar.Padding = new Padding(3);
@@ -399,15 +443,120 @@
             tbAgregar.Text = "Agregar";
             tbAgregar.UseVisualStyleBackColor = true;
             // 
-            // button1
+            // nudStock
             // 
-            button1.Location = new Point(344, 269);
-            button1.Name = "button1";
-            button1.Size = new Size(94, 29);
-            button1.TabIndex = 0;
-            button1.Text = "button1";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+            nudStock.Location = new Point(18, 318);
+            nudStock.Name = "nudStock";
+            nudStock.Size = new Size(193, 27);
+            nudStock.TabIndex = 21;
+            nudStock.Value = new decimal(new int[] { 1, 0, 0, 0 });
+            nudStock.ValueChanged += nudPrecio_ValueChanged;
+            // 
+            // btnAgregarProducto
+            // 
+            btnAgregarProducto.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnAgregarProducto.Location = new Point(330, 502);
+            btnAgregarProducto.Name = "btnAgregarProducto";
+            btnAgregarProducto.Size = new Size(191, 50);
+            btnAgregarProducto.TabIndex = 20;
+            btnAgregarProducto.Text = "Agregar Producto";
+            btnAgregarProducto.UseVisualStyleBackColor = true;
+            btnAgregarProducto.Click += btnAgregarProducto_Click;
+            // 
+            // lblStockvp
+            // 
+            lblStockvp.AutoSize = true;
+            lblStockvp.Font = new Font("Calibri", 12F);
+            lblStockvp.Location = new Point(1049, 382);
+            lblStockvp.Name = "lblStockvp";
+            lblStockvp.Size = new Size(64, 24);
+            lblStockvp.TabIndex = 16;
+            lblStockvp.Text = "Stock: ";
+            // 
+            // lblPreciovp
+            // 
+            lblPreciovp.AutoSize = true;
+            lblPreciovp.Font = new Font("Calibri", 12F);
+            lblPreciovp.Location = new Point(1049, 342);
+            lblPreciovp.Name = "lblPreciovp";
+            lblPreciovp.Size = new Size(81, 24);
+            lblPreciovp.TabIndex = 15;
+            lblPreciovp.Text = "Precio: $";
+            // 
+            // lblNombrevp
+            // 
+            lblNombrevp.AutoSize = true;
+            lblNombrevp.Font = new Font("Calibri", 12F);
+            lblNombrevp.Location = new Point(1049, 304);
+            lblNombrevp.Name = "lblNombrevp";
+            lblNombrevp.Size = new Size(83, 24);
+            lblNombrevp.TabIndex = 14;
+            lblNombrevp.Text = "Nombre ";
+            // 
+            // picBoxvp
+            // 
+            picBoxvp.Location = new Point(1049, 91);
+            picBoxvp.Name = "picBoxvp";
+            picBoxvp.Size = new Size(238, 210);
+            picBoxvp.TabIndex = 13;
+            picBoxvp.TabStop = false;
+            // 
+            // label13
+            // 
+            label13.AutoSize = true;
+            label13.Font = new Font("Calibri", 12F);
+            label13.Location = new Point(1049, 53);
+            label13.Name = "label13";
+            label13.Size = new Size(107, 24);
+            label13.TabIndex = 12;
+            label13.Text = "Vista Previa";
+            // 
+            // btnSelectImg
+            // 
+            btnSelectImg.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnSelectImg.Location = new Point(20, 405);
+            btnSelectImg.Name = "btnSelectImg";
+            btnSelectImg.Size = new Size(191, 50);
+            btnSelectImg.TabIndex = 11;
+            btnSelectImg.Text = "Seleccionar imagen";
+            btnSelectImg.UseVisualStyleBackColor = true;
+            btnSelectImg.Click += btnSelectImg_Click;
+            // 
+            // lblStock
+            // 
+            lblStock.AutoSize = true;
+            lblStock.Font = new Font("Calibri", 12F);
+            lblStock.Location = new Point(20, 291);
+            lblStock.Name = "lblStock";
+            lblStock.Size = new Size(148, 24);
+            lblStock.TabIndex = 10;
+            lblStock.Text = "Stock Disponible";
+            // 
+            // txtPrecio
+            // 
+            txtPrecio.Location = new Point(20, 195);
+            txtPrecio.Name = "txtPrecio";
+            txtPrecio.Size = new Size(763, 27);
+            txtPrecio.TabIndex = 7;
+            txtPrecio.TextChanged += txtPrecio_TextChanged;
+            // 
+            // lblNombre
+            // 
+            lblNombre.AutoSize = true;
+            lblNombre.Font = new Font("Calibri", 12F);
+            lblNombre.Location = new Point(20, 53);
+            lblNombre.Name = "lblNombre";
+            lblNombre.Size = new Size(191, 24);
+            lblNombre.TabIndex = 6;
+            lblNombre.Text = "Nombre del producto";
+            // 
+            // txtNombre
+            // 
+            txtNombre.Location = new Point(20, 76);
+            txtNombre.Name = "txtNombre";
+            txtNombre.Size = new Size(763, 27);
+            txtNombre.TabIndex = 1;
+            txtNombre.TextChanged += txtNombre_TextChanged;
             // 
             // tbModificar
             // 
@@ -422,7 +571,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1764, 861);
+            ClientSize = new Size(1809, 898);
             Controls.Add(tbCtrlProductos);
             Name = "frmProductos";
             Text = "Administrar Productos";
@@ -443,6 +592,9 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             tbAgregar.ResumeLayout(false);
+            tbAgregar.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)nudStock).EndInit();
+            ((System.ComponentModel.ISupportInitialize)picBoxvp).EndInit();
             ResumeLayout(false);
         }
 
@@ -481,7 +633,19 @@
         private Button btnRight;
         private Button btnEliminar;
         private DataGridView dgvLista;
-        private Button button1;
         private OpenFileDialog ofdArchivo;
+        private TextBox txtNombre;
+        private Label lblNombre;
+        private Label lblPrecio;
+        private TextBox txtPrecio;
+        private Label lblStock;
+        private Button btnSelectImg;
+        private Label label13;
+        private Label lblNombrevp;
+        private PictureBox picBoxvp;
+        private Label lblPreciovp;
+        private Label lblStockvp;
+        private Button btnAgregarProducto;
+        private NumericUpDown nudStock;
     }
 }
