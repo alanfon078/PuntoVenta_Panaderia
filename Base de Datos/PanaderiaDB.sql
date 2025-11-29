@@ -189,7 +189,7 @@ delimiter $$
 create procedure spEliminarProducto(in uID int)
 begin
     Update Productos set activo = false 
-    where userID = uID; 
+    where ProductoID = uID; 
     
 end $$
 delimiter ;

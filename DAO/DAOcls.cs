@@ -385,10 +385,12 @@ namespace Panaderia.DAO
             {
                 AsegurarConexion();
                 transaction = cn.BeginTransaction();
+
                 string queryUserAct = "SET @usuarioapp = @us;";
                 MySqlCommand cmdUserAct = new MySqlCommand(queryUserAct, cn, transaction);
                 cmdUserAct.Parameters.AddWithValue("@us", UsuarioSesion.UsuarioActual);
                 cmdUserAct.ExecuteNonQuery();
+
                 string query = "call spEliminarProducto(@id)";
                 MySqlCommand cmd = new MySqlCommand(query, cn);
                 cmd.Parameters.AddWithValue("@id", idProducto);

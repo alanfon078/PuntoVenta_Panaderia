@@ -2,10 +2,8 @@
 using Panaderia.DAO;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Text;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace Panaderia
@@ -14,15 +12,16 @@ namespace Panaderia
     {
         private List<PictureBox> listaPictureZones;
         private List<Label> listaLabels;
-        private List<clsProducto> inventario;
-        private int indiceInicio = 0;
-        private List<clsDetalleVenta> lista;
+        private List<clsProducto> inventario; 
+        private List<clsProducto> listaEliminar; 
+        private int indiceInicio = 0; 
 
         public frmProductos()
         {
             this.WindowState = FormWindowState.Maximized;
-            lista = new List<clsDetalleVenta>();
+            listaEliminar = new List<clsProducto>();
             InitializeComponent();
+
             CargarListasDeControles();
             CargarDatosDeBaseDatos();
             RenderizarProductos();
@@ -34,20 +33,23 @@ namespace Panaderia
             if (dgvLista != null)
             {
                 dgvLista.AutoGenerateColumns = false;
+                dgvLista.DataSource = null;
+                dgvLista.Columns.Clear();
 
-                dgvLista.Columns.Add("id","ProductoID");
-                dgvLista.Columns.Add("Nombre", "Producto");
-                dgvLista.Columns.Add("Precio", "Precio");
-                dgvLista.Columns.Add("Cantidad", "Cant.");
-                dgvLista.Columns.Add("Subtotal", "Subtotal");
+                // Columna ID
+                DataGridViewTextBoxColumn colId = new DataGridViewTextBoxColumn();
+                colId.Name = "id";
+                colId.HeaderText = "ProductoID";
+                colId.DataPropertyName = "ProductoID";
+                colId.Width = 100;
+                dgvLista.Columns.Add(colId);
 
-                dgvLista.Columns[0].DataPropertyName = "Nombre";
-                dgvLista.Columns[1].DataPropertyName = "Precio";
-                dgvLista.Columns[2].DataPropertyName = "Cantidad";
-                dgvLista.Columns[3].DataPropertyName = "Subtotal";
-
-                dgvLista.Columns[1].DefaultCellStyle.Format = "C2";
-                dgvLista.Columns[3].DefaultCellStyle.Format = "C2";
+                DataGridViewTextBoxColumn colNombre = new DataGridViewTextBoxColumn();
+                colNombre.Name = "Nombre";
+                colNombre.HeaderText = "Producto";
+                colNombre.DataPropertyName = "Nombre"; 
+                colNombre.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                dgvLista.Columns.Add(colNombre);
             }
         }
 
@@ -89,47 +91,23 @@ namespace Panaderia
 
         private void AgregarALista(clsProducto prod)
         {
-            if (prod.Stock <= 0)
+            bool yaExiste = listaEliminar.Any(x => x.ProductoID == prod.ProductoID);
+
+            if (yaExiste)
             {
-                MessageBox.Show("Producto agotado.");
+                MessageBox.Show("Este producto ya está en la lista para eliminar.");
                 return;
             }
 
-            var itemExistente = lista.FirstOrDefault(x => x.ProductoID == prod.ProductoID);
+            listaEliminar.Add(prod);
 
-            if (itemExistente != null)
-            {
-                if (itemExistente.Cantidad + 1 <= prod.Stock)
-                {
-                    itemExistente.Cantidad++;
-                }
-                else
-                {
-                    MessageBox.Show("No hay suficiente stock para agregar más.");
-                    return;
-                }
-            }
-            else
-            {
-                clsDetalleVenta nuevoItem = new clsDetalleVenta
-                {
-                    ProductoID = prod.ProductoID,
-                    Nombre = prod.Nombre,
-                    Precio = prod.Precio,
-                    Cantidad = 1
-                };
-                lista.Add(nuevoItem);
-            }
-
-            RefrescarCarritoUI();
+            RefrescarGridUI();
         }
 
-        private void RefrescarCarritoUI()
+        private void RefrescarGridUI()
         {
             dgvLista.DataSource = null;
-            dgvLista.DataSource = lista;
-
-            decimal total = lista.Sum(x => x.Subtotal);
+            dgvLista.DataSource = listaEliminar;
         }
 
         private void CargarDatosDeBaseDatos()
@@ -152,7 +130,7 @@ namespace Panaderia
                     clsProducto p = inventario[indiceProducto];
 
                     listaPictureZones[i].Image = p.Imagen;
-                    listaLabels[i].Text = $"{p.Nombre}\n${p.Precio}";
+                    listaLabels[i].Text = $"{p.Nombre}\n(ID: {p.ProductoID})";
                     listaLabels[i].Visible = true;
                     listaPictureZones[i].Visible = true;
 
@@ -178,12 +156,11 @@ namespace Panaderia
             {
                 MessageBox.Show("Estás al inicio del catálogo.");
             }
-
         }
 
         private void btnRight_Click(object sender, EventArgs e)
         {
-            if (indiceInicio + listaPictureZones.Count < inventario.Count + 11)
+            if (indiceInicio + listaPictureZones.Count < inventario.Count + 1) 
             {
                 indiceInicio++;
                 RenderizarProductos();
@@ -192,43 +169,42 @@ namespace Panaderia
             {
                 MessageBox.Show("No hay más productos para mostrar.");
             }
-
         }
 
         private void btnEliminar_Click(object sender, EventArgs e)
         {
-            List<int> idxAEliminar = new List<int>();
-
-            foreach (DataGridViewRow fila in dgvLista.SelectedRows)
+            if (listaEliminar.Count == 0)
             {
-                if (!fila.IsNewRow)
-                {
-                    int id = Convert.ToInt32(fila.Cells["ProductoID"].Value);
-                    idxAEliminar.Add(id);
-                }
-            }
-
-            if (idxAEliminar.Count == 0)
-            {
-                MessageBox.Show("Por favor selecciona al menos un producto.");
+                MessageBox.Show("No hay productos en la lista para eliminar.");
                 return;
             }
 
-            if (MessageBox.Show("¿Estás seguro de eliminar los productos seleccionados?", "Confirmar", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            DialogResult respuesta = MessageBox.Show(
+                $"¿Estás seguro de eliminar los {listaEliminar.Count} productos listados?\nEsta acción no se puede deshacer.",
+                "Confirmar Eliminación Masiva",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning);
+
+            if (respuesta == DialogResult.Yes)
             {
+                List<int> idsAEliminar = listaEliminar.Select(x => x.ProductoID).ToList();
+
                 DAOcls dao = new DAOcls();
-                if (dao.EliminarListaProductos(idxAEliminar))
+
+                if (dao.EliminarListaProductos(idsAEliminar))
                 {
                     MessageBox.Show("Productos eliminados correctamente.");
-                    dgvLista.ClearSelection();
-                    lista.Clear();
-                    CargarDatosDeBaseDatos();
-                    RenderizarProductos();
-                    RefrescarCarritoUI();
+
+                    listaEliminar.Clear();
+                    RefrescarGridUI();
+
+                    CargarDatosDeBaseDatos(); 
+                    indiceInicio = 0; 
+                    RenderizarProductos(); 
                 }
                 else
                 {
-                    MessageBox.Show("Error al eliminar los productos.");
+                    MessageBox.Show("Ocurrió un error al intentar eliminar los productos.");
                 }
             }
         }
