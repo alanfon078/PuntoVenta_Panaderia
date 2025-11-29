@@ -437,14 +437,12 @@ namespace Panaderia.DAO
                 cmdUserAct.Parameters.AddWithValue("@us", UsuarioSesion.UsuarioActual);
                 cmdUserAct.ExecuteNonQuery();
 
-                Imagen_A_Bloop imgConverter = new Imagen_A_Bloop();
-                String img = imgConverter.BytesAStringHex(imagen);
-
-                string query = "call spAgregarProducto (nombre, precio, stock, activo, fotoProducto) values (@nom, @prec, @stk, true, 0x"+img+");";
+                string query = "call spAgregarProducto (@nom, @prec, @stk, true, @img);";
                 MySqlCommand comando = new MySqlCommand(query, cn);
                 comando.Parameters.AddWithValue("@nom", nombre);
                 comando.Parameters.AddWithValue("@prec", precio);
                 comando.Parameters.AddWithValue("@stk", stock);
+                comando.Parameters.AddWithValue("@img", imagen);
 
                 int filas = comando.ExecuteNonQuery();
                 if (filas > 0) exito = true;

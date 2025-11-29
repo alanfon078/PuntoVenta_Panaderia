@@ -158,9 +158,9 @@ delimiter $$
 create trigger trProductosInsert after insert on productos
 for each row
 begin
-    insert into auditoriaproductos (fecha, hora, tipocambio, valornuevo, activo, usuario, activo)
-    values (curdate(), curtime(), 'insert', 
-    concat('id:', new.productoid, ', nombre:', new.nombre,', precio:', new.precio, ', stock:', new.stock, ', estado:', new.activo),
+    insert into auditoriaproductos (fecha, hora, tipocambio, valoranterior, valornuevo, activo, usuario)
+    values (curdate(), curtime(), 'insert', 'No existe',
+    concat('id:', new.productoid, ', nombre:', new.nombre,', precio:', new.precio, ', stock:', new.stock), new.activo,
     ifnull(@usuarioapp, current_user()));
 end$$
 delimiter ;
@@ -171,11 +171,11 @@ delimiter $$
 create trigger trProductosUpdate before update on productos
 for each row
 begin
-    insert into auditoriaproductos (fecha, hora, tipocambio, valoranterior, valornuevo, activo, usuario)
+    insert into auditoriaproductos (fecha, hora, tipocambio, valoranterior, valornuevo, usuario, activo)
     values (curdate(), curtime(), 'update',
     concat('id:', old.productoid, ', nombre:', old.nombre, ', precio:', old.precio, ', stock:', old.stock, ', estado:', old.activo),
     concat('id:', new.productoid, ', nombre:', new.nombre, ', precio:', new.precio, ', stock:', new.stock, ', estado:', new.activo),
-    ifnull(@usuarioapp, current_user()));
+    ifnull(@usuarioapp, current_user()), new.activo);
 end$$
 delimiter ;
 
