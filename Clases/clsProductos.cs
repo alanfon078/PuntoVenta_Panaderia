@@ -12,5 +12,6 @@ namespace Panaderia.Clases
         public decimal Precio { get; set; }
         public int Stock { get; set; }
         public Image Imagen { get; set; } 
+        public bool activo { get; set; }
     }
 }

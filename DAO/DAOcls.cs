@@ -104,13 +104,16 @@ namespace Panaderia.DAO
         /// </summary>
         /// <params>Ninguno</params>
         /// <returns>List de productos con imágenes.</returns>
+        /// <summary>
+        /// Obtiene SOLO los productos activos para mostrar en el catálogo.
+        /// </summary>
         public List<clsProducto> ObtenerProductos()
         {
             List<clsProducto> lista = new List<clsProducto>();
             try
             {
                 AsegurarConexion();
-                string query = "SELECT ProductoID, nombre, precio, stock, fotoProducto FROM Productos";
+                string query = "SELECT ProductoID, nombre, precio, stock, fotoProducto FROM Productos WHERE activo = true";
                 MySqlCommand comando = new MySqlCommand(query, cn);
 
                 using (MySqlDataReader reader = comando.ExecuteReader())
@@ -135,7 +138,6 @@ namespace Panaderia.DAO
                         {
                             p.Imagen = null;
                         }
-
                         lista.Add(p);
                     }
                 }
@@ -166,6 +168,10 @@ namespace Panaderia.DAO
             {
                 AsegurarConexion();
                 transaccion = cn.BeginTransaction();
+                string queryUserAct = "SET @usuarioapp = @us;";
+                MySqlCommand cmdUserAct = new MySqlCommand(queryUserAct, cn, transaccion);
+                cmdUserAct.Parameters.AddWithValue("@us", UsuarioSesion.UsuarioActual);
+                cmdUserAct.ExecuteNonQuery();
                 MySqlCommand comando = new MySqlCommand("spCrearEmp", cn);
                 comando.CommandType = CommandType.StoredProcedure;
                 comando.Transaction = transaccion;
@@ -206,8 +212,16 @@ namespace Panaderia.DAO
         public bool EliminarUsuario(int idUsuario)
         {
             bool exito = false;
+            MySqlTransaction transaccion = null;
             try
             {
+                AsegurarConexion();
+                transaccion = cn.BeginTransaction();
+
+                string queryUserAct = "SET @usuarioapp = @us;";
+                MySqlCommand cmdUserAct = new MySqlCommand(queryUserAct, cn, transaccion);
+                cmdUserAct.Parameters.AddWithValue("@us", UsuarioSesion.UsuarioActual);
+                cmdUserAct.ExecuteNonQuery();
 
                 MySqlCommand comando = new MySqlCommand("spEliminarEmp", cn);
                 comando.CommandType = CommandType.StoredProcedure;
@@ -219,9 +233,20 @@ namespace Panaderia.DAO
                 {
                     exito = true;
                 }
+                transaccion.Commit();
+                return exito;
             }
             catch (MySqlException ex)
             {
+                if(transaccion != null)
+                {
+                    try
+                    {
+                        transaccion.Rollback();
+                    }
+                    catch { }
+                }
+
                 Console.WriteLine("Error al eliminar usuario: " + ex.Message);
             }
             return exito;
@@ -272,7 +297,7 @@ namespace Panaderia.DAO
         /// </summary>
         /// <param name="detalles">Lista de detalles de la venta</param>
         /// </returns> True si la venta se guardo exitosamente, False en caso contrario.</returns>
-        public bool GuardarVenta(decimal total, List<clsDetalleVenta> detalles)
+        public bool GuardarVenta(decimal totalVenta, List<clsDetalleVenta> detalles)
         {
             bool exito = false;
             MySqlTransaction transaccion = null;
@@ -282,34 +307,28 @@ namespace Panaderia.DAO
                 AsegurarConexion();
                 transaccion = cn.BeginTransaction();
 
-                string queryUsuarioActual="set @UsuarioApp = @us";
-                MySqlCommand cmdUsuarioActual = new MySqlCommand(queryUsuarioActual, cn, transaccion);
-                cmdUsuarioActual.Parameters.AddWithValue("@us", UsuarioSesion.UsuarioActual);
-                cmdUsuarioActual.ExecuteNonQuery();
-
                 string queryUser = "SELECT userID FROM Usuarios WHERE user = @user LIMIT 1";
-                int usuarioID = 1;
-
                 MySqlCommand cmdUser = new MySqlCommand(queryUser, cn, transaccion);
                 cmdUser.Parameters.AddWithValue("@user", UsuarioSesion.UsuarioActual);
-                object result = cmdUser.ExecuteScalar();
-                if (result != null) usuarioID = Convert.ToInt32(result);
+                object resultUser = cmdUser.ExecuteScalar();
+
+                int userID = (resultUser != null) ? Convert.ToInt32(resultUser) : 1; 
 
                 string queryVenta = "INSERT INTO Ventas (fecha, total, userID) VALUES (NOW(), @total, @userID); SELECT LAST_INSERT_ID();";
                 MySqlCommand cmdVenta = new MySqlCommand(queryVenta, cn, transaccion);
-                cmdVenta.Parameters.AddWithValue("@total", total);
-                cmdVenta.Parameters.AddWithValue("@userID", usuarioID);
+                cmdVenta.Parameters.AddWithValue("@total", totalVenta);
+                cmdVenta.Parameters.AddWithValue("@userID", userID);
 
-                int ventaID = Convert.ToInt32(cmdVenta.ExecuteScalar());
+                int idVentaGenerada = Convert.ToInt32(cmdVenta.ExecuteScalar());
 
                 foreach (var item in detalles)
                 {
-                    string queryDetalle = "INSERT INTO DetalleVentas (ventaID, productoID, cantidad, precioUnitario, total) VALUES (@ventaID, @prodID, @cant, @precio, @subtotal)";
+                    string queryDetalle = "INSERT INTO DetalleVentas (ventaID, productoID, cantidad, precioUnitario, total) VALUES (@ventaID, @prodID, @cant, @precioU, @subtotal)";
                     MySqlCommand cmdDetalle = new MySqlCommand(queryDetalle, cn, transaccion);
-                    cmdDetalle.Parameters.AddWithValue("@ventaID", ventaID);
+                    cmdDetalle.Parameters.AddWithValue("@ventaID", idVentaGenerada);
                     cmdDetalle.Parameters.AddWithValue("@prodID", item.ProductoID);
                     cmdDetalle.Parameters.AddWithValue("@cant", item.Cantidad);
-                    cmdDetalle.Parameters.AddWithValue("@precio", item.Precio);
+                    cmdDetalle.Parameters.AddWithValue("@precioU", item.Precio);
                     cmdDetalle.Parameters.AddWithValue("@subtotal", item.Subtotal);
                     cmdDetalle.ExecuteNonQuery();
 
@@ -325,11 +344,10 @@ namespace Panaderia.DAO
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
                 if (transaccion != null) transaccion.Rollback();
-                Console.WriteLine("Error en transacción: " + ex.Message);
-                exito = false;
+                Console.WriteLine("Error en transacción de venta: " + ex.Message);
             }
+
             return exito;
         }
 
@@ -342,33 +360,46 @@ namespace Panaderia.DAO
         /// <returns>True si todo salió bien, False si hubo error.</returns>
         public bool EliminarListaProductos(List<int> listaIds)
         {
-            bool exito = false;
-            MySqlTransaction transaccion = null;
+            bool exito = true;
+            foreach (int id in listaIds)
+            {
+                if (!EliminarProducto(id)) exito = false;
+            }
+            return exito;
+        }
 
+        /// <summary>
+        /// Realiza un borrado lógico del producto estableciendo 'activo' a 0.
+        /// Esto evita errores de llave foránea con DetalleVentas.
+        /// </summary>
+        public bool EliminarProducto(int idProducto)
+        {
+            bool exito = false; 
+            MySqlTransaction transaction = null;
             try
             {
                 AsegurarConexion();
-                transaccion = cn.BeginTransaction();
-                string queryUsuarioActual = "set @UsuarioApp = @us";
-                MySqlCommand cmdUsuarioActual = new MySqlCommand(queryUsuarioActual, cn, transaccion);
-                cmdUsuarioActual.Parameters.AddWithValue("@us", UsuarioSesion.UsuarioActual);
-                cmdUsuarioActual.ExecuteNonQuery();
+                transaction = cn.BeginTransaction();
+                string query = "call spEliminarProducto(@id)";
+                MySqlCommand cmd = new MySqlCommand(query, cn);
+                cmd.Parameters.AddWithValue("@id", idProducto);
 
-                foreach (int id in listaIds)
-                {
-                    string query = "call spEliminarProducto(@id)";
-                    MySqlCommand cmd = new MySqlCommand(query, cn, transaccion);
-                    cmd.Parameters.AddWithValue("@id", id);
-                    cmd.ExecuteNonQuery();
-                }
-
-                transaccion.Commit();
-                exito = true;
+                int filasAfectadas = cmd.ExecuteNonQuery();
+                if (filasAfectadas > 0) exito = true;
+                transaction.Commit();
+                return exito;
             }
             catch (Exception ex)
             {
-                if (transaccion != null) transaccion.Rollback();
-                Console.WriteLine("Error al eliminar productos: " + ex.Message);
+                if (transaction != null)
+                {
+                    try
+                    {
+                        transaction.Rollback();
+                    }
+                    catch { }
+                }
+                Console.WriteLine("Error al eliminar producto: " + ex.Message);
             }
             return exito;
         }
