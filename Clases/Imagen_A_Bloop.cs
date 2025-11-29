@@ -11,7 +11,6 @@ namespace Panaderia.Clases
         
         public byte[] ConvertirImagenABlob(string rutaImagen)
             {
-                // Lee todos los bytes del archivo y los guarda en un array
                 byte[] imageBytes = File.ReadAllBytes(rutaImagen);
                 return imageBytes;
             }

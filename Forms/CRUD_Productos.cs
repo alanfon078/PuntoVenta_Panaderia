@@ -207,16 +207,38 @@ namespace Panaderia
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnSelectImg_Click(object sender, EventArgs e)
         {
             ofdArchivo.Title = "Seleccione un archivo";
-
+            ofdArchivo.Filter = "Imagenes (.jpg; .jpeg; .png;)|*.jpg;*.jpeg;*.png;";
             if (ofdArchivo.ShowDialog() == DialogResult.OK)
             {
+                Imagen_A_Bloop imgablop = new Imagen_A_Bloop();
                 string filePath = ofdArchivo.FileName;
+                picBoxvp.Image = Image.FromFile(filePath);
+                picBoxvp.SizeMode = PictureBoxSizeMode.StretchImage;
 
-                MessageBox.Show("Archivo seleccionado: " + filePath);
             }
+        }
+
+        private void btnAgregarProducto_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtNombre_TextChanged(object sender, EventArgs e)
+        {
+            lblNombrevp.Text = txtNombre.Text;
+        }
+
+        private void txtPrecio_TextChanged(object sender, EventArgs e)
+        {
+            lblPreciovp.Text = "Precio: $"+txtPrecio.Text;
+        }
+
+        private void nudPrecio_ValueChanged(object sender, EventArgs e)
+        {
+            lblStockvp.Text = "Stock: " + nudStock.Value.ToString();
         }
     }
 }
