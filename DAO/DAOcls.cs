@@ -306,6 +306,10 @@ namespace Panaderia.DAO
             {
                 AsegurarConexion();
                 transaccion = cn.BeginTransaction();
+                string queryUserAct = "SET @usuarioapp = @us;";
+                MySqlCommand cmdUserAct = new MySqlCommand(queryUserAct, cn, transaccion);
+                cmdUserAct.Parameters.AddWithValue("@us", UsuarioSesion.UsuarioActual);
+                cmdUserAct.ExecuteNonQuery();
 
                 string queryUser = "SELECT userID FROM Usuarios WHERE user = @user LIMIT 1";
                 MySqlCommand cmdUser = new MySqlCommand(queryUser, cn, transaccion);
@@ -374,12 +378,17 @@ namespace Panaderia.DAO
         /// </summary>
         public bool EliminarProducto(int idProducto)
         {
-            bool exito = false; 
+            bool exito = false;
             MySqlTransaction transaction = null;
+
             try
             {
                 AsegurarConexion();
                 transaction = cn.BeginTransaction();
+                string queryUserAct = "SET @usuarioapp = @us;";
+                MySqlCommand cmdUserAct = new MySqlCommand(queryUserAct, cn, transaction);
+                cmdUserAct.Parameters.AddWithValue("@us", UsuarioSesion.UsuarioActual);
+                cmdUserAct.ExecuteNonQuery();
                 string query = "call spEliminarProducto(@id)";
                 MySqlCommand cmd = new MySqlCommand(query, cn);
                 cmd.Parameters.AddWithValue("@id", idProducto);
