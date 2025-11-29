@@ -35,6 +35,7 @@ namespace Panaderia
             {
                 dgvLista.AutoGenerateColumns = false;
 
+                dgvLista.Columns.Add("id","ProductoID");
                 dgvLista.Columns.Add("Nombre", "Producto");
                 dgvLista.Columns.Add("Precio", "Precio");
                 dgvLista.Columns.Add("Cantidad", "Cant.");
@@ -82,11 +83,11 @@ namespace Panaderia
             if (pb != null && pb.Tag != null)
             {
                 clsProducto productoSeleccionado = (clsProducto)pb.Tag;
-                AgregarAlCarrito(productoSeleccionado);
+                AgregarALista(productoSeleccionado);
             }
         }
 
-        private void AgregarAlCarrito(clsProducto prod)
+        private void AgregarALista(clsProducto prod)
         {
             if (prod.Stock <= 0)
             {
