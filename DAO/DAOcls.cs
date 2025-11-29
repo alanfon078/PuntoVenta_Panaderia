@@ -332,6 +332,47 @@ namespace Panaderia.DAO
             }
             return exito;
         }
+
+
+        /// <summary>
+        /// Elimina una lista de productos seleccionados por sus IDs.
+        /// Configura la variable de sesión para que el Trigger de auditoría detecte el usuario.
+        /// </summary>
+        /// <param name="listaIds">Lista de ProductoID a eliminar.</param>
+        /// <returns>True si todo salió bien, False si hubo error.</returns>
+        public bool EliminarListaProductos(List<int> listaIds)
+        {
+            bool exito = false;
+            MySqlTransaction transaccion = null;
+
+            try
+            {
+                AsegurarConexion();
+                transaccion = cn.BeginTransaction();
+                string queryUsuarioActual = "set @UsuarioApp = @us";
+                MySqlCommand cmdUsuarioActual = new MySqlCommand(queryUsuarioActual, cn, transaccion);
+                cmdUsuarioActual.Parameters.AddWithValue("@us", UsuarioSesion.UsuarioActual);
+                cmdUsuarioActual.ExecuteNonQuery();
+
+                foreach (int id in listaIds)
+                {
+                    string query = "call spEliminarProducto(@id)";
+                    MySqlCommand cmd = new MySqlCommand(query, cn, transaccion);
+                    cmd.Parameters.AddWithValue("@id", id);
+                    cmd.ExecuteNonQuery();
+                }
+
+                transaccion.Commit();
+                exito = true;
+            }
+            catch (Exception ex)
+            {
+                if (transaccion != null) transaccion.Rollback();
+                Console.WriteLine("Error al eliminar productos: " + ex.Message);
+            }
+            return exito;
+        }
+
     }
 
 }

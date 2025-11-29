@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             btnRegistrarUsuarios = new Button();
-            btnRegistrarProductos = new Button();
+            btnAdministrarProductos = new Button();
             btnRegistrarVenta = new Button();
             btnEliminarUsuarios = new Button();
             label1 = new Label();
@@ -47,17 +47,17 @@
             btnRegistrarUsuarios.KeyDown += btnRegistrarUsuarios_KeyDown;
             btnRegistrarUsuarios.PreviewKeyDown += btnRegistrarUsuarios_PreviewKeyDown;
             // 
-            // btnRegistrarProductos
+            // btnAdministrarProductos
             // 
-            btnRegistrarProductos.Location = new Point(437, 139);
-            btnRegistrarProductos.Name = "btnRegistrarProductos";
-            btnRegistrarProductos.Size = new Size(232, 85);
-            btnRegistrarProductos.TabIndex = 3;
-            btnRegistrarProductos.Text = "Registrar Productos";
-            btnRegistrarProductos.UseVisualStyleBackColor = true;
-            btnRegistrarProductos.Click += btnRegistrarProductos_Click;
-            btnRegistrarProductos.KeyDown += btnRegistrarProductos_KeyDown;
-            btnRegistrarProductos.PreviewKeyDown += btnRegistrarProductos_PreviewKeyDown;
+            btnAdministrarProductos.Location = new Point(437, 139);
+            btnAdministrarProductos.Name = "btnAdministrarProductos";
+            btnAdministrarProductos.Size = new Size(232, 85);
+            btnAdministrarProductos.TabIndex = 3;
+            btnAdministrarProductos.Text = "Administrar Productos";
+            btnAdministrarProductos.UseVisualStyleBackColor = true;
+            btnAdministrarProductos.Click += btnRegistrarProductos_Click;
+            btnAdministrarProductos.KeyDown += btnRegistrarProductos_KeyDown;
+            btnAdministrarProductos.PreviewKeyDown += btnRegistrarProductos_PreviewKeyDown;
             // 
             // btnRegistrarVenta
             // 
@@ -101,7 +101,7 @@
             Controls.Add(label1);
             Controls.Add(btnEliminarUsuarios);
             Controls.Add(btnRegistrarVenta);
-            Controls.Add(btnRegistrarProductos);
+            Controls.Add(btnAdministrarProductos);
             Controls.Add(btnRegistrarUsuarios);
             Name = "MenuAdmin";
             Text = "MenuAdmin";
@@ -111,7 +111,7 @@
 
         #endregion
         private Button btnRegistrarUsuarios;
-        private Button btnRegistrarProductos;
+        private Button btnAdministrarProductos;
         private Button btnRegistrarVenta;
         private Button btnEliminarUsuarios;
         private Label label1;

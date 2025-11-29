@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySqlX.XDevAPI.CRUD;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -29,7 +30,8 @@ namespace Panaderia.Forms
 
         private void btnRegistrarProductos_Click(object sender, EventArgs e)
         {
-
+            frmProductos p = new frmProductos();
+            p.Show();
         }
 
         private void btnEliminarUsuarios_Click(object sender, EventArgs e)
@@ -54,7 +56,7 @@ namespace Panaderia.Forms
             }
             else if (e.KeyCode == Keys.Left || e.KeyCode == Keys.Right)
             {
-                btnRegistrarProductos.Focus();
+                btnAdministrarProductos.Focus();
                 e.SuppressKeyPress = true;
 
             }
@@ -63,7 +65,7 @@ namespace Panaderia.Forms
         {
             if (e.KeyCode == Keys.Enter)
             {
-                btnRegistrarProductos.PerformClick();
+                btnAdministrarProductos.PerformClick();
                 e.SuppressKeyPress = true;
             }
             else if (e.KeyCode == Keys.Down || e.KeyCode == Keys.Up)
@@ -116,7 +118,7 @@ namespace Panaderia.Forms
             }
             else if (e.KeyCode == Keys.Up || e.KeyCode == Keys.Down)
             {
-                btnRegistrarProductos.Focus();
+                btnAdministrarProductos.Focus();
                 e.SuppressKeyPress = true;
 
             }

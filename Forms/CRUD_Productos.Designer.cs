@@ -1,6 +1,6 @@
 ﻿namespace Panaderia
 {
-    partial class Form1
+    partial class frmProductos
     {
         /// <summary>
         /// Required designer variable.
@@ -404,13 +404,13 @@
             tbModificar.Text = "Modificar";
             tbModificar.UseVisualStyleBackColor = true;
             // 
-            // Form1
+            // frmProductos
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1764, 861);
             Controls.Add(tbCtrlProductos);
-            Name = "Form1";
+            Name = "frmProductos";
             Text = "Administrar Productos";
             tbCtrlProductos.ResumeLayout(false);
             tbEliminar.ResumeLayout(false);

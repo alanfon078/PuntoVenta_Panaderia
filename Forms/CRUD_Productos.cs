@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace Panaderia
 {
-    public partial class Form1 : Form
+    public partial class frmProductos : Form
     {
         private List<PictureBox> listaPictureZones;
         private List<Label> listaLabels;
@@ -18,7 +18,7 @@ namespace Panaderia
         private int indiceInicio = 0;
         private List<clsDetalleVenta> lista;
 
-        public Form1()
+        public frmProductos()
         {
             this.WindowState = FormWindowState.Maximized;
             lista = new List<clsDetalleVenta>();
@@ -196,12 +196,39 @@ namespace Panaderia
 
         private void btnEliminar_Click(object sender, EventArgs e)
         {
+            List<int> idxAEliminar = new List<int>();
 
-            if (dgvLista.CurrentRow != null)
+            foreach (DataGridViewRow fila in dgvLista.SelectedRows)
             {
-                var itemSeleccionado = (clsDetalleVenta)dgvLista.CurrentRow.DataBoundItem;
-                lista.Remove(itemSeleccionado);
-                RefrescarCarritoUI();
+                if (!fila.IsNewRow)
+                {
+                    int id = Convert.ToInt32(fila.Cells["ProductoID"].Value);
+                    idxAEliminar.Add(id);
+                }
+            }
+
+            if (idxAEliminar.Count == 0)
+            {
+                MessageBox.Show("Por favor selecciona al menos un producto.");
+                return;
+            }
+
+            if (MessageBox.Show("¿Estás seguro de eliminar los productos seleccionados?", "Confirmar", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                DAOcls dao = new DAOcls();
+                if (dao.EliminarListaProductos(idxAEliminar))
+                {
+                    MessageBox.Show("Productos eliminados correctamente.");
+                    dgvLista.ClearSelection();
+                    lista.Clear();
+                    CargarDatosDeBaseDatos();
+                    RenderizarProductos();
+                    RefrescarCarritoUI();
+                }
+                else
+                {
+                    MessageBox.Show("Error al eliminar los productos.");
+                }
             }
         }
     }
