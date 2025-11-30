@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             Label lblPrecio;
+            Label label20;
             tbCtrlProductos = new TabControl();
             tbEliminar = new TabPage();
             btnEliminar = new Button();
@@ -73,8 +74,47 @@
             lblNombre = new Label();
             txtNombre = new TextBox();
             tbModificar = new TabPage();
+            nudStockNuevo = new NumericUpDown();
+            btnConfCambio = new Button();
+            lblStockAntiguo = new Label();
+            lblPrecioAntiguo = new Label();
+            lblNombreAntiguo = new Label();
+            picboxNuevaImg = new PictureBox();
+            label17 = new Label();
+            btnNuevaImagen = new Button();
+            label18 = new Label();
+            txtPrecioNuevo = new TextBox();
+            label19 = new Label();
+            txtNombreNuevo = new TextBox();
             ofdArchivo = new OpenFileDialog();
+            btnDerecha = new Button();
+            btnIzquierda = new Button();
+            label14 = new Label();
+            label15 = new Label();
+            label16 = new Label();
+            label21 = new Label();
+            label22 = new Label();
+            label23 = new Label();
+            label24 = new Label();
+            label25 = new Label();
+            label26 = new Label();
+            label27 = new Label();
+            label28 = new Label();
+            label29 = new Label();
+            pictureBox13 = new PictureBox();
+            pictureBox14 = new PictureBox();
+            pictureBox15 = new PictureBox();
+            pictureBox16 = new PictureBox();
+            pictureBox17 = new PictureBox();
+            pictureBox18 = new PictureBox();
+            pictureBox19 = new PictureBox();
+            pictureBox20 = new PictureBox();
+            pictureBox21 = new PictureBox();
+            pictureBox22 = new PictureBox();
+            pictureBox23 = new PictureBox();
+            pictureBox24 = new PictureBox();
             lblPrecio = new Label();
+            label20 = new Label();
             tbCtrlProductos.SuspendLayout();
             tbEliminar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvLista).BeginInit();
@@ -93,6 +133,21 @@
             tbAgregar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)nudStock).BeginInit();
             ((System.ComponentModel.ISupportInitialize)picBoxvp).BeginInit();
+            tbModificar.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)nudStockNuevo).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)picboxNuevaImg).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox13).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox14).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox15).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox16).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox17).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox18).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox19).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox20).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox21).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox22).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox23).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox24).BeginInit();
             SuspendLayout();
             // 
             // lblPrecio
@@ -453,6 +508,7 @@
             nudStock.Value = new decimal(new int[] { 1, 0, 0, 0 });
             nudStock.ValueChanged += nudPrecio_ValueChanged;
             nudStock.TabIndexChanged += nudStock_TabIndexChanged;
+            nudStock.KeyDown += nudStock_KeyDown;
             // 
             // btnAgregarProducto
             // 
@@ -523,6 +579,7 @@
             btnSelectImg.Text = "Seleccionar imagen";
             btnSelectImg.UseVisualStyleBackColor = true;
             btnSelectImg.Click += btnSelectImg_Click;
+            btnSelectImg.KeyDown += btnSelectImg_KeyDown;
             // 
             // lblStock
             // 
@@ -541,6 +598,7 @@
             txtPrecio.Size = new Size(763, 27);
             txtPrecio.TabIndex = 7;
             txtPrecio.TextChanged += txtPrecio_TextChanged;
+            txtPrecio.KeyDown += txtPrecio_KeyDown;
             // 
             // lblNombre
             // 
@@ -559,15 +617,411 @@
             txtNombre.Size = new Size(763, 27);
             txtNombre.TabIndex = 1;
             txtNombre.TextChanged += txtNombre_TextChanged;
+            txtNombre.KeyDown += txtNombre_KeyDown;
             // 
             // tbModificar
             // 
+            tbModificar.Controls.Add(btnDerecha);
+            tbModificar.Controls.Add(btnIzquierda);
+            tbModificar.Controls.Add(label14);
+            tbModificar.Controls.Add(label15);
+            tbModificar.Controls.Add(label16);
+            tbModificar.Controls.Add(label21);
+            tbModificar.Controls.Add(label22);
+            tbModificar.Controls.Add(label23);
+            tbModificar.Controls.Add(label24);
+            tbModificar.Controls.Add(label25);
+            tbModificar.Controls.Add(label26);
+            tbModificar.Controls.Add(label27);
+            tbModificar.Controls.Add(label28);
+            tbModificar.Controls.Add(label29);
+            tbModificar.Controls.Add(pictureBox13);
+            tbModificar.Controls.Add(pictureBox14);
+            tbModificar.Controls.Add(pictureBox15);
+            tbModificar.Controls.Add(pictureBox16);
+            tbModificar.Controls.Add(pictureBox17);
+            tbModificar.Controls.Add(pictureBox18);
+            tbModificar.Controls.Add(pictureBox19);
+            tbModificar.Controls.Add(pictureBox20);
+            tbModificar.Controls.Add(pictureBox21);
+            tbModificar.Controls.Add(pictureBox22);
+            tbModificar.Controls.Add(pictureBox23);
+            tbModificar.Controls.Add(pictureBox24);
+            tbModificar.Controls.Add(label20);
+            tbModificar.Controls.Add(nudStockNuevo);
+            tbModificar.Controls.Add(btnConfCambio);
+            tbModificar.Controls.Add(lblStockAntiguo);
+            tbModificar.Controls.Add(lblPrecioAntiguo);
+            tbModificar.Controls.Add(lblNombreAntiguo);
+            tbModificar.Controls.Add(picboxNuevaImg);
+            tbModificar.Controls.Add(label17);
+            tbModificar.Controls.Add(btnNuevaImagen);
+            tbModificar.Controls.Add(label18);
+            tbModificar.Controls.Add(txtPrecioNuevo);
+            tbModificar.Controls.Add(label19);
+            tbModificar.Controls.Add(txtNombreNuevo);
             tbModificar.Location = new Point(4, 29);
             tbModificar.Name = "tbModificar";
             tbModificar.Size = new Size(1753, 804);
             tbModificar.TabIndex = 3;
             tbModificar.Text = "Modificar";
             tbModificar.UseVisualStyleBackColor = true;
+            // 
+            // nudStockNuevo
+            // 
+            nudStockNuevo.Location = new Point(1177, 308);
+            nudStockNuevo.Name = "nudStockNuevo";
+            nudStockNuevo.Size = new Size(265, 27);
+            nudStockNuevo.TabIndex = 33;
+            nudStockNuevo.Value = new decimal(new int[] { 1, 0, 0, 0 });
+            // 
+            // btnConfCambio
+            // 
+            btnConfCambio.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnConfCambio.Location = new Point(1373, 517);
+            btnConfCambio.Name = "btnConfCambio";
+            btnConfCambio.Size = new Size(191, 50);
+            btnConfCambio.TabIndex = 32;
+            btnConfCambio.Text = "Confirmar Cambio";
+            btnConfCambio.UseVisualStyleBackColor = true;
+            // 
+            // lblStockAntiguo
+            // 
+            lblStockAntiguo.AutoSize = true;
+            lblStockAntiguo.Font = new Font("Calibri", 12F);
+            lblStockAntiguo.Location = new Point(1481, 357);
+            lblStockAntiguo.Name = "lblStockAntiguo";
+            lblStockAntiguo.Size = new Size(74, 24);
+            lblStockAntiguo.TabIndex = 31;
+            lblStockAntiguo.Text = "Stock: 1";
+            // 
+            // lblPrecioAntiguo
+            // 
+            lblPrecioAntiguo.AutoSize = true;
+            lblPrecioAntiguo.Font = new Font("Calibri", 12F);
+            lblPrecioAntiguo.Location = new Point(1481, 317);
+            lblPrecioAntiguo.Name = "lblPrecioAntiguo";
+            lblPrecioAntiguo.Size = new Size(81, 24);
+            lblPrecioAntiguo.TabIndex = 30;
+            lblPrecioAntiguo.Text = "Precio: $";
+            // 
+            // lblNombreAntiguo
+            // 
+            lblNombreAntiguo.AutoSize = true;
+            lblNombreAntiguo.Font = new Font("Calibri", 12F);
+            lblNombreAntiguo.Location = new Point(1481, 279);
+            lblNombreAntiguo.Name = "lblNombreAntiguo";
+            lblNombreAntiguo.Size = new Size(83, 24);
+            lblNombreAntiguo.TabIndex = 29;
+            lblNombreAntiguo.Text = "Nombre ";
+            // 
+            // picboxNuevaImg
+            // 
+            picboxNuevaImg.Location = new Point(1481, 66);
+            picboxNuevaImg.Name = "picboxNuevaImg";
+            picboxNuevaImg.Size = new Size(238, 210);
+            picboxNuevaImg.TabIndex = 28;
+            picboxNuevaImg.TabStop = false;
+            // 
+            // label17
+            // 
+            label17.AutoSize = true;
+            label17.Font = new Font("Calibri", 12F);
+            label17.Location = new Point(1481, 28);
+            label17.Name = "label17";
+            label17.Size = new Size(107, 24);
+            label17.TabIndex = 27;
+            label17.Text = "Vista Previa";
+            // 
+            // btnNuevaImagen
+            // 
+            btnNuevaImagen.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnNuevaImagen.Location = new Point(1179, 395);
+            btnNuevaImagen.Name = "btnNuevaImagen";
+            btnNuevaImagen.Size = new Size(263, 50);
+            btnNuevaImagen.TabIndex = 26;
+            btnNuevaImagen.Text = "Seleccionar imagen";
+            btnNuevaImagen.UseVisualStyleBackColor = true;
+            // 
+            // label18
+            // 
+            label18.AutoSize = true;
+            label18.Font = new Font("Calibri", 12F);
+            label18.Location = new Point(1179, 281);
+            label18.Name = "label18";
+            label18.Size = new Size(148, 24);
+            label18.TabIndex = 25;
+            label18.Text = "Stock Disponible";
+            // 
+            // txtPrecioNuevo
+            // 
+            txtPrecioNuevo.Location = new Point(1179, 185);
+            txtPrecioNuevo.Name = "txtPrecioNuevo";
+            txtPrecioNuevo.Size = new Size(263, 27);
+            txtPrecioNuevo.TabIndex = 24;
+            // 
+            // label19
+            // 
+            label19.AutoSize = true;
+            label19.Font = new Font("Calibri", 12F);
+            label19.Location = new Point(1179, 43);
+            label19.Name = "label19";
+            label19.Size = new Size(191, 24);
+            label19.TabIndex = 23;
+            label19.Text = "Nombre del producto";
+            // 
+            // txtNombreNuevo
+            // 
+            txtNombreNuevo.Location = new Point(1179, 66);
+            txtNombreNuevo.Name = "txtNombreNuevo";
+            txtNombreNuevo.Size = new Size(263, 27);
+            txtNombreNuevo.TabIndex = 22;
+            // 
+            // label20
+            // 
+            label20.AutoSize = true;
+            label20.Font = new Font("Calibri", 12F);
+            label20.Location = new Point(1179, 158);
+            label20.Name = "label20";
+            label20.Size = new Size(61, 24);
+            label20.TabIndex = 34;
+            label20.Text = "Precio";
+            // 
+            // btnDerecha
+            // 
+            btnDerecha.Font = new Font("Showcard Gothic", 19.8000011F, FontStyle.Bold);
+            btnDerecha.Location = new Point(903, 328);
+            btnDerecha.Name = "btnDerecha";
+            btnDerecha.Size = new Size(75, 68);
+            btnDerecha.TabIndex = 83;
+            btnDerecha.Text = ">";
+            btnDerecha.UseVisualStyleBackColor = true;
+            // 
+            // btnIzquierda
+            // 
+            btnIzquierda.Font = new Font("Showcard Gothic", 19.8000011F, FontStyle.Bold);
+            btnIzquierda.Location = new Point(3, 328);
+            btnIzquierda.Name = "btnIzquierda";
+            btnIzquierda.Size = new Size(75, 68);
+            btnIzquierda.TabIndex = 82;
+            btnIzquierda.Text = "<";
+            btnIzquierda.UseVisualStyleBackColor = true;
+            // 
+            // label14
+            // 
+            label14.AutoSize = true;
+            label14.Location = new Point(790, 675);
+            label14.Name = "label14";
+            label14.Size = new Size(58, 20);
+            label14.TabIndex = 81;
+            label14.Text = "label14";
+            // 
+            // label15
+            // 
+            label15.AutoSize = true;
+            label15.Location = new Point(555, 675);
+            label15.Name = "label15";
+            label15.Size = new Size(58, 20);
+            label15.TabIndex = 80;
+            label15.Text = "label15";
+            // 
+            // label16
+            // 
+            label16.AutoSize = true;
+            label16.Location = new Point(342, 675);
+            label16.Name = "label16";
+            label16.Size = new Size(58, 20);
+            label16.TabIndex = 79;
+            label16.Text = "label16";
+            // 
+            // label21
+            // 
+            label21.AutoSize = true;
+            label21.Location = new Point(134, 675);
+            label21.Name = "label21";
+            label21.Size = new Size(58, 20);
+            label21.TabIndex = 78;
+            label21.Text = "label21";
+            // 
+            // label22
+            // 
+            label22.AutoSize = true;
+            label22.Location = new Point(790, 447);
+            label22.Name = "label22";
+            label22.Size = new Size(58, 20);
+            label22.TabIndex = 77;
+            label22.Text = "label22";
+            // 
+            // label23
+            // 
+            label23.AutoSize = true;
+            label23.Location = new Point(555, 448);
+            label23.Name = "label23";
+            label23.Size = new Size(58, 20);
+            label23.TabIndex = 76;
+            label23.Text = "label23";
+            // 
+            // label24
+            // 
+            label24.AutoSize = true;
+            label24.Location = new Point(342, 447);
+            label24.Name = "label24";
+            label24.Size = new Size(58, 20);
+            label24.TabIndex = 75;
+            label24.Text = "label24";
+            // 
+            // label25
+            // 
+            label25.AutoSize = true;
+            label25.Location = new Point(134, 447);
+            label25.Name = "label25";
+            label25.Size = new Size(58, 20);
+            label25.TabIndex = 74;
+            label25.Text = "label25";
+            // 
+            // label26
+            // 
+            label26.AutoSize = true;
+            label26.Location = new Point(790, 205);
+            label26.Name = "label26";
+            label26.Size = new Size(58, 20);
+            label26.TabIndex = 73;
+            label26.Text = "label26";
+            // 
+            // label27
+            // 
+            label27.AutoSize = true;
+            label27.Location = new Point(555, 205);
+            label27.Name = "label27";
+            label27.Size = new Size(58, 20);
+            label27.TabIndex = 72;
+            label27.Text = "label27";
+            // 
+            // label28
+            // 
+            label28.AutoSize = true;
+            label28.Location = new Point(342, 205);
+            label28.Name = "label28";
+            label28.Size = new Size(58, 20);
+            label28.TabIndex = 71;
+            label28.Text = "label28";
+            // 
+            // label29
+            // 
+            label29.AutoSize = true;
+            label29.Location = new Point(134, 205);
+            label29.Name = "label29";
+            label29.Size = new Size(58, 20);
+            label29.TabIndex = 70;
+            label29.Text = "label29";
+            // 
+            // pictureBox13
+            // 
+            pictureBox13.BackColor = Color.Gainsboro;
+            pictureBox13.Location = new Point(738, 517);
+            pictureBox13.Name = "pictureBox13";
+            pictureBox13.Size = new Size(159, 155);
+            pictureBox13.TabIndex = 69;
+            pictureBox13.TabStop = false;
+            // 
+            // pictureBox14
+            // 
+            pictureBox14.BackColor = Color.Gainsboro;
+            pictureBox14.Location = new Point(513, 517);
+            pictureBox14.Name = "pictureBox14";
+            pictureBox14.Size = new Size(159, 155);
+            pictureBox14.TabIndex = 68;
+            pictureBox14.TabStop = false;
+            // 
+            // pictureBox15
+            // 
+            pictureBox15.BackColor = Color.Gainsboro;
+            pictureBox15.Location = new Point(295, 517);
+            pictureBox15.Name = "pictureBox15";
+            pictureBox15.Size = new Size(163, 155);
+            pictureBox15.TabIndex = 67;
+            pictureBox15.TabStop = false;
+            // 
+            // pictureBox16
+            // 
+            pictureBox16.BackColor = Color.Gainsboro;
+            pictureBox16.Location = new Point(84, 517);
+            pictureBox16.Name = "pictureBox16";
+            pictureBox16.Size = new Size(162, 155);
+            pictureBox16.TabIndex = 66;
+            pictureBox16.TabStop = false;
+            // 
+            // pictureBox17
+            // 
+            pictureBox17.BackColor = Color.Gainsboro;
+            pictureBox17.Location = new Point(738, 290);
+            pictureBox17.Name = "pictureBox17";
+            pictureBox17.Size = new Size(159, 155);
+            pictureBox17.TabIndex = 65;
+            pictureBox17.TabStop = false;
+            // 
+            // pictureBox18
+            // 
+            pictureBox18.BackColor = Color.Gainsboro;
+            pictureBox18.Location = new Point(513, 290);
+            pictureBox18.Name = "pictureBox18";
+            pictureBox18.Size = new Size(159, 155);
+            pictureBox18.TabIndex = 64;
+            pictureBox18.TabStop = false;
+            // 
+            // pictureBox19
+            // 
+            pictureBox19.BackColor = Color.Gainsboro;
+            pictureBox19.Location = new Point(295, 289);
+            pictureBox19.Name = "pictureBox19";
+            pictureBox19.Size = new Size(163, 155);
+            pictureBox19.TabIndex = 63;
+            pictureBox19.TabStop = false;
+            // 
+            // pictureBox20
+            // 
+            pictureBox20.BackColor = Color.Gainsboro;
+            pictureBox20.Location = new Point(84, 290);
+            pictureBox20.Name = "pictureBox20";
+            pictureBox20.Size = new Size(162, 155);
+            pictureBox20.TabIndex = 62;
+            pictureBox20.TabStop = false;
+            // 
+            // pictureBox21
+            // 
+            pictureBox21.BackColor = Color.Gainsboro;
+            pictureBox21.Location = new Point(738, 47);
+            pictureBox21.Name = "pictureBox21";
+            pictureBox21.Size = new Size(159, 155);
+            pictureBox21.TabIndex = 61;
+            pictureBox21.TabStop = false;
+            // 
+            // pictureBox22
+            // 
+            pictureBox22.BackColor = Color.Gainsboro;
+            pictureBox22.Location = new Point(513, 47);
+            pictureBox22.Name = "pictureBox22";
+            pictureBox22.Size = new Size(159, 155);
+            pictureBox22.TabIndex = 60;
+            pictureBox22.TabStop = false;
+            // 
+            // pictureBox23
+            // 
+            pictureBox23.BackColor = Color.Gainsboro;
+            pictureBox23.Location = new Point(295, 47);
+            pictureBox23.Name = "pictureBox23";
+            pictureBox23.Size = new Size(163, 155);
+            pictureBox23.TabIndex = 59;
+            pictureBox23.TabStop = false;
+            // 
+            // pictureBox24
+            // 
+            pictureBox24.BackColor = Color.Gainsboro;
+            pictureBox24.Location = new Point(84, 47);
+            pictureBox24.Name = "pictureBox24";
+            pictureBox24.Size = new Size(162, 155);
+            pictureBox24.TabIndex = 58;
+            pictureBox24.TabStop = false;
             // 
             // frmProductos
             // 
@@ -597,6 +1051,22 @@
             tbAgregar.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)nudStock).EndInit();
             ((System.ComponentModel.ISupportInitialize)picBoxvp).EndInit();
+            tbModificar.ResumeLayout(false);
+            tbModificar.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)nudStockNuevo).EndInit();
+            ((System.ComponentModel.ISupportInitialize)picboxNuevaImg).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox13).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox14).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox15).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox16).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox17).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox18).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox19).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox20).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox21).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox22).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox23).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox24).EndInit();
             ResumeLayout(false);
         }
 
@@ -649,5 +1119,43 @@
         private Label lblStockvp;
         private Button btnAgregarProducto;
         private NumericUpDown nudStock;
+        private NumericUpDown nudStockNuevo;
+        private Button btnConfCambio;
+        private Label lblStockAntiguo;
+        private Label lblPrecioAntiguo;
+        private Label lblNombreAntiguo;
+        private PictureBox picboxNuevaImg;
+        private Label label17;
+        private Button btnNuevaImagen;
+        private Label label18;
+        private TextBox txtPrecioNuevo;
+        private Label label19;
+        private TextBox txtNombreNuevo;
+        private Button btnDerecha;
+        private Button btnIzquierda;
+        private Label label14;
+        private Label label15;
+        private Label label16;
+        private Label label21;
+        private Label label22;
+        private Label label23;
+        private Label label24;
+        private Label label25;
+        private Label label26;
+        private Label label27;
+        private Label label28;
+        private Label label29;
+        private PictureBox pictureBox13;
+        private PictureBox pictureBox14;
+        private PictureBox pictureBox15;
+        private PictureBox pictureBox16;
+        private PictureBox pictureBox17;
+        private PictureBox pictureBox18;
+        private PictureBox pictureBox19;
+        private PictureBox pictureBox20;
+        private PictureBox pictureBox21;
+        private PictureBox pictureBox22;
+        private PictureBox pictureBox23;
+        private PictureBox pictureBox24;
     }
 }

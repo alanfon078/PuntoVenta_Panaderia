@@ -226,9 +226,9 @@ namespace Panaderia
         {
             if (string.IsNullOrEmpty(txtPrecio.Text) || string.IsNullOrEmpty(txtNombre.Text) || picBoxvp.Image == null)
             {
-                MessageBox.Show("Por favor, complete todos los campos y seleccione una imagen antes de agregar el producto","Administrador de productos" ,MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Por favor, complete todos los campos y seleccione una imagen antes de agregar el producto", "Administrador de productos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
-                
+
             }
 
             DAOcls dao = new DAOcls();
@@ -276,6 +276,44 @@ namespace Panaderia
             return true;
         }
 
-        
+        private void txtNombre_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                txtPrecio.Focus();
+                e.SuppressKeyPress = true;
+                e.Handled = true;
+            }
+        }
+
+        private void txtPrecio_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                nudStock.Focus();
+                e.SuppressKeyPress = true;
+                e.Handled = true;
+            }
+        }
+
+        private void nudStock_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnSelectImg.Focus();
+                e.SuppressKeyPress = true;
+                e.Handled = true;
+            }
+        }
+
+        private void btnSelectImg_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+                btnAgregarProducto.PerformClick();
+            }
+        }
     }
 }

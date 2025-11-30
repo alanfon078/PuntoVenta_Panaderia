@@ -25,11 +25,9 @@ namespace Panaderia.Forms
                 return;
             }
 
-            // Obtenemos el ID del usuario seleccionado
             int idUsuario = Convert.ToInt32(dgvUsuarios.SelectedRows[0].Cells[0].Value);
             string nombreUsuario = dgvUsuarios.SelectedRows[0].Cells[1].Value.ToString(); 
 
-            // Confirmar eliminación
             DialogResult confirmacion = MessageBox.Show(
                 $"¿Estas seguro que deseas eliminar al usuario permanentemente? '{nombreUsuario}'?\nEl usuario se eliminara de forma permanente.",
                 "Confirmar Eliminación",
@@ -38,7 +36,6 @@ namespace Panaderia.Forms
 
             if (confirmacion == DialogResult.Yes)
             {
-                // 4. Llamar al DAO
                 DAOcls dao = new DAOcls();
                 bool resultado = dao.EliminarUsuario(idUsuario);
 
@@ -60,7 +57,6 @@ namespace Panaderia.Forms
                 List<clsUsuario> listaUsuarios = dao.ObtenerUsuarios();
                 dgvUsuarios.DataSource = null; 
                 dgvUsuarios.DataSource = listaUsuarios;
-                // Ocultar contraseñas de los usuarios
                 if (dgvUsuarios.Columns["Password"] != null)
                 {
                     dgvUsuarios.Columns["Password"].Visible = false;
