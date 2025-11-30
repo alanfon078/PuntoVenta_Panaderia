@@ -18,7 +18,8 @@ namespace Panaderia.Forms
             CargarTablaUsuarios();
         }
 
-        private void btnEliminar_Click(object sender, EventArgs e){
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
             if (dgvUsuarios.SelectedRows.Count == 0)
             {
                 MessageBox.Show("Seleccione un usuario a eliminar", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -26,7 +27,7 @@ namespace Panaderia.Forms
             }
 
             int idUsuario = Convert.ToInt32(dgvUsuarios.SelectedRows[0].Cells[0].Value);
-            string nombreUsuario = dgvUsuarios.SelectedRows[0].Cells[1].Value.ToString(); 
+            string nombreUsuario = dgvUsuarios.SelectedRows[0].Cells[1].Value.ToString();
 
             DialogResult confirmacion = MessageBox.Show(
                 $"¿Estas seguro que deseas eliminar al usuario permanentemente? '{nombreUsuario}'?\nEl usuario se eliminara de forma permanente.",
@@ -43,7 +44,7 @@ namespace Panaderia.Forms
                 {
                     MessageBox.Show("Usuario eliminado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                    CargarTablaUsuarios(); 
+                    CargarTablaUsuarios();
                 }
                 else
                 {
@@ -51,11 +52,13 @@ namespace Panaderia.Forms
                 }
             }
         }
-        private void CargarTablaUsuarios(){
-            try{
+        private void CargarTablaUsuarios()
+        {
+            try
+            {
                 DAOcls dao = new DAOcls();
                 List<clsUsuario> listaUsuarios = dao.ObtenerUsuarios();
-                dgvUsuarios.DataSource = null; 
+                dgvUsuarios.DataSource = null;
                 dgvUsuarios.DataSource = listaUsuarios;
                 if (dgvUsuarios.Columns["Password"] != null)
                 {
@@ -68,5 +71,6 @@ namespace Panaderia.Forms
                 MessageBox.Show("Error al cargar la tabla: " + ex.Message);
             }
         }
+
     }
 }

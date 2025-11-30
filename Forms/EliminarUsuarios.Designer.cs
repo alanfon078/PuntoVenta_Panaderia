@@ -65,6 +65,7 @@
             label1.Size = new Size(257, 32);
             label1.TabIndex = 3;
             label1.Text = "Eliminar Usuarios";
+            label1.Click += this.label1_Click;
             // 
             // EliminarUsuarios
             // 

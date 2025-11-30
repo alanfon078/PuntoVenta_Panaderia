@@ -52,9 +52,14 @@
             txtUsuario = new TextBox();
             lblUsuario = new Label();
             tbEliminar = new TabPage();
+            label3 = new Label();
+            btnEliminar = new Button();
+            dgvUsuarios = new DataGridView();
             tbModificar = new TabPage();
             tabControl1.SuspendLayout();
             tbCrearUsuario.SuspendLayout();
+            tbEliminar.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvUsuarios).BeginInit();
             SuspendLayout();
             // 
             // tabControl1
@@ -104,7 +109,7 @@
             // chBoxShowPass
             // 
             chBoxShowPass.AutoSize = true;
-            chBoxShowPass.Location = new Point(1350, 109);
+            chBoxShowPass.Location = new Point(1349, 205);
             chBoxShowPass.Name = "chBoxShowPass";
             chBoxShowPass.Size = new Size(195, 28);
             chBoxShowPass.TabIndex = 41;
@@ -115,16 +120,16 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Font = new Font("Arial Rounded MT Bold", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label2.Location = new Point(665, 3);
+            label2.Font = new Font("Arial Rounded MT Bold", 25F);
+            label2.Location = new Point(594, 3);
             label2.Name = "label2";
-            label2.Size = new Size(376, 34);
+            label2.Size = new Size(524, 49);
             label2.TabIndex = 40;
             label2.Text = "Registrar Nuevo Usuario";
             // 
             // btnAgregar
             // 
-            btnAgregar.Location = new Point(813, 527);
+            btnAgregar.Location = new Point(812, 623);
             btnAgregar.Name = "btnAgregar";
             btnAgregar.Size = new Size(142, 80);
             btnAgregar.TabIndex = 39;
@@ -136,14 +141,14 @@
             // dtpFechaNacimiento
             // 
             dtpFechaNacimiento.Format = DateTimePickerFormat.Short;
-            dtpFechaNacimiento.Location = new Point(1075, 367);
+            dtpFechaNacimiento.Location = new Point(1074, 463);
             dtpFechaNacimiento.Name = "dtpFechaNacimiento";
             dtpFechaNacimiento.Size = new Size(159, 32);
             dtpFechaNacimiento.TabIndex = 38;
             // 
             // label1
             // 
-            label1.Location = new Point(944, 347);
+            label1.Location = new Point(943, 443);
             label1.Name = "label1";
             label1.Size = new Size(125, 67);
             label1.TabIndex = 37;
@@ -153,14 +158,14 @@
             // 
             cmbRol.FormattingEnabled = true;
             cmbRol.Items.AddRange(new object[] { "Administrador", "Empleado" });
-            cmbRol.Location = new Point(1075, 274);
+            cmbRol.Location = new Point(1074, 370);
             cmbRol.Name = "cmbRol";
             cmbRol.Size = new Size(159, 32);
             cmbRol.TabIndex = 36;
             // 
             // lblRol
             // 
-            lblRol.Location = new Point(955, 278);
+            lblRol.Location = new Point(954, 374);
             lblRol.Name = "lblRol";
             lblRol.Size = new Size(114, 28);
             lblRol.TabIndex = 35;
@@ -168,7 +173,7 @@
             // 
             // txtConfirContrasenia
             // 
-            txtConfirContrasenia.Location = new Point(1075, 187);
+            txtConfirContrasenia.Location = new Point(1074, 283);
             txtConfirContrasenia.Name = "txtConfirContrasenia";
             txtConfirContrasenia.Size = new Size(269, 32);
             txtConfirContrasenia.TabIndex = 34;
@@ -177,7 +182,7 @@
             // 
             // lblConfirContrasenia
             // 
-            lblConfirContrasenia.Location = new Point(955, 177);
+            lblConfirContrasenia.Location = new Point(954, 273);
             lblConfirContrasenia.Name = "lblConfirContrasenia";
             lblConfirContrasenia.Size = new Size(114, 47);
             lblConfirContrasenia.TabIndex = 33;
@@ -185,7 +190,7 @@
             // 
             // txtContrasena
             // 
-            txtContrasena.Location = new Point(1075, 106);
+            txtContrasena.Location = new Point(1074, 202);
             txtContrasena.Name = "txtContrasena";
             txtContrasena.Size = new Size(269, 32);
             txtContrasena.TabIndex = 32;
@@ -194,7 +199,7 @@
             // 
             // lblContrasenia
             // 
-            lblContrasenia.Location = new Point(955, 109);
+            lblContrasenia.Location = new Point(954, 205);
             lblContrasenia.Name = "lblContrasenia";
             lblContrasenia.Size = new Size(114, 34);
             lblContrasenia.TabIndex = 31;
@@ -202,7 +207,7 @@
             // 
             // txtTelefono
             // 
-            txtTelefono.Location = new Point(510, 442);
+            txtTelefono.Location = new Point(509, 538);
             txtTelefono.Name = "txtTelefono";
             txtTelefono.Size = new Size(194, 32);
             txtTelefono.TabIndex = 30;
@@ -210,7 +215,7 @@
             // 
             // lblTelefono
             // 
-            lblTelefono.Location = new Point(404, 442);
+            lblTelefono.Location = new Point(403, 538);
             lblTelefono.Name = "lblTelefono";
             lblTelefono.Size = new Size(88, 26);
             lblTelefono.TabIndex = 29;
@@ -218,7 +223,7 @@
             // 
             // txtEmail
             // 
-            txtEmail.Location = new Point(510, 367);
+            txtEmail.Location = new Point(509, 463);
             txtEmail.Name = "txtEmail";
             txtEmail.Size = new Size(338, 32);
             txtEmail.TabIndex = 28;
@@ -226,7 +231,7 @@
             // 
             // lblEmail
             // 
-            lblEmail.Location = new Point(404, 370);
+            lblEmail.Location = new Point(403, 466);
             lblEmail.Name = "lblEmail";
             lblEmail.Size = new Size(88, 44);
             lblEmail.TabIndex = 27;
@@ -234,7 +239,7 @@
             // 
             // txtApellidos
             // 
-            txtApellidos.Location = new Point(510, 274);
+            txtApellidos.Location = new Point(509, 370);
             txtApellidos.Name = "txtApellidos";
             txtApellidos.Size = new Size(338, 32);
             txtApellidos.TabIndex = 26;
@@ -242,7 +247,7 @@
             // 
             // txtNombre
             // 
-            txtNombre.Location = new Point(510, 187);
+            txtNombre.Location = new Point(509, 283);
             txtNombre.Name = "txtNombre";
             txtNombre.Size = new Size(338, 32);
             txtNombre.TabIndex = 25;
@@ -250,7 +255,7 @@
             // 
             // lblApellidos
             // 
-            lblApellidos.Location = new Point(404, 277);
+            lblApellidos.Location = new Point(403, 373);
             lblApellidos.Name = "lblApellidos";
             lblApellidos.Size = new Size(88, 34);
             lblApellidos.TabIndex = 24;
@@ -258,7 +263,7 @@
             // 
             // lblNombre
             // 
-            lblNombre.Location = new Point(404, 190);
+            lblNombre.Location = new Point(403, 286);
             lblNombre.Name = "lblNombre";
             lblNombre.Size = new Size(88, 34);
             lblNombre.TabIndex = 23;
@@ -266,7 +271,7 @@
             // 
             // txtUsuario
             // 
-            txtUsuario.Location = new Point(510, 103);
+            txtUsuario.Location = new Point(509, 199);
             txtUsuario.Name = "txtUsuario";
             txtUsuario.Size = new Size(194, 32);
             txtUsuario.TabIndex = 22;
@@ -274,7 +279,7 @@
             // 
             // lblUsuario
             // 
-            lblUsuario.Location = new Point(404, 106);
+            lblUsuario.Location = new Point(403, 202);
             lblUsuario.Name = "lblUsuario";
             lblUsuario.Size = new Size(88, 34);
             lblUsuario.TabIndex = 21;
@@ -282,6 +287,9 @@
             // 
             // tbEliminar
             // 
+            tbEliminar.Controls.Add(label3);
+            tbEliminar.Controls.Add(btnEliminar);
+            tbEliminar.Controls.Add(dgvUsuarios);
             tbEliminar.Font = new Font("Calibri", 12F);
             tbEliminar.Location = new Point(4, 29);
             tbEliminar.Name = "tbEliminar";
@@ -290,6 +298,40 @@
             tbEliminar.TabIndex = 1;
             tbEliminar.Text = "Eliminar Usuario";
             tbEliminar.UseVisualStyleBackColor = true;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Font = new Font("Arial Rounded MT Bold", 25F);
+            label3.Location = new Point(671, 3);
+            label3.Name = "label3";
+            label3.Size = new Size(381, 49);
+            label3.TabIndex = 6;
+            label3.Text = "Eliminar Usuarios";
+            // 
+            // btnEliminar
+            // 
+            btnEliminar.Font = new Font("Calibri", 18F);
+            btnEliminar.Location = new Point(750, 678);
+            btnEliminar.Name = "btnEliminar";
+            btnEliminar.Size = new Size(265, 59);
+            btnEliminar.TabIndex = 5;
+            btnEliminar.Text = "Eliminar";
+            btnEliminar.UseVisualStyleBackColor = true;
+            btnEliminar.Click += btnEliminar_Click;
+            btnEliminar.KeyDown += btnEliminar_KeyDown;
+            // 
+            // dgvUsuarios
+            // 
+            dgvUsuarios.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            dgvUsuarios.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            dgvUsuarios.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvUsuarios.GridColor = SystemColors.HighlightText;
+            dgvUsuarios.Location = new Point(6, 66);
+            dgvUsuarios.Name = "dgvUsuarios";
+            dgvUsuarios.RowHeadersWidth = 51;
+            dgvUsuarios.Size = new Size(1744, 606);
+            dgvUsuarios.TabIndex = 4;
             // 
             // tbModificar
             // 
@@ -312,6 +354,9 @@
             tabControl1.ResumeLayout(false);
             tbCrearUsuario.ResumeLayout(false);
             tbCrearUsuario.PerformLayout();
+            tbEliminar.ResumeLayout(false);
+            tbEliminar.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvUsuarios).EndInit();
             ResumeLayout(false);
         }
 
@@ -342,5 +387,8 @@
         private TextBox txtUsuario;
         private Label lblUsuario;
         private CheckBox chBoxShowPass;
+        private Label label3;
+        private Button btnEliminar;
+        private DataGridView dgvUsuarios;
     }
 }
