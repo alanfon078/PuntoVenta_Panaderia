@@ -36,8 +36,8 @@ namespace Panaderia.Forms
 
         private void btnEliminarUsuarios_Click(object sender, EventArgs e)
         {
-            EliminarUsuarios E = new EliminarUsuarios();
-            E.Show();
+            ReporteConLimites r = new ReporteConLimites();
+            r.Show();
         }
 
         private void btnRegistrarUsuarios_KeyDown(object sender, KeyEventArgs e)

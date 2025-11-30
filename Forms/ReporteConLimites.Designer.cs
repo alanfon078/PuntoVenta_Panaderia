@@ -34,6 +34,7 @@
             label2 = new Label();
             label3 = new Label();
             dgvVentas = new DataGridView();
+            btnGenerarGrafica = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvVentas).BeginInit();
             SuspendLayout();
             // 
@@ -41,7 +42,7 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Arial Rounded MT Bold", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label1.Location = new Point(87, 9);
+            label1.Location = new Point(699, 9);
             label1.Name = "label1";
             label1.Size = new Size(474, 34);
             label1.TabIndex = 7;
@@ -50,25 +51,25 @@
             // dtpFechaInicio
             // 
             dtpFechaInicio.Format = DateTimePickerFormat.Short;
-            dtpFechaInicio.Location = new Point(149, 78);
+            dtpFechaInicio.Location = new Point(157, 609);
             dtpFechaInicio.Name = "dtpFechaInicio";
-            dtpFechaInicio.Size = new Size(250, 27);
+            dtpFechaInicio.Size = new Size(123, 27);
             dtpFechaInicio.TabIndex = 8;
             dtpFechaInicio.ValueChanged += dtpFechaInicio_ValueChanged;
             // 
             // dtpFechaFin
             // 
             dtpFechaFin.Format = DateTimePickerFormat.Short;
-            dtpFechaFin.Location = new Point(149, 135);
+            dtpFechaFin.Location = new Point(157, 666);
             dtpFechaFin.Name = "dtpFechaFin";
-            dtpFechaFin.Size = new Size(250, 27);
+            dtpFechaFin.Size = new Size(123, 27);
             dtpFechaFin.TabIndex = 9;
             dtpFechaFin.ValueChanged += dtpFechaFin_ValueChanged;
             // 
             // label2
             // 
             label2.Font = new Font("Arial Rounded MT Bold", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label2.Location = new Point(12, 83);
+            label2.Location = new Point(20, 609);
             label2.Name = "label2";
             label2.Size = new Size(123, 27);
             label2.TabIndex = 10;
@@ -77,7 +78,7 @@
             // label3
             // 
             label3.Font = new Font("Arial Rounded MT Bold", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label3.Location = new Point(12, 140);
+            label3.Location = new Point(20, 666);
             label3.Name = "label3";
             label3.Size = new Size(123, 27);
             label3.TabIndex = 11;
@@ -85,18 +86,31 @@
             // 
             // dgvVentas
             // 
+            dgvVentas.AllowUserToAddRows = false;
+            dgvVentas.AllowUserToDeleteRows = false;
             dgvVentas.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvVentas.Location = new Point(12, 186);
+            dgvVentas.Location = new Point(12, 46);
             dgvVentas.Name = "dgvVentas";
+            dgvVentas.ReadOnly = true;
             dgvVentas.RowHeadersWidth = 51;
-            dgvVentas.Size = new Size(702, 336);
+            dgvVentas.Size = new Size(1797, 557);
             dgvVentas.TabIndex = 12;
+            // 
+            // btnGenerarGrafica
+            // 
+            btnGenerarGrafica.Location = new Point(20, 796);
+            btnGenerarGrafica.Name = "btnGenerarGrafica";
+            btnGenerarGrafica.Size = new Size(330, 56);
+            btnGenerarGrafica.TabIndex = 13;
+            btnGenerarGrafica.Text = "Generar Grafica";
+            btnGenerarGrafica.UseVisualStyleBackColor = true;
             // 
             // ReporteConLimites
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(767, 549);
+            ClientSize = new Size(1837, 976);
+            Controls.Add(btnGenerarGrafica);
             Controls.Add(dgvVentas);
             Controls.Add(label3);
             Controls.Add(label2);
@@ -105,7 +119,6 @@
             Controls.Add(label1);
             Name = "ReporteConLimites";
             Text = "ReporteConLimites";
-            Load += ReporteConLimites_Load;
             ((System.ComponentModel.ISupportInitialize)dgvVentas).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -119,5 +132,6 @@
         private Label label2;
         private Label label3;
         private DataGridView dgvVentas;
+        private Button btnGenerarGrafica;
     }
 }

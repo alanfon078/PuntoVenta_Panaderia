@@ -159,7 +159,7 @@ namespace Panaderia.DAO
         /// <param name="password">Contraseña del usuario</param>
         /// <param name="fechaNacimiento">Fecha de nacimiento del usuario</param>
         /// <rerturns>True si el registro fue exitoso, False en caso contrario.</returns>
-        public bool RegistrarUsuario(string usuario, string nombre, string apellidos, string email, string telefono, string password, DateTime fechaNacimiento, string rol)
+        public bool RegistrarUsuario(string usuario, string nombre, string apellidos, string email, string telefono, string password, DateTime fechaNacimiento, string rol, bool status)
         {
             MySqlTransaction transaccion = null;
             bool exito = false;
@@ -182,6 +182,7 @@ namespace Panaderia.DAO
                 comando.Parameters.AddWithValue("@pass", password);
                 comando.Parameters.AddWithValue("@feNac", fechaNacimiento);
                 comando.Parameters.AddWithValue("@roll", rol);
+                comando.Parameters.AddWithValue("@sta", status);
 
                 comando.ExecuteNonQuery();
                 transaccion.Commit();
@@ -276,10 +277,15 @@ namespace Panaderia.DAO
                         u.Apellidos = reader.GetString("apellidos");
                         u.Correo = reader.IsDBNull(reader.GetOrdinal("email")) ? "" : reader.GetString("email");
                         u.Telefono = reader.GetString("telefono");
+                        u.Status = reader.GetBoolean("status");
                         u.Rol = reader.GetString("rol");
                         u.FechaNacimiento = reader.GetDateTime("fechaNacimiento").ToShortDateString();
                         u.FechaCreacion = reader.GetDateTime("fechaCreacion").ToString();
-                        lista.Add(u);
+                        if(u.Status == true)
+                        {
+                            lista.Add(u);
+                        }
+                        
                     }
                 }
             }
@@ -294,6 +300,7 @@ namespace Panaderia.DAO
         /// <summary>
         /// Funcion para guardar una venta y sus detalles en la base de datos
         /// </summary>
+        /// <param name="totalVenta">Total de la venta</param>
         /// <param name="detalles">Lista de detalles de la venta</param>
         /// </returns> True si la venta se guardo exitosamente, False en caso contrario.</returns>
         public bool GuardarVenta(decimal totalVenta, List<clsDetalleVenta> detalles)
@@ -467,7 +474,7 @@ namespace Panaderia.DAO
         /// </summary>
         /// <param name="inicio"></param>
         /// <param name="fin"></param>
-        /// <returns></returns>
+        /// <returns>DataTable con el reporte de ventas.</returns>
         public DataTable ObtenerReporteVentas(DateTime inicio, DateTime fin)
         {
             DataTable tablaReporte = new DataTable();
@@ -560,6 +567,17 @@ namespace Panaderia.DAO
         }
 
 
+        /// <summary>
+        /// Modifica los datos de un usuario existente en la base de datos.
+        /// </summary>
+        /// <param name="UsuarioID">ID del usuario a modificar</param>
+        /// <param name="usuario">Nuevo nombre de usuario</param>
+        /// <param name="nombre">Nuevo nombre del usuario</param>
+        /// <param name="apellidos">Nuevos apellidos del usuario</param>
+        /// <param name="rol">Nuevo rol del usuario</param>
+        /// <param name="telefono">Nuevo telefono del usuario</param>
+        /// <param name="email">Nuevo email del usuario</param>
+        /// <returns>True si la modificación fue exitosa, False en caso contrario.</returns>
         public bool modificarUsuario(int UsuarioID, string usuario, string nombre, string apellidos, string rol, string telefono, string email)
         {
             bool exito = false;

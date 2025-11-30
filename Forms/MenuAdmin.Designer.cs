@@ -77,7 +77,7 @@
             btnEliminarUsuarios.Name = "btnEliminarUsuarios";
             btnEliminarUsuarios.Size = new Size(232, 85);
             btnEliminarUsuarios.TabIndex = 5;
-            btnEliminarUsuarios.Text = "Eliminar Usuarios";
+            btnEliminarUsuarios.Text = "Reporte de Ventas";
             btnEliminarUsuarios.UseVisualStyleBackColor = true;
             btnEliminarUsuarios.Click += btnEliminarUsuarios_Click;
             btnEliminarUsuarios.KeyDown += btnEliminarUsuarios_KeyDown;

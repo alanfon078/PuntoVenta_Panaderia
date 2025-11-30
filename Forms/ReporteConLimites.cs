@@ -14,10 +14,6 @@ namespace Panaderia.Forms
         public ReporteConLimites()
         {
             InitializeComponent();
-        }
-
-        private void ReporteConLimites_Load(object sender, EventArgs e)
-        {
             CargarReporte();
         }
 

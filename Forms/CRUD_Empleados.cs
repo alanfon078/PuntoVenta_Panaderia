@@ -96,7 +96,7 @@ namespace Panaderia
                     "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            bool resultado = dao.RegistrarUsuario(usuario, nombre, apellidos, email, telefono, contrasena, fechaNac, rolEmpleado);
+            bool resultado = dao.RegistrarUsuario(usuario, nombre, apellidos, email, telefono, contrasena, fechaNac, rolEmpleado, true);
 
             if (resultado)
             {
