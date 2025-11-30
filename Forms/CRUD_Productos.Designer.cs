@@ -184,7 +184,7 @@
             tbCtrlProductos.Location = new Point(1, 12);
             tbCtrlProductos.Name = "tbCtrlProductos";
             tbCtrlProductos.SelectedIndex = 0;
-            tbCtrlProductos.Size = new Size(1761, 837);
+            tbCtrlProductos.Size = new Size(1900, 950);
             tbCtrlProductos.TabIndex = 0;
             // 
             // tbEliminar
@@ -221,7 +221,7 @@
             tbEliminar.Location = new Point(4, 29);
             tbEliminar.Name = "tbEliminar";
             tbEliminar.Padding = new Padding(3);
-            tbEliminar.Size = new Size(1753, 804);
+            tbEliminar.Size = new Size(1892, 917);
             tbEliminar.TabIndex = 1;
             tbEliminar.Text = "Eliminar";
             tbEliminar.UseVisualStyleBackColor = true;
@@ -1095,10 +1095,11 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1809, 898);
+            ClientSize = new Size(1882, 903);
             Controls.Add(tbCtrlProductos);
             Name = "frmProductos";
             Text = "Administrar Productos";
+            WindowState = FormWindowState.Maximized;
             tbCtrlProductos.ResumeLayout(false);
             tbEliminar.ResumeLayout(false);
             tbEliminar.PerformLayout();

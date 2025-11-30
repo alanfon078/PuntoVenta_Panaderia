@@ -56,10 +56,27 @@
             btnEliminar = new Button();
             dgvUsuarios = new DataGridView();
             tbModificar = new TabPage();
+            comboBox1 = new ComboBox();
+            label10 = new Label();
+            textBox1 = new TextBox();
+            label5 = new Label();
+            textBox2 = new TextBox();
+            label6 = new Label();
+            textBox3 = new TextBox();
+            textBox4 = new TextBox();
+            label7 = new Label();
+            label8 = new Label();
+            textBox5 = new TextBox();
+            label9 = new Label();
+            btnConfirmarCambios = new Button();
+            dgvModificar = new DataGridView();
+            label4 = new Label();
             tabControl1.SuspendLayout();
             tbCrearUsuario.SuspendLayout();
             tbEliminar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvUsuarios).BeginInit();
+            tbModificar.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvModificar).BeginInit();
             SuspendLayout();
             // 
             // tabControl1
@@ -70,7 +87,7 @@
             tabControl1.Location = new Point(12, 12);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(1764, 860);
+            tabControl1.Size = new Size(1900, 950);
             tabControl1.TabIndex = 0;
             // 
             // tbCrearUsuario
@@ -102,7 +119,7 @@
             tbCrearUsuario.Location = new Point(4, 29);
             tbCrearUsuario.Name = "tbCrearUsuario";
             tbCrearUsuario.Padding = new Padding(3);
-            tbCrearUsuario.Size = new Size(1756, 827);
+            tbCrearUsuario.Size = new Size(1892, 917);
             tbCrearUsuario.TabIndex = 0;
             tbCrearUsuario.Text = "Registrar Usuario";
             // 
@@ -294,7 +311,7 @@
             tbEliminar.Location = new Point(4, 29);
             tbEliminar.Name = "tbEliminar";
             tbEliminar.Padding = new Padding(3);
-            tbEliminar.Size = new Size(1756, 827);
+            tbEliminar.Size = new Size(1892, 917);
             tbEliminar.TabIndex = 1;
             tbEliminar.Text = "Eliminar Usuario";
             tbEliminar.UseVisualStyleBackColor = true;
@@ -323,31 +340,176 @@
             // 
             // dgvUsuarios
             // 
+            dgvUsuarios.AllowUserToAddRows = false;
+            dgvUsuarios.AllowUserToDeleteRows = false;
             dgvUsuarios.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             dgvUsuarios.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dgvUsuarios.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvUsuarios.GridColor = SystemColors.HighlightText;
             dgvUsuarios.Location = new Point(6, 66);
             dgvUsuarios.Name = "dgvUsuarios";
+            dgvUsuarios.ReadOnly = true;
             dgvUsuarios.RowHeadersWidth = 51;
             dgvUsuarios.Size = new Size(1744, 606);
             dgvUsuarios.TabIndex = 4;
             // 
             // tbModificar
             // 
+            tbModificar.Controls.Add(comboBox1);
+            tbModificar.Controls.Add(label10);
+            tbModificar.Controls.Add(textBox1);
+            tbModificar.Controls.Add(label5);
+            tbModificar.Controls.Add(textBox2);
+            tbModificar.Controls.Add(label6);
+            tbModificar.Controls.Add(textBox3);
+            tbModificar.Controls.Add(textBox4);
+            tbModificar.Controls.Add(label7);
+            tbModificar.Controls.Add(label8);
+            tbModificar.Controls.Add(textBox5);
+            tbModificar.Controls.Add(label9);
+            tbModificar.Controls.Add(btnConfirmarCambios);
+            tbModificar.Controls.Add(dgvModificar);
+            tbModificar.Controls.Add(label4);
             tbModificar.Font = new Font("Calibri", 12F);
             tbModificar.Location = new Point(4, 29);
             tbModificar.Name = "tbModificar";
-            tbModificar.Size = new Size(1756, 827);
+            tbModificar.Size = new Size(1892, 917);
             tbModificar.TabIndex = 2;
             tbModificar.Text = "Modificar Usuario";
             tbModificar.UseVisualStyleBackColor = true;
+            // 
+            // comboBox1
+            // 
+            comboBox1.FormattingEnabled = true;
+            comboBox1.Items.AddRange(new object[] { "Administrador", "Empleado" });
+            comboBox1.Location = new Point(1548, 482);
+            comboBox1.Name = "comboBox1";
+            comboBox1.Size = new Size(159, 32);
+            comboBox1.TabIndex = 38;
+            // 
+            // label10
+            // 
+            label10.Location = new Point(1442, 486);
+            label10.Name = "label10";
+            label10.Size = new Size(88, 28);
+            label10.TabIndex = 37;
+            label10.Text = "Rol";
+            // 
+            // textBox1
+            // 
+            textBox1.Location = new Point(1548, 400);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(194, 32);
+            textBox1.TabIndex = 40;
+            // 
+            // label5
+            // 
+            label5.Location = new Point(1442, 406);
+            label5.Name = "label5";
+            label5.Size = new Size(88, 26);
+            label5.TabIndex = 39;
+            label5.Text = "Telefono";
+            // 
+            // textBox2
+            // 
+            textBox2.Location = new Point(1548, 329);
+            textBox2.Name = "textBox2";
+            textBox2.Size = new Size(338, 32);
+            textBox2.TabIndex = 38;
+            // 
+            // label6
+            // 
+            label6.Location = new Point(1442, 332);
+            label6.Name = "label6";
+            label6.Size = new Size(88, 44);
+            label6.TabIndex = 37;
+            label6.Text = "Email \r\n(opcional)";
+            // 
+            // textBox3
+            // 
+            textBox3.Location = new Point(1548, 247);
+            textBox3.Name = "textBox3";
+            textBox3.Size = new Size(338, 32);
+            textBox3.TabIndex = 36;
+            // 
+            // textBox4
+            // 
+            textBox4.Location = new Point(1548, 153);
+            textBox4.Name = "textBox4";
+            textBox4.Size = new Size(338, 32);
+            textBox4.TabIndex = 35;
+            // 
+            // label7
+            // 
+            label7.Location = new Point(1442, 247);
+            label7.Name = "label7";
+            label7.Size = new Size(88, 34);
+            label7.TabIndex = 34;
+            label7.Text = "Apellidos";
+            // 
+            // label8
+            // 
+            label8.Location = new Point(1442, 156);
+            label8.Name = "label8";
+            label8.Size = new Size(88, 34);
+            label8.TabIndex = 33;
+            label8.Text = "Nombre";
+            // 
+            // textBox5
+            // 
+            textBox5.Location = new Point(1548, 78);
+            textBox5.Name = "textBox5";
+            textBox5.Size = new Size(194, 32);
+            textBox5.TabIndex = 32;
+            // 
+            // label9
+            // 
+            label9.Location = new Point(1442, 81);
+            label9.Name = "label9";
+            label9.Size = new Size(88, 34);
+            label9.TabIndex = 31;
+            label9.Text = "Usuario";
+            // 
+            // btnConfirmarCambios
+            // 
+            btnConfirmarCambios.Font = new Font("Calibri", 18F);
+            btnConfirmarCambios.Location = new Point(870, 791);
+            btnConfirmarCambios.Name = "btnConfirmarCambios";
+            btnConfirmarCambios.Size = new Size(265, 59);
+            btnConfirmarCambios.TabIndex = 9;
+            btnConfirmarCambios.Text = "Confirmar Cambios";
+            btnConfirmarCambios.UseVisualStyleBackColor = true;
+            // 
+            // dgvModificar
+            // 
+            dgvModificar.AllowUserToAddRows = false;
+            dgvModificar.AllowUserToDeleteRows = false;
+            dgvModificar.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            dgvModificar.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            dgvModificar.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvModificar.GridColor = SystemColors.HighlightText;
+            dgvModificar.Location = new Point(6, 78);
+            dgvModificar.Name = "dgvModificar";
+            dgvModificar.ReadOnly = true;
+            dgvModificar.RowHeadersWidth = 51;
+            dgvModificar.Size = new Size(1291, 543);
+            dgvModificar.TabIndex = 8;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Font = new Font("Arial Rounded MT Bold", 25F);
+            label4.Location = new Point(668, 0);
+            label4.Name = "label4";
+            label4.Size = new Size(405, 49);
+            label4.TabIndex = 7;
+            label4.Text = "Modificar Usuarios";
             // 
             // CRUD_Empleados
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1788, 884);
+            ClientSize = new Size(1924, 944);
             Controls.Add(tabControl1);
             Name = "CRUD_Empleados";
             Text = "CRUD_Empleados";
@@ -357,6 +519,9 @@
             tbEliminar.ResumeLayout(false);
             tbEliminar.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgvUsuarios).EndInit();
+            tbModificar.ResumeLayout(false);
+            tbModificar.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvModificar).EndInit();
             ResumeLayout(false);
         }
 
@@ -390,5 +555,20 @@
         private Label label3;
         private Button btnEliminar;
         private DataGridView dgvUsuarios;
+        private Label label4;
+        private Button btnConfirmarCambios;
+        private DataGridView dgvModificar;
+        private ComboBox comboBox1;
+        private Label label10;
+        private TextBox textBox1;
+        private Label label5;
+        private TextBox textBox2;
+        private Label label6;
+        private TextBox textBox3;
+        private TextBox textBox4;
+        private Label label7;
+        private Label label8;
+        private TextBox textBox5;
+        private Label label9;
     }
 }

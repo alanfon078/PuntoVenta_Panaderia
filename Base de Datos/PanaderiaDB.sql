@@ -1,7 +1,6 @@
 create database if not exists panaderia;
 #drop database panaderia;
 use panaderia;
-
 #Tablas
 create table Usuarios (
     userID int primary key auto_increment,
@@ -251,8 +250,8 @@ delimiter $$
 create trigger trUsuariosInsert after insert on usuarios
 for each row
 begin
-    insert into auditoriausuarios (fecha, hora, tipocambio, valornuevo, usuario)
-    values (curdate(), curtime(), 'insert', concat('id:', new.userid, ', user:', new.user, ', nombre:', new.nombre, ', telefono:', new.telefono, ', rol:', new.rol),
+    insert into auditoriausuarios (fecha, hora, tipocambio, valoranterior, valornuevo, usuario)
+    values (curdate(), curtime(), 'insert', 'No existe', concat('id:', new.userid, ', user:', new.user, ', nombre:', new.nombre, ', telefono:', new.telefono, ', rol:', new.rol),
     ifnull(@usuarioapp, current_user()));
 end$$
 delimiter ;
@@ -277,9 +276,9 @@ delimiter $$
 create trigger trUsuariosDelete before delete on usuarios
 for each row
 begin
-    insert into auditoriausuarios (fecha, hora, tipocambio, valoranterior, usuario)
+    insert into auditoriausuarios (fecha, hora, tipocambio, valoranterior, valornuevo, usuario)
     values (curdate(), curtime(), 'delete', 
-    concat('id:', old.userid, ', user:', old.user, ', nombre:', old.nombre, ', telefono:', old.telefono, ', rol:', old.rol),
+    concat('id:', old.userid, ', user:', old.user, ', nombre:', old.nombre, ', telefono:', old.telefono, ', rol:', old.rol), 'eliminado',
     ifnull(@usuarioapp, current_user()));
 end$$
 delimiter ;

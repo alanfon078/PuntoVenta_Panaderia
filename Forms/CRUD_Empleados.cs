@@ -14,9 +14,17 @@ namespace Panaderia
     {
         public CRUD_Empleados()
         {
+            this.WindowState = FormWindowState.Maximized;
             InitializeComponent();
             cmbRol.SelectedIndex = 1;
             dtpFechaNacimiento.CustomFormat = "yyyy-mm-dd";
+            cargarTodo();
+        }
+
+        private void cargarTodo()
+        {
+            CargarTablaUsuarios();
+            LimpiarFormulario();
         }
 
         private void btnAgregar_Click(object sender, EventArgs e)
@@ -96,7 +104,7 @@ namespace Panaderia
             {
                 MessageBox.Show("El usuario ha sido creado exitosamente", "Exito",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
-                LimpiarFormulario();
+                cargarTodo();
             }
             else
             {
@@ -216,7 +224,32 @@ namespace Panaderia
                 {
                     dgvUsuarios.Columns["Password"].Visible = false;
                 }
+                if (dgvUsuarios.Columns["Status"] != null)
+                {
+                    dgvUsuarios.Columns["Status"].Visible = false;
+                }
                 dgvUsuarios.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al cargar la tabla: " + ex.Message);
+            }
+
+            try
+            {
+                DAOcls dao = new DAOcls();
+                List<clsUsuario> listaUsuarios = dao.ObtenerUsuarios();
+                dgvModificar.DataSource = null;
+                dgvModificar.DataSource = listaUsuarios;
+                if (dgvModificar.Columns["Password"] != null)
+                {
+                    dgvModificar.Columns["Password"].Visible = false;
+                }
+                if (dgvModificar.Columns["Status"] != null)
+                {
+                    dgvModificar.Columns["Status"].Visible = false;
+                }
+                dgvModificar.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             }
             catch (Exception ex)
             {
@@ -250,7 +283,7 @@ namespace Panaderia
                 {
                     MessageBox.Show("Usuario eliminado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                    CargarTablaUsuarios();
+                    cargarTodo();
                 }
                 else
                 {
@@ -266,5 +299,8 @@ namespace Panaderia
                 btnEliminar.PerformClick();
                 e.SuppressKeyPress = true;
             }
+        }
+
+       
     }
 }
