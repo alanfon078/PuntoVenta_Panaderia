@@ -462,6 +462,48 @@ namespace Panaderia.DAO
             }
             return exito;
         }
+        /// <summary>
+        /// Obtiene un reporte de ventas por producto en un rango de fechas.
+        /// </summary>
+        /// <param name="inicio"></param>
+        /// <param name="fin"></param>
+        /// <returns></returns>
+        public DataTable ObtenerReporteVentas(DateTime inicio, DateTime fin)
+        {
+            DataTable tablaReporte = new DataTable();
+            try
+            {
+                AsegurarConexion(); 
+                string consulta = @"
+                select 
+                    p.ProductoID as 'ID',
+                    p.nombre as 'Producto',
+                    sum(dv.cantidad) as 'Cantidad',
+                    p.precio as 'Precio Unitario',
+                    SUM(dv.total) as 'Monto'
+                from Ventas v
+                join DetalleVentas dv ON v.ventaID = dv.ventaID
+                join Productos p ON dv.productoID = p.ProductoID
+                where date(v.fecha) between @fechaInicio and @fechaFin
+                group by p.ProductoID, p.nombre, p.precio
+                order by sum(dv.cantidad) desc,
+                sum(dv.total) desc";
+
+                MySqlCommand comando = new MySqlCommand(consulta, cn);
+                comando.CommandType = CommandType.Text; 
+
+                comando.Parameters.AddWithValue("@fechaInicio", inicio.ToString("yyyy-MM-dd"));
+                comando.Parameters.AddWithValue("@fechaFin", fin.ToString("yyyy-MM-dd"));
+                MySqlDataAdapter adaptador = new MySqlDataAdapter(comando);
+                adaptador.Fill(tablaReporte);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: " + ex.Message);
+            }
+            return tablaReporte;
+        }
+
 
     }
 
