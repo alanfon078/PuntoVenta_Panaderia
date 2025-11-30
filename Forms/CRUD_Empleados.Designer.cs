@@ -56,17 +56,17 @@
             btnEliminar = new Button();
             dgvUsuarios = new DataGridView();
             tbModificar = new TabPage();
-            comboBox1 = new ComboBox();
+            cboNuevoRol = new ComboBox();
             label10 = new Label();
-            textBox1 = new TextBox();
+            txtNuevoTel = new TextBox();
             label5 = new Label();
-            textBox2 = new TextBox();
+            txtNuevoCorr = new TextBox();
             label6 = new Label();
-            textBox3 = new TextBox();
-            textBox4 = new TextBox();
+            txtNuevoApellido = new TextBox();
+            txtNuevoNom = new TextBox();
             label7 = new Label();
             label8 = new Label();
-            textBox5 = new TextBox();
+            txtNuevoUs = new TextBox();
             label9 = new Label();
             btnConfirmarCambios = new Button();
             dgvModificar = new DataGridView();
@@ -355,17 +355,17 @@
             // 
             // tbModificar
             // 
-            tbModificar.Controls.Add(comboBox1);
+            tbModificar.Controls.Add(cboNuevoRol);
             tbModificar.Controls.Add(label10);
-            tbModificar.Controls.Add(textBox1);
+            tbModificar.Controls.Add(txtNuevoTel);
             tbModificar.Controls.Add(label5);
-            tbModificar.Controls.Add(textBox2);
+            tbModificar.Controls.Add(txtNuevoCorr);
             tbModificar.Controls.Add(label6);
-            tbModificar.Controls.Add(textBox3);
-            tbModificar.Controls.Add(textBox4);
+            tbModificar.Controls.Add(txtNuevoApellido);
+            tbModificar.Controls.Add(txtNuevoNom);
             tbModificar.Controls.Add(label7);
             tbModificar.Controls.Add(label8);
-            tbModificar.Controls.Add(textBox5);
+            tbModificar.Controls.Add(txtNuevoUs);
             tbModificar.Controls.Add(label9);
             tbModificar.Controls.Add(btnConfirmarCambios);
             tbModificar.Controls.Add(dgvModificar);
@@ -378,14 +378,14 @@
             tbModificar.Text = "Modificar Usuario";
             tbModificar.UseVisualStyleBackColor = true;
             // 
-            // comboBox1
+            // cboNuevoRol
             // 
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Items.AddRange(new object[] { "Administrador", "Empleado" });
-            comboBox1.Location = new Point(1548, 482);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(159, 32);
-            comboBox1.TabIndex = 38;
+            cboNuevoRol.FormattingEnabled = true;
+            cboNuevoRol.Items.AddRange(new object[] { "Administrador", "Empleado" });
+            cboNuevoRol.Location = new Point(1548, 482);
+            cboNuevoRol.Name = "cboNuevoRol";
+            cboNuevoRol.Size = new Size(159, 32);
+            cboNuevoRol.TabIndex = 38;
             // 
             // label10
             // 
@@ -395,12 +395,12 @@
             label10.TabIndex = 37;
             label10.Text = "Rol";
             // 
-            // textBox1
+            // txtNuevoTel
             // 
-            textBox1.Location = new Point(1548, 400);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(194, 32);
-            textBox1.TabIndex = 40;
+            txtNuevoTel.Location = new Point(1548, 400);
+            txtNuevoTel.Name = "txtNuevoTel";
+            txtNuevoTel.Size = new Size(194, 32);
+            txtNuevoTel.TabIndex = 40;
             // 
             // label5
             // 
@@ -410,12 +410,12 @@
             label5.TabIndex = 39;
             label5.Text = "Telefono";
             // 
-            // textBox2
+            // txtNuevoCorr
             // 
-            textBox2.Location = new Point(1548, 329);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(338, 32);
-            textBox2.TabIndex = 38;
+            txtNuevoCorr.Location = new Point(1548, 329);
+            txtNuevoCorr.Name = "txtNuevoCorr";
+            txtNuevoCorr.Size = new Size(338, 32);
+            txtNuevoCorr.TabIndex = 38;
             // 
             // label6
             // 
@@ -425,19 +425,19 @@
             label6.TabIndex = 37;
             label6.Text = "Email \r\n(opcional)";
             // 
-            // textBox3
+            // txtNuevoApellido
             // 
-            textBox3.Location = new Point(1548, 247);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(338, 32);
-            textBox3.TabIndex = 36;
+            txtNuevoApellido.Location = new Point(1548, 247);
+            txtNuevoApellido.Name = "txtNuevoApellido";
+            txtNuevoApellido.Size = new Size(338, 32);
+            txtNuevoApellido.TabIndex = 36;
             // 
-            // textBox4
+            // txtNuevoNom
             // 
-            textBox4.Location = new Point(1548, 153);
-            textBox4.Name = "textBox4";
-            textBox4.Size = new Size(338, 32);
-            textBox4.TabIndex = 35;
+            txtNuevoNom.Location = new Point(1548, 153);
+            txtNuevoNom.Name = "txtNuevoNom";
+            txtNuevoNom.Size = new Size(338, 32);
+            txtNuevoNom.TabIndex = 35;
             // 
             // label7
             // 
@@ -455,12 +455,12 @@
             label8.TabIndex = 33;
             label8.Text = "Nombre";
             // 
-            // textBox5
+            // txtNuevoUs
             // 
-            textBox5.Location = new Point(1548, 78);
-            textBox5.Name = "textBox5";
-            textBox5.Size = new Size(194, 32);
-            textBox5.TabIndex = 32;
+            txtNuevoUs.Location = new Point(1548, 78);
+            txtNuevoUs.Name = "txtNuevoUs";
+            txtNuevoUs.Size = new Size(194, 32);
+            txtNuevoUs.TabIndex = 32;
             // 
             // label9
             // 
@@ -479,6 +479,7 @@
             btnConfirmarCambios.TabIndex = 9;
             btnConfirmarCambios.Text = "Confirmar Cambios";
             btnConfirmarCambios.UseVisualStyleBackColor = true;
+            btnConfirmarCambios.Click += btnConfirmarCambios_Click;
             // 
             // dgvModificar
             // 
@@ -492,8 +493,9 @@
             dgvModificar.Name = "dgvModificar";
             dgvModificar.ReadOnly = true;
             dgvModificar.RowHeadersWidth = 51;
-            dgvModificar.Size = new Size(1291, 543);
+            dgvModificar.Size = new Size(1386, 543);
             dgvModificar.TabIndex = 8;
+            dgvModificar.CellClick += dgvModificar_CellClick;
             // 
             // label4
             // 
@@ -558,17 +560,17 @@
         private Label label4;
         private Button btnConfirmarCambios;
         private DataGridView dgvModificar;
-        private ComboBox comboBox1;
+        private ComboBox cboNuevoRol;
         private Label label10;
-        private TextBox textBox1;
+        private TextBox txtNuevoTel;
         private Label label5;
-        private TextBox textBox2;
+        private TextBox txtNuevoCorr;
         private Label label6;
-        private TextBox textBox3;
-        private TextBox textBox4;
+        private TextBox txtNuevoApellido;
+        private TextBox txtNuevoNom;
         private Label label7;
         private Label label8;
-        private TextBox textBox5;
+        private TextBox txtNuevoUs;
         private Label label9;
     }
 }

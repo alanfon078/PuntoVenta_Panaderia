@@ -560,6 +560,50 @@ namespace Panaderia.DAO
         }
 
 
-    }
+        public bool modificarUsuario(int UsuarioID, string usuario, string nombre, string apellidos, string rol, string telefono, string email)
+        {
+            bool exito = false;
+            MySqlTransaction transaccion = null;
+            try
+            {
+                AsegurarConexion();
+                transaccion = cn.BeginTransaction();
+                string queryUserAct = "SET @usuarioapp = @us;";
+                MySqlCommand cmdUserAct = new MySqlCommand(queryUserAct, cn, transaccion);
+                cmdUserAct.Parameters.AddWithValue("@us", UsuarioSesion.UsuarioActual);
+                cmdUserAct.ExecuteNonQuery();
 
+                string queryAct = "call spActualizarEmp(@uID, @usu, @nom, @ape, @roll, @tel, @emaill);";
+                MySqlCommand comando = new MySqlCommand(queryAct, cn, transaccion);
+                comando.Parameters.AddWithValue("@uID", UsuarioID);
+                comando.Parameters.AddWithValue("@usu", usuario);
+                comando.Parameters.AddWithValue("@nom", nombre);
+                comando.Parameters.AddWithValue("@ape", apellidos);
+                comando.Parameters.AddWithValue("@roll", rol);
+                comando.Parameters.AddWithValue("@tel", telefono);
+                comando.Parameters.AddWithValue("@emaill", email);
+                int filas = comando.ExecuteNonQuery();
+                if (filas > 0)
+                {
+                    exito = true;
+                    transaccion.Commit();
+                }
+                return exito;
+            }
+            catch (Exception ex)
+            {
+                if (transaccion != null)
+                {
+                    try
+                    {
+                        transaccion.Rollback();
+                    }
+                    catch { }
+                }
+                Console.WriteLine("Error al actualizar usuario: " + ex.Message);
+            }
+            return exito;
+        }
+
+    }
 }

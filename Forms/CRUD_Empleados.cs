@@ -12,6 +12,9 @@ namespace Panaderia
 {
     public partial class CRUD_Empleados : Form
     {
+        private int idEmpleadoAModificar = -1;
+        //private bool _modoEdicion = false;
+
         public CRUD_Empleados()
         {
             this.WindowState = FormWindowState.Maximized;
@@ -57,20 +60,17 @@ namespace Panaderia
                     break;
                 }
             }
-            // Validar si tiene numero
             if (!tieneNumero)
             {
                 MessageBox.Show("La contraseña debe incluir al menos un numero.",
                     "Error de contraseña", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            // Validar que las contraseñas coincidan
             if (txtContrasena.Text != txtConfirContrasenia.Text)
             {
                 MessageBox.Show("Las contraseñas no coinciden.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            // Datos para registrar usuario
             string usuario = txtUsuario.Text.Trim();
             string nombre = txtNombre.Text.Trim();
             string apellidos = txtApellidos.Text.Trim();
@@ -90,14 +90,12 @@ namespace Panaderia
             }
 
             DAOcls dao = new DAOcls();
-            // Validar si el usuario ya existe
             if (!dao.ValidarUsuarioDisponible(usuario))
             {
                 MessageBox.Show("Este usuario ya existe, introduzca otros datos",
                     "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            // Registrar usuario
             bool resultado = dao.RegistrarUsuario(usuario, nombre, apellidos, email, telefono, contrasena, fechaNac, rolEmpleado);
 
             if (resultado)
@@ -301,6 +299,51 @@ namespace Panaderia
             }
         }
 
-       
+        private void dgvModificar_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                DataGridViewRow fila = dgvModificar.Rows[e.RowIndex];
+
+                idEmpleadoAModificar = Convert.ToInt32(fila.Cells["UsuarioID"].Value);
+
+                txtNuevoUs.Text = fila.Cells["User"].Value.ToString();
+
+                txtNuevoNom.Text = fila.Cells["Nombre"].Value.ToString();
+
+                txtNuevoCorr.Text = fila.Cells["Correo"].Value.ToString();
+
+                txtNuevoTel.Text = fila.Cells["Telefono"].Value.ToString();
+
+                txtNuevoApellido.Text = fila.Cells["Apellidos"].Value.ToString();
+
+                cboNuevoRol.Text = fila.Cells["Rol"].Value.ToString();
+
+
+            }
+        }
+
+        private void btnConfirmarCambios_Click(object sender, EventArgs e)
+        {
+            bool exito = false;
+            DAOcls dao = new DAOcls();
+
+            exito = dao.modificarUsuario(idEmpleadoAModificar, 
+                txtNuevoUs.Text,
+                txtNuevoNom.Text,
+                txtNuevoApellido.Text,
+                cboNuevoRol.SelectedItem.ToString(),
+                txtNuevoTel.Text, txtNuevoCorr.Text);
+
+            if (exito)
+            {
+                cargarTodo();
+                MessageBox.Show("Usuario modificado con exito", "Administrador de Usuarios", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }else
+            {
+                MessageBox.Show("Ocurrio un error al modificar el usuario", "Administrador de Usuarios", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+        }
     }
 }
