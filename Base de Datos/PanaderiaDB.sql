@@ -221,17 +221,17 @@ create procedure spCrearEmp(in usu varchar(20), in nom varchar(50), in ape varch
 in pass varchar(255), in feNac date, in roll varchar(20))
 begin
     insert into Usuarios (user, nombre, apellidos, email, telefono, password, fechaNacimiento, rol)
-    values (usu, nom, ape, emaill, tel, sha2(pass, 256), feNac, roll);
+    values (usu, nom, ape, ifnull(emaill,'sin email'), tel, sha2(pass, 256), feNac, roll);
 end $$
 delimiter ;
 
 #---------------------------------------------------------------------
 
 delimiter $$
-create procedure spActualizarEmp(in uID int, in us varchar(20), in nom varchar(50), in ape varchar(50), in roll varchar(20))
+create procedure spActualizarEmp(in uID int, in us varchar(20), in nom varchar(50), in ape varchar(50), in roll varchar(20), in tel varchar(10), in mail varchar(100))
 begin
     update Usuarios 
-    set user = us, nombre = nom, apellidos = ape, rol = roll
+    set user = us, nombre = nom, apellidos = ape, rol = roll, telefono = tel, email=ifnull(mail, 'sin email')
     where userID = uID;
 end $$
 delimiter ;
@@ -252,7 +252,8 @@ create trigger trUsuariosInsert after insert on usuarios
 for each row
 begin
     insert into auditoriausuarios (fecha, hora, tipocambio, valornuevo, usuario)
-    values (curdate(), curtime(), 'insert', concat('id:', new.userid, ', user:', new.user, ', nombre:', new.nombre, ', rol:', new.rol), ifnull(@usuarioapp, current_user()));
+    values (curdate(), curtime(), 'insert', concat('id:', new.userid, ', user:', new.user, ', nombre:', new.nombre, ', telefono:', new.telefono, ', rol:', new.rol),
+    ifnull(@usuarioapp, current_user()));
 end$$
 delimiter ;
 
@@ -264,8 +265,8 @@ for each row
 begin
     insert into auditoriausuarios (fecha, hora, tipocambio, valoranterior, valornuevo, usuario)
     values (curdate(), curtime(), 'update',
-    concat('id:', old.userid, ', user:', old.user, ', nombre:', old.nombre, ', rol:', old.rol),
-    concat('id:', new.userid, ', user:', new.user, ', nombre:', new.nombre, ', rol:', new.rol),
+    concat('id:', old.userid, ', user:', old.user, ', nombre:', old.nombre, ', email:', old.email, ', telefono:', old.telefono, ', rol:', old.rol),
+    concat('id:', new.userid, ', user:', new.user, ', nombre:', new.nombre, ', email:', new.email, ', telefono:', new.telefono, ', rol:', new.rol),
     ifnull(@usuarioapp, current_user()));
 end$$
 delimiter ;
@@ -278,7 +279,7 @@ for each row
 begin
     insert into auditoriausuarios (fecha, hora, tipocambio, valoranterior, usuario)
     values (curdate(), curtime(), 'delete', 
-    concat('id:', old.userid, ', user:', old.user, ', nombre:', old.nombre, ', rol:', old.rol),
+    concat('id:', old.userid, ', user:', old.user, ', nombre:', old.nombre, ', telefono:', old.telefono, ', rol:', old.rol),
     ifnull(@usuarioapp, current_user()));
 end$$
 delimiter ;
