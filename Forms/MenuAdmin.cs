@@ -24,8 +24,8 @@ namespace Panaderia.Forms
 
         private void btnRegistrarUsuarios_Click(object sender, EventArgs e)
         {
-            RegistroUsuarios r = new RegistroUsuarios();
-            r.Show();
+            CRUD_Empleados c = new CRUD_Empleados();
+            c.Show();
         }
 
         private void btnRegistrarProductos_Click(object sender, EventArgs e)

@@ -41,7 +41,7 @@
             btnRegistrarUsuarios.Name = "btnRegistrarUsuarios";
             btnRegistrarUsuarios.Size = new Size(232, 85);
             btnRegistrarUsuarios.TabIndex = 2;
-            btnRegistrarUsuarios.Text = "Registrar Usuarios";
+            btnRegistrarUsuarios.Text = "Administrar Usuarios";
             btnRegistrarUsuarios.UseVisualStyleBackColor = true;
             btnRegistrarUsuarios.Click += btnRegistrarUsuarios_Click;
             btnRegistrarUsuarios.KeyDown += btnRegistrarUsuarios_KeyDown;

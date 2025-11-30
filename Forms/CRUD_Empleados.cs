@@ -7,11 +7,11 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
-namespace Panaderia.Forms
+namespace Panaderia
 {
-    public partial class RegistroUsuarios : Form
+    public partial class CRUD_Empleados : Form
     {
-        public RegistroUsuarios()
+        public CRUD_Empleados()
         {
             InitializeComponent();
             cmbRol.SelectedIndex = 1;
@@ -103,6 +103,7 @@ namespace Panaderia.Forms
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
         private void LimpiarFormulario()
         {
             txtUsuario.Clear();
@@ -185,6 +186,20 @@ namespace Panaderia.Forms
             {
                 btnAgregar.PerformClick();
                 e.SuppressKeyPress = true;
+            }
+        }
+
+        private void chBoxShowPass_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chBoxShowPass.Checked)
+            {
+                txtContrasena.UseSystemPasswordChar = false;
+                txtConfirContrasenia.UseSystemPasswordChar = false;
+            }
+            else
+            {
+                txtContrasena.UseSystemPasswordChar = true;
+                txtConfirContrasenia.UseSystemPasswordChar = true;
             }
         }
     }
