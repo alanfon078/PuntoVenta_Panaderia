@@ -10,21 +10,37 @@ namespace Panaderia
 {
     public partial class frmProductos : Form
     {
+        //Variables para la seccion de eliminar productos
         private List<PictureBox> listaPictureZones;
         private List<Label> listaLabels;
         private List<clsProducto> inventario;
         private List<clsProducto> listaEliminar;
         private int indiceInicio = 0;
+
+        //Variables para la seccion de agregar productos
         private string filePath = string.Empty;
+
+        //Variables para la seccion de modificar productos
+        private List<PictureBox> listaPictureZonesModificar;
+        private List<Label> listaLabelsModificar;
+        private int indiceInicioModificar = 0;
+        private clsProducto productoSeleccionadoModificar;
 
         public frmProductos()
         {
             this.WindowState = FormWindowState.Maximized;
             listaEliminar = new List<clsProducto>();
             InitializeComponent();
+            cargarTodo();
+        }
+
+        private void cargarTodo()
+        {
             CargarListasDeControles();
             CargarDatosDeBaseDatos();
             RenderizarProductos();
+            CargarListasDeControlesModificar();
+            RenderizarProductosModificar();
             ConfigurarTabla();
         }
 
@@ -196,10 +212,9 @@ namespace Panaderia
 
                     listaEliminar.Clear();
                     RefrescarGridUI();
-
-                    CargarDatosDeBaseDatos();
                     indiceInicio = 0;
-                    RenderizarProductos();
+                    cargarTodo();
+
                 }
                 else
                 {
@@ -243,6 +258,7 @@ namespace Panaderia
             if (dao.RegistrarProducto(txtNombre.Text, Double.Parse(txtPrecio.Text), int.Parse(nudStock.Value.ToString()), imagenBlob))
             {
                 MessageBox.Show("Producto registrado correctamente.");
+                cargarTodo();
             }
 
         }
@@ -268,7 +284,7 @@ namespace Panaderia
 
         private bool verificarDatos()
         {
-            if (string.IsNullOrEmpty(txtPrecio.Text) || string.IsNullOrEmpty(txtNombre.Text) || picBoxvp.Image == null)
+            if (string.IsNullOrEmpty(txtPrecioNuevo.Text) || string.IsNullOrEmpty(txtNombreNuevo.Text))
             {
                 return false;
             }
@@ -313,6 +329,214 @@ namespace Panaderia
                 e.Handled = true;
                 e.SuppressKeyPress = true;
                 btnAgregarProducto.PerformClick();
+                this.SelectNextControl((Control)sender, true, true, true, true);
+            }
+        }
+
+        private void CargarListasDeControlesModificar()
+        {
+            listaPictureZonesModificar = new List<PictureBox>
+    {
+        pictureBox24, pictureBox23, pictureBox22, pictureBox21,
+        pictureBox20, pictureBox19, pictureBox18, pictureBox17,
+        pictureBox16, pictureBox15, pictureBox14, pictureBox13
+    };
+
+            listaLabelsModificar = new List<Label>
+    {
+        label29, label28, label27, label26,
+        label25, label24, label23, label22,
+        label21, label16, label15, label14
+    };
+
+            foreach (var pb in listaPictureZonesModificar)
+            {
+                pb.SizeMode = PictureBoxSizeMode.Zoom;
+                pb.BackColor = Color.WhiteSmoke;
+                pb.Cursor = Cursors.Hand;
+                pb.Click += ProductoModificar_Click;
+            }
+
+            btnDerecha.Click += new EventHandler(btnDerecha_Click);
+            btnIzquierda.Click += new EventHandler(btnIzquierda_Click);
+        }
+
+        private void ProductoModificar_Click(object sender, EventArgs e)
+        {
+            PictureBox pb = sender as PictureBox;
+
+            if (pb != null && pb.Tag != null)
+            {
+                productoSeleccionadoModificar = (clsProducto)pb.Tag;
+
+                txtNombreNuevo.Text = productoSeleccionadoModificar.Nombre;
+                txtPrecioNuevo.Text = productoSeleccionadoModificar.Precio.ToString();
+                nudStockNuevo.Value = productoSeleccionadoModificar.Stock;
+
+                picboxViejaImg.Image = productoSeleccionadoModificar.Imagen;
+                picboxViejaImg.SizeMode = PictureBoxSizeMode.Zoom;
+                picboxNuevaImg.Image = productoSeleccionadoModificar.Imagen;
+                picboxNuevaImg.SizeMode = PictureBoxSizeMode.Zoom;
+
+                lblNombreAntiguo.Text = productoSeleccionadoModificar.Nombre;
+                lblPrecioAntiguo.Text = "Precio: $" + productoSeleccionadoModificar.Precio.ToString();
+                lblStockAntiguo.Text = "Stock: " + productoSeleccionadoModificar.Stock.ToString();
+            }
+        }
+
+        private void RenderizarProductosModificar()
+        {
+            if (listaPictureZonesModificar == null || inventario == null) return;
+
+            int totalEspacios = listaPictureZonesModificar.Count;
+
+            for (int i = 0; i < totalEspacios; i++)
+            {
+                int indiceProducto = indiceInicioModificar + i;
+
+                if (indiceProducto < inventario.Count && indiceProducto >= 0)
+                {
+                    clsProducto p = inventario[indiceProducto];
+
+                    listaPictureZonesModificar[i].Image = p.Imagen;
+                    listaLabelsModificar[i].Text = $"{p.Nombre}\n(ID: {p.ProductoID})";
+                    listaLabelsModificar[i].Visible = true;
+                    listaPictureZonesModificar[i].Visible = true;
+
+                    listaPictureZonesModificar[i].Tag = p;
+                }
+                else
+                {
+                    listaPictureZonesModificar[i].Image = null;
+                    listaLabelsModificar[i].Text = "";
+                    listaPictureZonesModificar[i].Tag = null;
+                }
+            }
+        }
+
+        private void btnIzquierda_Click(object sender, EventArgs e)
+        {
+            if (indiceInicioModificar > 0)
+            {
+                indiceInicioModificar--;
+                RenderizarProductosModificar();
+            }
+            else
+            {
+                MessageBox.Show("Estás al inicio del catálogo.");
+            }
+        }
+
+        private void btnDerecha_Click(object sender, EventArgs e)
+        {
+            if (listaPictureZonesModificar != null && inventario != null)
+            {
+                if (indiceInicioModificar + listaPictureZonesModificar.Count < inventario.Count + 1)
+                {
+                    indiceInicioModificar++;
+                    RenderizarProductosModificar();
+                }
+                else
+                {
+                    MessageBox.Show("No hay más productos para mostrar.");
+                }
+            }
+        }
+
+        private void btnConfCambio_Click(object sender, EventArgs e)
+        {
+            DAOcls dao = new DAOcls();
+            byte[] imagenBlob = null;
+            if (productoSeleccionadoModificar == null)
+            {
+                MessageBox.Show("Por favor, seleccione un producto para modificar.");
+                return;
+            }
+
+            if (!verificarDatos())
+            {
+                MessageBox.Show("Por favor, complete todos los campos antes de modificar el producto", "Administrador de productos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            else
+            {
+                imagenBlob = new Imagen_A_Bloop().ConvertirImagenABlob2(picboxNuevaImg.Image);
+
+                if (dao.ModificarProducto(productoSeleccionadoModificar.ProductoID, txtNombreNuevo.Text, Double.Parse(txtPrecioNuevo.Text), int.Parse(nudStockNuevo.Value.ToString()), imagenBlob))
+                {
+                    cargarTodo();
+                    MessageBox.Show("Producto modificado correctamente.");
+                }
+            }
+        }
+
+        private void btnNuevaImagen_Click(object sender, EventArgs e)
+        {
+            ofdArchivo.Title = "Seleccione un archivo";
+            ofdArchivo.Filter = "Imagenes (.jpg; .jpeg; .png;)|*.jpg;*.jpeg;*.png;";
+            if (ofdArchivo.ShowDialog() == DialogResult.OK)
+            {
+                Imagen_A_Bloop imgablop = new Imagen_A_Bloop();
+                filePath = ofdArchivo.FileName;
+                picboxNuevaImg.Image = Image.FromFile(filePath);
+                picboxNuevaImg.SizeMode = PictureBoxSizeMode.StretchImage;
+
+            }
+        }
+
+        private void txtNombreNuevo_TextChanged(object sender, EventArgs e)
+        {
+            lblNombreNuevo.Text = txtNombreNuevo.Text;
+        }
+
+        private void txtNombreNuevo_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                txtPrecioNuevo.Focus();
+                e.SuppressKeyPress = true;
+                e.Handled = true;
+            }
+        }
+
+        private void txtPrecioNuevo_TextChanged(object sender, EventArgs e)
+        {
+            lblPrecioNuevo.Text = "Precio: $" + txtPrecioNuevo.Text;
+        }
+
+        private void txtPrecioNuevo_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                nudStockNuevo.Focus();
+                e.SuppressKeyPress = true;
+                e.Handled = true;
+            }
+        }
+
+        private void nudStockNuevo_ValueChanged(object sender, EventArgs e)
+        {
+            lblStockNuevo.Text = "Stock: " + nudStockNuevo.Value.ToString();
+        }
+
+        private void nudStockNuevo_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnNuevaImagen.Focus();
+                e.SuppressKeyPress = true;
+                e.Handled = true;
+            }
+        }
+
+        private void btnNuevaImagen_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnNuevaImagen.PerformClick();
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+                this.SelectNextControl((Control)sender, true, true, true, true);
             }
         }
     }

@@ -504,6 +504,61 @@ namespace Panaderia.DAO
             return tablaReporte;
         }
 
+        /// <summary>
+        /// Modifica un producto existente usando el SP spActProducto
+        /// </summary>
+        /// <param name="id">ID del producto a modificar</param>
+        /// <param name="nombre">Nuevo nombre</param>
+        /// <param name="precio">Nuevo precio</param>
+        /// <param name="stock">Nuevo stock</param>
+        /// <param name="imagen">Imagen en bytes (nueva o existente)</param>
+        /// <returns>True si la modificación fue exitosa.</returns>
+        public bool ModificarProducto(int id, string nombre, double precio, int stock, byte[] imagen)
+        {
+            bool exito = false;
+            MySqlTransaction transaction = null;
+
+            try
+            {
+                AsegurarConexion();
+                transaction = cn.BeginTransaction();
+
+                string queryUserAct = "SET @usuarioapp = @us;";
+                MySqlCommand cmdUserAct = new MySqlCommand(queryUserAct, cn, transaction);
+                cmdUserAct.Parameters.AddWithValue("@us", UsuarioSesion.UsuarioActual);
+                cmdUserAct.ExecuteNonQuery();
+
+                string query = "call spActProducto(@id, @nom, @prec, @stk, @img);";
+                MySqlCommand comando = new MySqlCommand(query, cn);
+                comando.Transaction = transaction;
+
+                comando.Parameters.AddWithValue("@id", id);
+                comando.Parameters.AddWithValue("@nom", nombre);
+                comando.Parameters.AddWithValue("@prec", precio);
+                comando.Parameters.AddWithValue("@stk", stock);
+                comando.Parameters.AddWithValue("@img", imagen);
+
+                int filas = comando.ExecuteNonQuery();
+
+                transaction.Commit();
+                exito = true;
+            }
+            catch (Exception ex)
+            {
+                if (transaction != null)
+                {
+                    try
+                    {
+                        transaction.Rollback();
+                    }
+                    catch { }
+                }
+                Console.WriteLine("Error al modificar producto: " + ex.Message);
+            }
+
+            return exito;
+        }
+
 
     }
 

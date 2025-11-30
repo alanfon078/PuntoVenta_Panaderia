@@ -74,19 +74,11 @@
             lblNombre = new Label();
             txtNombre = new TextBox();
             tbModificar = new TabPage();
-            nudStockNuevo = new NumericUpDown();
-            btnConfCambio = new Button();
-            lblStockAntiguo = new Label();
-            lblPrecioAntiguo = new Label();
-            lblNombreAntiguo = new Label();
+            lblStockNuevo = new Label();
+            lblPrecioNuevo = new Label();
+            lblNombreNuevo = new Label();
             picboxNuevaImg = new PictureBox();
-            label17 = new Label();
-            btnNuevaImagen = new Button();
-            label18 = new Label();
-            txtPrecioNuevo = new TextBox();
-            label19 = new Label();
-            txtNombreNuevo = new TextBox();
-            ofdArchivo = new OpenFileDialog();
+            label33 = new Label();
             btnDerecha = new Button();
             btnIzquierda = new Button();
             label14 = new Label();
@@ -113,6 +105,19 @@
             pictureBox22 = new PictureBox();
             pictureBox23 = new PictureBox();
             pictureBox24 = new PictureBox();
+            nudStockNuevo = new NumericUpDown();
+            btnConfCambio = new Button();
+            lblStockAntiguo = new Label();
+            lblPrecioAntiguo = new Label();
+            lblNombreAntiguo = new Label();
+            picboxViejaImg = new PictureBox();
+            label17 = new Label();
+            btnNuevaImagen = new Button();
+            label18 = new Label();
+            txtPrecioNuevo = new TextBox();
+            label19 = new Label();
+            txtNombreNuevo = new TextBox();
+            ofdArchivo = new OpenFileDialog();
             lblPrecio = new Label();
             label20 = new Label();
             tbCtrlProductos.SuspendLayout();
@@ -134,7 +139,6 @@
             ((System.ComponentModel.ISupportInitialize)nudStock).BeginInit();
             ((System.ComponentModel.ISupportInitialize)picBoxvp).BeginInit();
             tbModificar.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)nudStockNuevo).BeginInit();
             ((System.ComponentModel.ISupportInitialize)picboxNuevaImg).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox13).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox14).BeginInit();
@@ -148,6 +152,8 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox22).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox23).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox24).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)nudStockNuevo).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)picboxViejaImg).BeginInit();
             SuspendLayout();
             // 
             // lblPrecio
@@ -159,6 +165,16 @@
             lblPrecio.Size = new Size(61, 24);
             lblPrecio.TabIndex = 8;
             lblPrecio.Text = "Precio";
+            // 
+            // label20
+            // 
+            label20.AutoSize = true;
+            label20.Font = new Font("Calibri", 12F);
+            label20.Location = new Point(1068, 115);
+            label20.Name = "label20";
+            label20.Size = new Size(61, 24);
+            label20.TabIndex = 34;
+            label20.Text = "Precio";
             // 
             // tbCtrlProductos
             // 
@@ -621,6 +637,11 @@
             // 
             // tbModificar
             // 
+            tbModificar.Controls.Add(lblStockNuevo);
+            tbModificar.Controls.Add(lblPrecioNuevo);
+            tbModificar.Controls.Add(lblNombreNuevo);
+            tbModificar.Controls.Add(picboxNuevaImg);
+            tbModificar.Controls.Add(label33);
             tbModificar.Controls.Add(btnDerecha);
             tbModificar.Controls.Add(btnIzquierda);
             tbModificar.Controls.Add(label14);
@@ -653,7 +674,7 @@
             tbModificar.Controls.Add(lblStockAntiguo);
             tbModificar.Controls.Add(lblPrecioAntiguo);
             tbModificar.Controls.Add(lblNombreAntiguo);
-            tbModificar.Controls.Add(picboxNuevaImg);
+            tbModificar.Controls.Add(picboxViejaImg);
             tbModificar.Controls.Add(label17);
             tbModificar.Controls.Add(btnNuevaImagen);
             tbModificar.Controls.Add(label18);
@@ -667,125 +688,53 @@
             tbModificar.Text = "Modificar";
             tbModificar.UseVisualStyleBackColor = true;
             // 
-            // nudStockNuevo
+            // lblStockNuevo
             // 
-            nudStockNuevo.Location = new Point(1177, 308);
-            nudStockNuevo.Name = "nudStockNuevo";
-            nudStockNuevo.Size = new Size(265, 27);
-            nudStockNuevo.TabIndex = 33;
-            nudStockNuevo.Value = new decimal(new int[] { 1, 0, 0, 0 });
+            lblStockNuevo.AutoSize = true;
+            lblStockNuevo.Font = new Font("Calibri", 12F);
+            lblStockNuevo.Location = new Point(1487, 713);
+            lblStockNuevo.Name = "lblStockNuevo";
+            lblStockNuevo.Size = new Size(74, 24);
+            lblStockNuevo.TabIndex = 88;
+            lblStockNuevo.Text = "Stock: 1";
             // 
-            // btnConfCambio
+            // lblPrecioNuevo
             // 
-            btnConfCambio.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnConfCambio.Location = new Point(1373, 517);
-            btnConfCambio.Name = "btnConfCambio";
-            btnConfCambio.Size = new Size(191, 50);
-            btnConfCambio.TabIndex = 32;
-            btnConfCambio.Text = "Confirmar Cambio";
-            btnConfCambio.UseVisualStyleBackColor = true;
+            lblPrecioNuevo.AutoSize = true;
+            lblPrecioNuevo.Font = new Font("Calibri", 12F);
+            lblPrecioNuevo.Location = new Point(1487, 673);
+            lblPrecioNuevo.Name = "lblPrecioNuevo";
+            lblPrecioNuevo.Size = new Size(81, 24);
+            lblPrecioNuevo.TabIndex = 87;
+            lblPrecioNuevo.Text = "Precio: $";
             // 
-            // lblStockAntiguo
+            // lblNombreNuevo
             // 
-            lblStockAntiguo.AutoSize = true;
-            lblStockAntiguo.Font = new Font("Calibri", 12F);
-            lblStockAntiguo.Location = new Point(1481, 357);
-            lblStockAntiguo.Name = "lblStockAntiguo";
-            lblStockAntiguo.Size = new Size(74, 24);
-            lblStockAntiguo.TabIndex = 31;
-            lblStockAntiguo.Text = "Stock: 1";
-            // 
-            // lblPrecioAntiguo
-            // 
-            lblPrecioAntiguo.AutoSize = true;
-            lblPrecioAntiguo.Font = new Font("Calibri", 12F);
-            lblPrecioAntiguo.Location = new Point(1481, 317);
-            lblPrecioAntiguo.Name = "lblPrecioAntiguo";
-            lblPrecioAntiguo.Size = new Size(81, 24);
-            lblPrecioAntiguo.TabIndex = 30;
-            lblPrecioAntiguo.Text = "Precio: $";
-            // 
-            // lblNombreAntiguo
-            // 
-            lblNombreAntiguo.AutoSize = true;
-            lblNombreAntiguo.Font = new Font("Calibri", 12F);
-            lblNombreAntiguo.Location = new Point(1481, 279);
-            lblNombreAntiguo.Name = "lblNombreAntiguo";
-            lblNombreAntiguo.Size = new Size(83, 24);
-            lblNombreAntiguo.TabIndex = 29;
-            lblNombreAntiguo.Text = "Nombre ";
+            lblNombreNuevo.AutoSize = true;
+            lblNombreNuevo.Font = new Font("Calibri", 12F);
+            lblNombreNuevo.Location = new Point(1487, 635);
+            lblNombreNuevo.Name = "lblNombreNuevo";
+            lblNombreNuevo.Size = new Size(83, 24);
+            lblNombreNuevo.TabIndex = 86;
+            lblNombreNuevo.Text = "Nombre ";
             // 
             // picboxNuevaImg
             // 
-            picboxNuevaImg.Location = new Point(1481, 66);
+            picboxNuevaImg.Location = new Point(1487, 422);
             picboxNuevaImg.Name = "picboxNuevaImg";
             picboxNuevaImg.Size = new Size(238, 210);
-            picboxNuevaImg.TabIndex = 28;
+            picboxNuevaImg.TabIndex = 85;
             picboxNuevaImg.TabStop = false;
             // 
-            // label17
+            // label33
             // 
-            label17.AutoSize = true;
-            label17.Font = new Font("Calibri", 12F);
-            label17.Location = new Point(1481, 28);
-            label17.Name = "label17";
-            label17.Size = new Size(107, 24);
-            label17.TabIndex = 27;
-            label17.Text = "Vista Previa";
-            // 
-            // btnNuevaImagen
-            // 
-            btnNuevaImagen.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnNuevaImagen.Location = new Point(1179, 395);
-            btnNuevaImagen.Name = "btnNuevaImagen";
-            btnNuevaImagen.Size = new Size(263, 50);
-            btnNuevaImagen.TabIndex = 26;
-            btnNuevaImagen.Text = "Seleccionar imagen";
-            btnNuevaImagen.UseVisualStyleBackColor = true;
-            // 
-            // label18
-            // 
-            label18.AutoSize = true;
-            label18.Font = new Font("Calibri", 12F);
-            label18.Location = new Point(1179, 281);
-            label18.Name = "label18";
-            label18.Size = new Size(148, 24);
-            label18.TabIndex = 25;
-            label18.Text = "Stock Disponible";
-            // 
-            // txtPrecioNuevo
-            // 
-            txtPrecioNuevo.Location = new Point(1179, 185);
-            txtPrecioNuevo.Name = "txtPrecioNuevo";
-            txtPrecioNuevo.Size = new Size(263, 27);
-            txtPrecioNuevo.TabIndex = 24;
-            // 
-            // label19
-            // 
-            label19.AutoSize = true;
-            label19.Font = new Font("Calibri", 12F);
-            label19.Location = new Point(1179, 43);
-            label19.Name = "label19";
-            label19.Size = new Size(191, 24);
-            label19.TabIndex = 23;
-            label19.Text = "Nombre del producto";
-            // 
-            // txtNombreNuevo
-            // 
-            txtNombreNuevo.Location = new Point(1179, 66);
-            txtNombreNuevo.Name = "txtNombreNuevo";
-            txtNombreNuevo.Size = new Size(263, 27);
-            txtNombreNuevo.TabIndex = 22;
-            // 
-            // label20
-            // 
-            label20.AutoSize = true;
-            label20.Font = new Font("Calibri", 12F);
-            label20.Location = new Point(1179, 158);
-            label20.Name = "label20";
-            label20.Size = new Size(61, 24);
-            label20.TabIndex = 34;
-            label20.Text = "Precio";
+            label33.AutoSize = true;
+            label33.Font = new Font("Calibri", 12F);
+            label33.Location = new Point(1487, 384);
+            label33.Name = "label33";
+            label33.Size = new Size(138, 24);
+            label33.TabIndex = 84;
+            label33.Text = "Valores Nuevos";
             // 
             // btnDerecha
             // 
@@ -1023,6 +972,125 @@
             pictureBox24.TabIndex = 58;
             pictureBox24.TabStop = false;
             // 
+            // nudStockNuevo
+            // 
+            nudStockNuevo.Location = new Point(1066, 265);
+            nudStockNuevo.Name = "nudStockNuevo";
+            nudStockNuevo.Size = new Size(265, 27);
+            nudStockNuevo.TabIndex = 33;
+            nudStockNuevo.Value = new decimal(new int[] { 1, 0, 0, 0 });
+            nudStockNuevo.ValueChanged += nudStockNuevo_ValueChanged;
+            nudStockNuevo.KeyDown += nudStockNuevo_KeyDown;
+            // 
+            // btnConfCambio
+            // 
+            btnConfCambio.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnConfCambio.Location = new Point(1066, 622);
+            btnConfCambio.Name = "btnConfCambio";
+            btnConfCambio.Size = new Size(191, 50);
+            btnConfCambio.TabIndex = 32;
+            btnConfCambio.Text = "Confirmar Cambio";
+            btnConfCambio.UseVisualStyleBackColor = true;
+            btnConfCambio.Click += btnConfCambio_Click;
+            // 
+            // lblStockAntiguo
+            // 
+            lblStockAntiguo.AutoSize = true;
+            lblStockAntiguo.Font = new Font("Calibri", 12F);
+            lblStockAntiguo.Location = new Point(1487, 338);
+            lblStockAntiguo.Name = "lblStockAntiguo";
+            lblStockAntiguo.Size = new Size(74, 24);
+            lblStockAntiguo.TabIndex = 31;
+            lblStockAntiguo.Text = "Stock: 1";
+            // 
+            // lblPrecioAntiguo
+            // 
+            lblPrecioAntiguo.AutoSize = true;
+            lblPrecioAntiguo.Font = new Font("Calibri", 12F);
+            lblPrecioAntiguo.Location = new Point(1487, 298);
+            lblPrecioAntiguo.Name = "lblPrecioAntiguo";
+            lblPrecioAntiguo.Size = new Size(81, 24);
+            lblPrecioAntiguo.TabIndex = 30;
+            lblPrecioAntiguo.Text = "Precio: $";
+            // 
+            // lblNombreAntiguo
+            // 
+            lblNombreAntiguo.AutoSize = true;
+            lblNombreAntiguo.Font = new Font("Calibri", 12F);
+            lblNombreAntiguo.Location = new Point(1487, 260);
+            lblNombreAntiguo.Name = "lblNombreAntiguo";
+            lblNombreAntiguo.Size = new Size(83, 24);
+            lblNombreAntiguo.TabIndex = 29;
+            lblNombreAntiguo.Text = "Nombre ";
+            // 
+            // picboxViejaImg
+            // 
+            picboxViejaImg.Location = new Point(1487, 47);
+            picboxViejaImg.Name = "picboxViejaImg";
+            picboxViejaImg.Size = new Size(238, 210);
+            picboxViejaImg.TabIndex = 28;
+            picboxViejaImg.TabStop = false;
+            // 
+            // label17
+            // 
+            label17.AutoSize = true;
+            label17.Font = new Font("Calibri", 12F);
+            label17.Location = new Point(1487, 9);
+            label17.Name = "label17";
+            label17.Size = new Size(162, 24);
+            label17.TabIndex = 27;
+            label17.Text = "Valores anteriores";
+            // 
+            // btnNuevaImagen
+            // 
+            btnNuevaImagen.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnNuevaImagen.Location = new Point(1068, 352);
+            btnNuevaImagen.Name = "btnNuevaImagen";
+            btnNuevaImagen.Size = new Size(263, 50);
+            btnNuevaImagen.TabIndex = 26;
+            btnNuevaImagen.Text = "Seleccionar imagen";
+            btnNuevaImagen.UseVisualStyleBackColor = true;
+            btnNuevaImagen.Click += btnNuevaImagen_Click;
+            btnNuevaImagen.KeyDown += btnNuevaImagen_KeyDown;
+            // 
+            // label18
+            // 
+            label18.AutoSize = true;
+            label18.Font = new Font("Calibri", 12F);
+            label18.Location = new Point(1068, 238);
+            label18.Name = "label18";
+            label18.Size = new Size(148, 24);
+            label18.TabIndex = 25;
+            label18.Text = "Stock Disponible";
+            // 
+            // txtPrecioNuevo
+            // 
+            txtPrecioNuevo.Location = new Point(1068, 142);
+            txtPrecioNuevo.Name = "txtPrecioNuevo";
+            txtPrecioNuevo.Size = new Size(263, 27);
+            txtPrecioNuevo.TabIndex = 24;
+            txtPrecioNuevo.TextChanged += txtPrecioNuevo_TextChanged;
+            txtPrecioNuevo.KeyDown += txtPrecioNuevo_KeyDown;
+            // 
+            // label19
+            // 
+            label19.AutoSize = true;
+            label19.Font = new Font("Calibri", 12F);
+            label19.Location = new Point(1068, 0);
+            label19.Name = "label19";
+            label19.Size = new Size(191, 24);
+            label19.TabIndex = 23;
+            label19.Text = "Nombre del producto";
+            // 
+            // txtNombreNuevo
+            // 
+            txtNombreNuevo.Location = new Point(1068, 23);
+            txtNombreNuevo.Name = "txtNombreNuevo";
+            txtNombreNuevo.Size = new Size(263, 27);
+            txtNombreNuevo.TabIndex = 22;
+            txtNombreNuevo.TextChanged += txtNombreNuevo_TextChanged;
+            txtNombreNuevo.KeyDown += txtNombreNuevo_KeyDown;
+            // 
             // frmProductos
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -1053,7 +1121,6 @@
             ((System.ComponentModel.ISupportInitialize)picBoxvp).EndInit();
             tbModificar.ResumeLayout(false);
             tbModificar.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)nudStockNuevo).EndInit();
             ((System.ComponentModel.ISupportInitialize)picboxNuevaImg).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox13).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox14).EndInit();
@@ -1067,6 +1134,8 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox22).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox23).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox24).EndInit();
+            ((System.ComponentModel.ISupportInitialize)nudStockNuevo).EndInit();
+            ((System.ComponentModel.ISupportInitialize)picboxViejaImg).EndInit();
             ResumeLayout(false);
         }
 
@@ -1124,7 +1193,7 @@
         private Label lblStockAntiguo;
         private Label lblPrecioAntiguo;
         private Label lblNombreAntiguo;
-        private PictureBox picboxNuevaImg;
+        private PictureBox picboxViejaImg;
         private Label label17;
         private Button btnNuevaImagen;
         private Label label18;
@@ -1157,5 +1226,10 @@
         private PictureBox pictureBox22;
         private PictureBox pictureBox23;
         private PictureBox pictureBox24;
+        private Label lblStockNuevo;
+        private Label lblPrecioNuevo;
+        private Label lblNombreNuevo;
+        private PictureBox picboxNuevaImg;
+        private Label label33;
     }
 }

@@ -14,18 +14,21 @@ namespace Panaderia.Clases
             {
                 byte[] imageBytes = File.ReadAllBytes(rutaImagen);
                 return imageBytes;
+        }
+
+        public byte[] ConvertirImagenABlob2(Image img)
+            {
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    img.Save(ms, img.RawFormat);
+                    return ms.ToArray();
             }
+        }
 
         public MemoryStream ConvertirBlobAImagen(byte[] blobImagen)
             {
                 MemoryStream memoryStream = new MemoryStream(blobImagen);
                 return memoryStream;
-        }
-
-        public string BytesAStringHex(byte[] blobImagen)
-        {
-            string hexString = Convert.ToHexString(blobImagen);
-            return hexString;
         }
 
     }
