@@ -5,7 +5,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using OxyPlot;
 using OxyPlot.Axes;
-using OxyPlot.Series; // Aquí vive BarSeries y BarItem
+using OxyPlot.Series;
 using OxyPlot.WindowsForms;
 
 namespace Panaderia.Forms
@@ -16,7 +16,6 @@ namespace Panaderia.Forms
 
         public GraficaForm()
         {
-
             this.Text = "Visualización de Ventas";
             this.Size = new Size(900, 600);
 
@@ -30,7 +29,7 @@ namespace Panaderia.Forms
             this.Controls.Add(plotView);
         }
 
-        public void CargarDatos(DataTable datos)
+        public void CargarDatos(DataTable datos, bool esCantidad = false)
         {
             try
             {
@@ -40,14 +39,19 @@ namespace Panaderia.Forms
                     return;
                 }
 
-                var model = new PlotModel { Title = "Ventas por Producto" };
+                string columnaDatos = esCantidad ? "Cantidad" : "Monto";
+                string tituloGrafica = esCantidad ? "Unidades Vendidas por Producto" : "Ventas Totales por Producto";
+                string tituloEjeX = esCantidad ? "Cantidad (Unidades)" : "Monto ($)";
+                string colorBarra = esCantidad ? "#2ca02c" : "#1f77b4";
+
+                var model = new PlotModel { Title = tituloGrafica };
 
                 string keyEjeCategorias = "CatAxis";
                 string keyEjeValores = "ValAxis";
 
                 var ejeCategorias = new CategoryAxis
                 {
-                    Position = AxisPosition.Left, 
+                    Position = AxisPosition.Left,
                     Key = keyEjeCategorias,
                     Title = "Productos",
                     IsZoomEnabled = false,
@@ -58,7 +62,7 @@ namespace Panaderia.Forms
                 {
                     Position = AxisPosition.Bottom,
                     Key = keyEjeValores,
-                    Title = "Monto ($)",
+                    Title = tituloEjeX,
                     Minimum = 0
                 };
 
@@ -67,11 +71,10 @@ namespace Panaderia.Forms
 
                 var serieBarras = new BarSeries
                 {
-                    Title = "Ventas",
-                    FillColor = OxyColor.Parse("#1f77b4"),
+                    Title = esCantidad ? "Unidades" : "Dinero",
+                    FillColor = OxyColor.Parse(colorBarra),
                     StrokeColor = OxyColors.Black,
                     StrokeThickness = 1,
-
                     YAxisKey = keyEjeCategorias,
                     XAxisKey = keyEjeValores
                 };
@@ -79,15 +82,14 @@ namespace Panaderia.Forms
                 foreach (DataRow row in datos.Rows)
                 {
                     string producto = row["Producto"].ToString();
-                    double monto = 0;
+                    double valor = 0;
 
-                    if (row["Monto"] != DBNull.Value)
+                    if (row[columnaDatos] != DBNull.Value)
                     {
-                        double.TryParse(row["Monto"].ToString(), out monto);
+                        double.TryParse(row[columnaDatos].ToString(), out valor);
                     }
 
-                    serieBarras.Items.Add(new BarItem { Value = monto });
-
+                    serieBarras.Items.Add(new BarItem { Value = valor });
                     ejeCategorias.Labels.Add(producto);
                 }
 

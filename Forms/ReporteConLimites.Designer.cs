@@ -35,7 +35,7 @@
             label2 = new Label();
             label3 = new Label();
             dgvVentas = new DataGridView();
-            btnGenerarGrafica = new Button();
+            btnGenerarGraficaMonto = new Button();
             clbProductos = new CheckedListBox();
             label4 = new Label();
             btnFiltrar = new Button();
@@ -104,15 +104,15 @@
             dgvVentas.Size = new Size(993, 557);
             dgvVentas.TabIndex = 12;
             // 
-            // btnGenerarGrafica
+            // btnGenerarGraficaMonto
             // 
-            btnGenerarGrafica.Location = new Point(20, 777);
-            btnGenerarGrafica.Name = "btnGenerarGrafica";
-            btnGenerarGrafica.Size = new Size(330, 56);
-            btnGenerarGrafica.TabIndex = 13;
-            btnGenerarGrafica.Text = "Reporte por monto";
-            btnGenerarGrafica.UseVisualStyleBackColor = true;
-            btnGenerarGrafica.Click += btnGenerarGrafica_Click;
+            btnGenerarGraficaMonto.Location = new Point(20, 777);
+            btnGenerarGraficaMonto.Name = "btnGenerarGraficaMonto";
+            btnGenerarGraficaMonto.Size = new Size(330, 56);
+            btnGenerarGraficaMonto.TabIndex = 13;
+            btnGenerarGraficaMonto.Text = "Reporte por monto";
+            btnGenerarGraficaMonto.UseVisualStyleBackColor = true;
+            btnGenerarGraficaMonto.Click += btnGenerarGraficaMonto_Click;
             // 
             // clbProductos
             // 
@@ -173,7 +173,7 @@
             Controls.Add(btnFiltrar);
             Controls.Add(label4);
             Controls.Add(clbProductos);
-            Controls.Add(btnGenerarGrafica);
+            Controls.Add(btnGenerarGraficaMonto);
             Controls.Add(dgvVentas);
             Controls.Add(label3);
             Controls.Add(label2);
@@ -196,7 +196,7 @@
         private Label label2;
         private Label label3;
         private DataGridView dgvVentas;
-        private Button btnGenerarGrafica;
+        private Button btnGenerarGraficaMonto;
         private CheckedListBox clbProductos;
         private Label label4;
         private Button btnFiltrar;

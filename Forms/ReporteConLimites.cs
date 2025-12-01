@@ -21,14 +21,14 @@ namespace Panaderia.Forms
             dtpFechaFin.Value = DateTime.Now;
 
             CargarFiltroProductos();
-            GenerarReporte(false); 
+            GenerarReporte(false);
         }
 
         private void CargarFiltroProductos()
         {
             try
             {
-                cargandoFiltros = true; 
+                cargandoFiltros = true;
 
                 List<clsProducto> productos = dao.ObtenerProductos();
                 clbProductos.DataSource = null;
@@ -37,7 +37,7 @@ namespace Panaderia.Forms
                 clbProductos.ValueMember = "ProductoID";
                 clbProductos.CheckOnClick = true;
 
-                cargandoFiltros = false; 
+                cargandoFiltros = false;
             }
             catch (Exception ex)
             {
@@ -84,11 +84,6 @@ namespace Panaderia.Forms
             {
                 MessageBox.Show("Error generando reporte: " + ex.Message);
             }
-        }
-
-        private void btnGenerarGrafica_Click(object sender, EventArgs e)
-        {
-            GenerarReporte(true);
         }
 
         private void dtpFechaInicio_ValueChanged(object sender, EventArgs e)
@@ -144,9 +139,24 @@ namespace Panaderia.Forms
             }
         }
 
+        private void btnGenerarGraficaMonto_Click(object sender, EventArgs e)
+        {
+            DAOcls dao = new DAOcls();
+            DataTable dt = dao.ObtenerReporteVentas(dtpFechaInicio.Value, dtpFechaFin.Value);
+
+            GraficaForm frm = new GraficaForm();
+            frm.Show();
+            frm.CargarDatos(dt, false);
+        }
+
         private void btnGenerarGraficaCantidad_Click(object sender, EventArgs e)
         {
+            DAOcls dao = new DAOcls();
+            DataTable dt = dao.ObtenerReporteVentas(dtpFechaInicio.Value, dtpFechaFin.Value);
 
+            GraficaForm frm = new GraficaForm();
+            frm.Show();
+            frm.CargarDatos(dt, true);
         }
     }
 }
