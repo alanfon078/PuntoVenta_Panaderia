@@ -35,11 +35,16 @@
             btnEliminarUsuarios = new Button();
             label1 = new Label();
             btnSalir = new Button();
+            pictureBox1 = new PictureBox();
+            pictureBox2 = new PictureBox();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             SuspendLayout();
             // 
             // btnRegistrarUsuarios
             // 
-            btnRegistrarUsuarios.Location = new Point(67, 139);
+            btnRegistrarUsuarios.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnRegistrarUsuarios.Location = new Point(132, 143);
             btnRegistrarUsuarios.Name = "btnRegistrarUsuarios";
             btnRegistrarUsuarios.Size = new Size(232, 85);
             btnRegistrarUsuarios.TabIndex = 2;
@@ -51,7 +56,8 @@
             // 
             // btnAdministrarProductos
             // 
-            btnAdministrarProductos.Location = new Point(437, 139);
+            btnAdministrarProductos.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnAdministrarProductos.Location = new Point(502, 143);
             btnAdministrarProductos.Name = "btnAdministrarProductos";
             btnAdministrarProductos.Size = new Size(232, 85);
             btnAdministrarProductos.TabIndex = 3;
@@ -63,7 +69,8 @@
             // 
             // btnRegistrarVenta
             // 
-            btnRegistrarVenta.Location = new Point(437, 271);
+            btnRegistrarVenta.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnRegistrarVenta.Location = new Point(502, 275);
             btnRegistrarVenta.Name = "btnRegistrarVenta";
             btnRegistrarVenta.Size = new Size(232, 85);
             btnRegistrarVenta.TabIndex = 4;
@@ -75,7 +82,8 @@
             // 
             // btnEliminarUsuarios
             // 
-            btnEliminarUsuarios.Location = new Point(67, 271);
+            btnEliminarUsuarios.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnEliminarUsuarios.Location = new Point(132, 275);
             btnEliminarUsuarios.Name = "btnEliminarUsuarios";
             btnEliminarUsuarios.Size = new Size(232, 85);
             btnEliminarUsuarios.TabIndex = 5;
@@ -88,8 +96,10 @@
             // label1
             // 
             label1.AutoSize = true;
+            label1.BackColor = Color.Transparent;
             label1.Font = new Font("Arial Rounded MT Bold", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label1.Location = new Point(197, 51);
+            label1.Image = Properties.Resources.beige;
+            label1.Location = new Point(245, 48);
             label1.Name = "label1";
             label1.Size = new Size(357, 34);
             label1.TabIndex = 6;
@@ -109,6 +119,27 @@
             btnSalir.UseVisualStyleBackColor = false;
             btnSalir.Click += btnSalir_Click;
             // 
+            // pictureBox1
+            // 
+            pictureBox1.BackgroundImage = Properties.Resources.beige;
+            pictureBox1.Image = Properties.Resources.beige;
+            pictureBox1.Location = new Point(-9, -22);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(894, 231);
+            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox1.TabIndex = 14;
+            pictureBox1.TabStop = false;
+            // 
+            // pictureBox2
+            // 
+            pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
+            pictureBox2.Location = new Point(1, 194);
+            pictureBox2.Name = "pictureBox2";
+            pictureBox2.Size = new Size(898, 322);
+            pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox2.TabIndex = 15;
+            pictureBox2.TabStop = false;
+            // 
             // MenuAdmin
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -120,9 +151,13 @@
             Controls.Add(btnRegistrarVenta);
             Controls.Add(btnAdministrarProductos);
             Controls.Add(btnRegistrarUsuarios);
+            Controls.Add(pictureBox1);
+            Controls.Add(pictureBox2);
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "MenuAdmin";
             Text = "MenuAdmin";
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -134,5 +169,7 @@
         private Button btnEliminarUsuarios;
         private Label label1;
         private Button btnSalir;
+        private PictureBox pictureBox1;
+        private PictureBox pictureBox2;
     }
 }

@@ -63,6 +63,16 @@ namespace Panaderia.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap beige {
+            get {
+                object obj = ResourceManager.GetObject("beige", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap cafe {
             get {
                 object obj = ResourceManager.GetObject("cafe", resourceCulture);

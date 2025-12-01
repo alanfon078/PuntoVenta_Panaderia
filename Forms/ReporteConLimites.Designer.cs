@@ -38,7 +38,6 @@
             btnGenerarGraficaMonto = new Button();
             clbProductos = new CheckedListBox();
             label4 = new Label();
-            btnFiltrar = new Button();
             btnEliminarFiltros = new Button();
             btnGenerarGraficaCantidad = new Button();
             btnSalir = new Button();
@@ -134,19 +133,9 @@
             label4.TabIndex = 15;
             label4.Text = "Filtrar por Productos";
             // 
-            // btnFiltrar
-            // 
-            btnFiltrar.Location = new Point(1593, 648);
-            btnFiltrar.Name = "btnFiltrar";
-            btnFiltrar.Size = new Size(114, 56);
-            btnFiltrar.TabIndex = 16;
-            btnFiltrar.Text = "Filtrar";
-            btnFiltrar.UseVisualStyleBackColor = true;
-            btnFiltrar.Click += btnFiltrar_Click;
-            // 
             // btnEliminarFiltros
             // 
-            btnEliminarFiltros.Location = new Point(1454, 648);
+            btnEliminarFiltros.Location = new Point(1530, 648);
             btnEliminarFiltros.Name = "btnEliminarFiltros";
             btnEliminarFiltros.Size = new Size(118, 56);
             btnEliminarFiltros.TabIndex = 17;
@@ -186,7 +175,6 @@
             Controls.Add(btnSalir);
             Controls.Add(btnGenerarGraficaCantidad);
             Controls.Add(btnEliminarFiltros);
-            Controls.Add(btnFiltrar);
             Controls.Add(label4);
             Controls.Add(clbProductos);
             Controls.Add(btnGenerarGraficaMonto);
@@ -215,7 +203,6 @@
         private Button btnGenerarGraficaMonto;
         private CheckedListBox clbProductos;
         private Label label4;
-        private Button btnFiltrar;
         private Button btnEliminarFiltros;
         private Button btnGenerarGraficaCantidad;
         private Button btnSalir;

@@ -96,11 +96,6 @@ namespace Panaderia.Forms
             GenerarReporte(false);
         }
 
-        private void btnFiltrar_Click(object sender, EventArgs e)
-        {
-            GenerarReporte(false);
-        }
-
         private void clbProductos_ItemCheck(object sender, ItemCheckEventArgs e)
         {
             if (cargandoFiltros) return;
@@ -141,22 +136,22 @@ namespace Panaderia.Forms
 
         private void btnGenerarGraficaMonto_Click(object sender, EventArgs e)
         {
-            DAOcls dao = new DAOcls();
-            DataTable dt = dao.ObtenerReporteVentas(dtpFechaInicio.Value, dtpFechaFin.Value);
-
-            GraficaForm frm = new GraficaForm();
-            frm.Show();
-            frm.CargarDatos(dt, false);
+            if (dgvVentas.DataSource is DataTable dt)
+            {
+                GraficaForm frm = new GraficaForm();
+                frm.Show();
+                frm.CargarDatos(dt, false);
+            }
         }
 
         private void btnGenerarGraficaCantidad_Click(object sender, EventArgs e)
         {
-            DAOcls dao = new DAOcls();
-            DataTable dt = dao.ObtenerReporteVentas(dtpFechaInicio.Value, dtpFechaFin.Value);
-
-            GraficaForm frm = new GraficaForm();
-            frm.Show();
-            frm.CargarDatos(dt, true);
+            if (dgvVentas.DataSource is DataTable dt)
+            {
+                GraficaForm frm = new GraficaForm();
+                frm.Show();
+                frm.CargarDatos(dt, true);
+            }
         }
 
         private void btnSalir_Click(object sender, EventArgs e)
