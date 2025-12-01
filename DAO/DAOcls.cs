@@ -10,7 +10,7 @@ using System.Drawing;
 using System.Text;
 using System.Transactions;
 using System.Linq;
-
+// Funcionalidad completa
 namespace Panaderia.DAO
 {
     public static class UsuarioSesion

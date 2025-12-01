@@ -6,7 +6,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-
+// Funcionalidad completa
 namespace Panaderia.Forms
 {
     public partial class MenuAdmin : Form

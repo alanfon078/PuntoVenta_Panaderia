@@ -4,7 +4,7 @@ using System.Data;
 using System.Windows.Forms;
 using Panaderia.DAO;
 using Panaderia.Clases;
-
+// Funcionalidad completa
 namespace Panaderia.Forms
 {
     public partial class ReporteConLimites : Form

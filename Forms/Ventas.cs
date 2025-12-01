@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq; // Necesario para buscar en la lista
+using System.Linq; 
 using System.Windows.Forms;
 using Panaderia.Clases;
 using Panaderia.DAO;
-
+// Funcionalidad completa
 namespace Panaderia
 {
     public partial class Ventas : Form

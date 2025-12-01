@@ -4,7 +4,7 @@ using System.Text;
 using System;
 using System.IO;
 using Org.BouncyCastle.Utilities;
-
+// Funcionalidad completa
 namespace Panaderia.Clases
 {
     internal class Imagen_A_Bloop

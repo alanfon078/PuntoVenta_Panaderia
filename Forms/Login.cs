@@ -1,6 +1,6 @@
 using Panaderia.DAO;
 using Panaderia.Forms;
-
+// Funcionalidad completa
 namespace Panaderia
 {
     public partial class Login : Form
