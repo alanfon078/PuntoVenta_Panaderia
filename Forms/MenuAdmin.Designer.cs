@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MenuAdmin));
             btnRegistrarUsuarios = new Button();
             btnAdministrarProductos = new Button();
             btnRegistrarVenta = new Button();
@@ -103,6 +104,7 @@
             Controls.Add(btnRegistrarVenta);
             Controls.Add(btnAdministrarProductos);
             Controls.Add(btnRegistrarUsuarios);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "MenuAdmin";
             Text = "MenuAdmin";
             ResumeLayout(false);

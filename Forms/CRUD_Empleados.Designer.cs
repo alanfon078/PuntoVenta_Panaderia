@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CRUD_Empleados));
             tabControl1 = new TabControl();
             tbCrearUsuario = new TabPage();
             chBoxShowPass = new CheckBox();
@@ -513,6 +514,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1924, 944);
             Controls.Add(tabControl1);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "CRUD_Empleados";
             Text = "CRUD_Empleados";
             tabControl1.ResumeLayout(false);

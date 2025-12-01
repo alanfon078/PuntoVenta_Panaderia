@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Login));
             label2 = new Label();
             label1 = new Label();
             btnLogin = new Button();
@@ -107,8 +108,9 @@
             Controls.Add(btnLogin);
             Controls.Add(txtPassword);
             Controls.Add(txtUser);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "Login";
-            Text = "Form1";
+            Text = "Iniciar Sesion";
             ResumeLayout(false);
             PerformLayout();
         }

@@ -30,6 +30,7 @@
         {
             Label lblPrecio;
             Label label20;
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmProductos));
             tbCtrlProductos = new TabControl();
             tbEliminar = new TabPage();
             btnEliminar = new Button();
@@ -510,7 +511,7 @@
             tbAgregar.Location = new Point(4, 29);
             tbAgregar.Name = "tbAgregar";
             tbAgregar.Padding = new Padding(3);
-            tbAgregar.Size = new Size(1753, 804);
+            tbAgregar.Size = new Size(1892, 917);
             tbAgregar.TabIndex = 2;
             tbAgregar.Text = "Agregar";
             tbAgregar.UseVisualStyleBackColor = true;
@@ -683,7 +684,7 @@
             tbModificar.Controls.Add(txtNombreNuevo);
             tbModificar.Location = new Point(4, 29);
             tbModificar.Name = "tbModificar";
-            tbModificar.Size = new Size(1753, 804);
+            tbModificar.Size = new Size(1892, 917);
             tbModificar.TabIndex = 3;
             tbModificar.Text = "Modificar";
             tbModificar.UseVisualStyleBackColor = true;
@@ -1097,6 +1098,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1882, 903);
             Controls.Add(tbCtrlProductos);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "frmProductos";
             Text = "Administrar Productos";
             WindowState = FormWindowState.Maximized;

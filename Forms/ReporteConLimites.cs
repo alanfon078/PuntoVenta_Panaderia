@@ -10,6 +10,7 @@ namespace Panaderia.Forms
     public partial class ReporteConLimites : Form
     {
         DAOcls dao = new DAOcls();
+        private GraficaForm _ventanaGrafica = null;
 
         public ReporteConLimites()
         {
@@ -65,24 +66,24 @@ namespace Panaderia.Forms
 
         private void btnGenerarGrafica_Click(object sender, EventArgs e)
         {
-            CargarReporte();
+            GenerarReporte(true);
         }
 
         private void dtpFechaInicio_ValueChanged(object sender, EventArgs e)
         {
-            CargarReporte();
+            GenerarReporte(false);
         }
 
         private void dtpFechaFin_ValueChanged(object sender, EventArgs e)
         {
-            CargarReporte();
+            GenerarReporte(false);
         }
 
         private void clbProductos_ItemCheck(object sender, ItemCheckEventArgs e)
         {
             this.BeginInvoke(new Action(() =>
             {
-                btnGenerarGrafica.PerformClick();
+                GenerarReporte(false);
             }));
         }
 
@@ -115,6 +116,43 @@ namespace Panaderia.Forms
             dtpFechaInicio.Value = DateTime.Now;
             dtpFechaFin.Value = DateTime.Now;
             CargarReporte();
+        }
+
+        private void GenerarReporte(bool abrirGraficaSiCerrada)
+        {
+            try
+            {
+                List<int> idsSeleccionados = new List<int>();
+                foreach (var item in clbProductos.CheckedItems)
+                {
+                    clsProducto prod = (clsProducto)item;
+                    idsSeleccionados.Add(prod.ProductoID);
+                }
+
+                DataTable datos = dao.ObtenerReporteVentas(
+                    dtpFechaInicio.Value,
+                    dtpFechaFin.Value,
+                    idsSeleccionados
+                );
+
+                dgvVentas.DataSource = datos;
+
+                if (_ventanaGrafica == null || _ventanaGrafica.IsDisposed)
+                {
+                    if (abrirGraficaSiCerrada)
+                    {
+                        _ventanaGrafica = new GraficaForm();
+                        _ventanaGrafica.Show();
+                        _ventanaGrafica.CargarDatos(datos);
+                    }
+                }
+                else
+                {
+                    _ventanaGrafica.CargarDatos(datos);
+                    if (abrirGraficaSiCerrada) _ventanaGrafica.BringToFront();
+                }
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
 
     }

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ReporteConLimites));
             label1 = new Label();
             dtpFechaInicio = new DateTimePicker();
             dtpFechaFin = new DateTimePicker();
@@ -110,6 +111,7 @@
             btnGenerarGrafica.TabIndex = 13;
             btnGenerarGrafica.Text = "Generar Grafica";
             btnGenerarGrafica.UseVisualStyleBackColor = true;
+            btnGenerarGrafica.Click += btnGenerarGrafica_Click;
             // 
             // clbProductos
             // 
@@ -166,6 +168,7 @@
             Controls.Add(dtpFechaFin);
             Controls.Add(dtpFechaInicio);
             Controls.Add(label1);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "ReporteConLimites";
             Text = "ReporteConLimites";
             ((System.ComponentModel.ISupportInitialize)dgvVentas).EndInit();
