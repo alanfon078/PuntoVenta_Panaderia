@@ -1,7 +1,6 @@
--- Funcionalidad completa
 create database if not exists panaderia;
 #drop database panaderia;
-use panaderia;
+use panaderia; select * from auditoriaproductos;
 #Tablas
 create table Usuarios (
     userID int primary key auto_increment,
@@ -238,7 +237,7 @@ create procedure spCrearEmp(in usu varchar(20), in nom varchar(50), in ape varch
 in pass varchar(255), in feNac date, in roll varchar(20), in sta boolean)
 begin
     insert into Usuarios (user, nombre, apellidos, email, telefono, password, fechaNacimiento, rol, status)
-    values (usu, nom, ape, ifnull(emaill,'sin email'), tel, sha2(pass, 256), feNac, roll, sta);
+    values (usu, nom, ape, emaill, tel, sha2(pass, 256), feNac, roll, sta);
 end $$
 delimiter ;
 

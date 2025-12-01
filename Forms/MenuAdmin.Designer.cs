@@ -155,6 +155,7 @@
             Controls.Add(pictureBox2);
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "MenuAdmin";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "MenuAdmin";
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();

@@ -166,6 +166,8 @@ namespace Panaderia.DAO
             bool exito = false;
             try
             {
+                bool emailNull = false;
+                if (string.IsNullOrEmpty(email)) { emailNull = true; }
                 AsegurarConexion();
                 transaccion = cn.BeginTransaction();
                 string queryUserAct = "SET @usuarioapp = @us;";
@@ -178,8 +180,15 @@ namespace Panaderia.DAO
                 comando.Parameters.AddWithValue("@usu", usuario);
                 comando.Parameters.AddWithValue("@nom", nombre);
                 comando.Parameters.AddWithValue("@ape", apellidos);
-                comando.Parameters.AddWithValue("@emaill", email);
-                comando.Parameters.AddWithValue("@tel", telefono);
+                if (emailNull)
+                {
+                    comando.Parameters.AddWithValue("@emaill", DBNull.Value);
+                }
+                else
+                {
+                    comando.Parameters.AddWithValue("@emaill", email);
+                }
+                    comando.Parameters.AddWithValue("@tel", telefono);
                 comando.Parameters.AddWithValue("@pass", password);
                 comando.Parameters.AddWithValue("@feNac", fechaNacimiento);
                 comando.Parameters.AddWithValue("@roll", rol);
@@ -200,7 +209,7 @@ namespace Panaderia.DAO
                     catch { }
                 }
 
-                Console.WriteLine("Error al realizar la transaccion: " + ex.Message);
+                MessageBox.Show("Error al realizar la transaccion: " + ex.Message);
             }
             return exito;
         }

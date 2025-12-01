@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 // Funcionalidad completa
 namespace Panaderia
@@ -32,6 +33,9 @@ namespace Panaderia
 
         private void btnAgregar_Click(object sender, EventArgs e)
         {
+            string regexCorreo = @"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$";
+            string regexTel = @"^\d{10}$";
+
             if (string.IsNullOrWhiteSpace(txtUsuario.Text) ||
                 string.IsNullOrWhiteSpace(txtNombre.Text) ||
                 string.IsNullOrWhiteSpace(txtApellidos.Text) ||
@@ -74,8 +78,15 @@ namespace Panaderia
             string usuario = txtUsuario.Text.Trim();
             string nombre = txtNombre.Text.Trim();
             string apellidos = txtApellidos.Text.Trim();
-            string email = txtEmail.Text.Trim();
-            string telefono = txtTelefono.Text.Trim();
+            string email="";
+            string telefono;
+            if (!(string.IsNullOrEmpty(txtEmail.Text)))
+            {
+                if (Regex.IsMatch(txtEmail.Text, regexCorreo)) { email = txtEmail.Text.Trim(); }
+                else { MessageBox.Show("El correo no tiene un formato valido", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            }
+            if (Regex.IsMatch(txtTelefono.Text, regexTel)) { telefono = txtTelefono.Text.Trim(); }
+            else { MessageBox.Show("El telefono no tiene un formato valido de 10 digitos", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
             string contrasena = txtContrasena.Text.Trim();
             DateTime fechaNac = dtpFechaNacimiento.Value;
             string rolSeleccionado = cmbRol.SelectedItem.ToString();
