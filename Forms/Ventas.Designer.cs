@@ -61,6 +61,7 @@
             btnCobrar = new Button();
             btnEliminar = new Button();
             lblUser = new Label();
+            btnSalir = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
@@ -378,11 +379,26 @@
             lblUser.TabIndex = 37;
             lblUser.Text = "Usuario: ";
             // 
+            // btnSalir
+            // 
+            btnSalir.BackColor = Color.Transparent;
+            btnSalir.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnSalir.ForeColor = Color.White;
+            btnSalir.Image = Properties.Resources.rojo;
+            btnSalir.Location = new Point(12, 826);
+            btnSalir.Name = "btnSalir";
+            btnSalir.Size = new Size(94, 29);
+            btnSalir.TabIndex = 38;
+            btnSalir.Text = "SALIR";
+            btnSalir.UseVisualStyleBackColor = false;
+            btnSalir.Click += btnSalir_Click;
+            // 
             // Ventas
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1777, 857);
+            Controls.Add(btnSalir);
             Controls.Add(lblUser);
             Controls.Add(btnEliminar);
             Controls.Add(btnCobrar);
@@ -470,5 +486,6 @@
         private Button btnCobrar;
         private Button btnEliminar;
         private Label lblUser;
+        private Button btnSalir;
     }
 }

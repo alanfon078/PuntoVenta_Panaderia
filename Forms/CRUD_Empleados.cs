@@ -7,7 +7,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-
+// Funcionalidad completa
 namespace Panaderia
 {
     public partial class CRUD_Empleados : Form

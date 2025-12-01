@@ -1,6 +1,6 @@
 using Panaderia.DAO;
 using Panaderia.Forms;
-
+// Funcionalidad completa
 namespace Panaderia
 {
     public partial class Login : Form
@@ -62,6 +62,11 @@ namespace Panaderia
                 btnLogin.PerformClick();
                 e.SuppressKeyPress = true;
             }
+        }
+
+        private void btnSalir_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

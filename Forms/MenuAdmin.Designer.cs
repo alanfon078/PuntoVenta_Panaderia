@@ -34,6 +34,7 @@
             btnRegistrarVenta = new Button();
             btnEliminarUsuarios = new Button();
             label1 = new Label();
+            btnSalir = new Button();
             SuspendLayout();
             // 
             // btnRegistrarUsuarios
@@ -94,11 +95,26 @@
             label1.TabIndex = 6;
             label1.Text = "Menu de Administrador";
             // 
+            // btnSalir
+            // 
+            btnSalir.BackColor = Color.Transparent;
+            btnSalir.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnSalir.ForeColor = Color.White;
+            btnSalir.Image = Properties.Resources.rojo;
+            btnSalir.Location = new Point(760, 436);
+            btnSalir.Name = "btnSalir";
+            btnSalir.Size = new Size(94, 29);
+            btnSalir.TabIndex = 13;
+            btnSalir.Text = "SALIR";
+            btnSalir.UseVisualStyleBackColor = false;
+            btnSalir.Click += btnSalir_Click;
+            // 
             // MenuAdmin
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(770, 424);
+            ClientSize = new Size(866, 477);
+            Controls.Add(btnSalir);
             Controls.Add(label1);
             Controls.Add(btnEliminarUsuarios);
             Controls.Add(btnRegistrarVenta);
@@ -117,5 +133,6 @@
         private Button btnRegistrarVenta;
         private Button btnEliminarUsuarios;
         private Label label1;
+        private Button btnSalir;
     }
 }

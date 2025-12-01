@@ -3,7 +3,7 @@ using Panaderia.Clases;
 using System;
 using System.Collections.Generic;
 using System.Text;
-
+// Funcionalidad completa
 namespace Panaderia.Conexion
 {
     internal class Conection

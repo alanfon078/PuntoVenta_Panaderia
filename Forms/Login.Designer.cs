@@ -34,6 +34,10 @@
             btnLogin = new Button();
             txtPassword = new TextBox();
             txtUser = new TextBox();
+            pictureBox1 = new PictureBox();
+            label3 = new Label();
+            btnSalir = new Button();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // label2
@@ -98,19 +102,60 @@
             txtUser.TextAlign = HorizontalAlignment.Center;
             txtUser.KeyDown += txtUser_KeyDown;
             // 
+            // pictureBox1
+            // 
+            pictureBox1.Image = Properties.Resources.cafe;
+            pictureBox1.Location = new Point(-13, -22);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(934, 127);
+            pictureBox1.TabIndex = 10;
+            pictureBox1.TabStop = false;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.BackColor = Color.Transparent;
+            label3.Font = new Font("Calibri", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label3.ForeColor = Color.Transparent;
+            label3.Image = Properties.Resources.cafe1;
+            label3.Location = new Point(346, 37);
+            label3.Name = "label3";
+            label3.Size = new Size(203, 41);
+            label3.TabIndex = 11;
+            label3.Text = "Iniciar Sesion";
+            // 
+            // btnSalir
+            // 
+            btnSalir.BackColor = Color.Transparent;
+            btnSalir.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnSalir.ForeColor = Color.White;
+            btnSalir.Image = Properties.Resources.rojo;
+            btnSalir.Location = new Point(12, 434);
+            btnSalir.Name = "btnSalir";
+            btnSalir.Size = new Size(94, 29);
+            btnSalir.TabIndex = 12;
+            btnSalir.Text = "SALIR";
+            btnSalir.UseVisualStyleBackColor = false;
+            btnSalir.Click += btnSalir_Click;
+            // 
             // Login
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(882, 475);
+            Controls.Add(btnSalir);
+            Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(label1);
             Controls.Add(btnLogin);
             Controls.Add(txtPassword);
             Controls.Add(txtUser);
+            Controls.Add(pictureBox1);
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "Login";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Iniciar Sesion";
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -121,5 +166,8 @@
         private Button btnLogin;
         private TextBox txtPassword;
         private TextBox txtUser;
+        private PictureBox pictureBox1;
+        private Label label3;
+        private Button btnSalir;
     }
 }

@@ -7,7 +7,7 @@ using OxyPlot;
 using OxyPlot.Axes;
 using OxyPlot.Series;
 using OxyPlot.WindowsForms;
-
+// Funcionalidad completa
 namespace Panaderia.Forms
 {
     public partial class GraficaForm : Form
@@ -16,6 +16,7 @@ namespace Panaderia.Forms
 
         public GraficaForm()
         {
+
             this.Text = "Visualización de Ventas";
             this.Size = new Size(900, 600);
 
@@ -40,8 +41,8 @@ namespace Panaderia.Forms
                 }
 
                 string columnaDatos = esCantidad ? "Cantidad" : "Monto";
-                string tituloGrafica = esCantidad ? "Unidades Vendidas por Producto" : "Ventas Totales por Producto";
-                string tituloEjeX = esCantidad ? "Cantidad (Unidades)" : "Monto ($)";
+                string tituloGrafica = esCantidad ? "Unidades Vendidas" : "Ventas Totales por Producto";
+                string tituloEjeX = esCantidad ? "Cantidad" : "Monto ($)";
                 string colorBarra = esCantidad ? "#2ca02c" : "#1f77b4";
 
                 var model = new PlotModel { Title = tituloGrafica };
@@ -63,8 +64,15 @@ namespace Panaderia.Forms
                     Position = AxisPosition.Bottom,
                     Key = keyEjeValores,
                     Title = tituloEjeX,
-                    Minimum = 0
+                    Minimum = 0 
                 };
+
+                if (esCantidad)
+                {
+                    ejeValores.Maximum = 30;  
+                    ejeValores.MajorStep = 1; 
+
+                }
 
                 model.Axes.Add(ejeCategorias);
                 model.Axes.Add(ejeValores);
@@ -79,8 +87,10 @@ namespace Panaderia.Forms
                     XAxisKey = keyEjeValores
                 };
 
+
                 foreach (DataRow row in datos.Rows)
                 {
+
                     string producto = row["Producto"].ToString();
                     double valor = 0;
 
@@ -91,6 +101,7 @@ namespace Panaderia.Forms
 
                     serieBarras.Items.Add(new BarItem { Value = valor });
                     ejeCategorias.Labels.Add(producto);
+
                 }
 
                 model.Series.Add(serieBarras);

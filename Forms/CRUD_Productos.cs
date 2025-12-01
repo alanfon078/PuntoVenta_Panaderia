@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-
+// Funcionalidad completa
 namespace Panaderia
 {
     public partial class frmProductos : Form
@@ -259,7 +259,14 @@ namespace Panaderia
             {
                 MessageBox.Show("Producto registrado correctamente.");
                 cargarTodo();
+                txtNombre.Clear();
+                txtPrecio.Clear();
+                nudStock.Value = 1;
+                picBoxvp.Image = null;
+
             }
+
+            
 
         }
 
@@ -465,6 +472,11 @@ namespace Panaderia
                 if (dao.ModificarProducto(productoSeleccionadoModificar.ProductoID, txtNombreNuevo.Text, Double.Parse(txtPrecioNuevo.Text), int.Parse(nudStockNuevo.Value.ToString()), imagenBlob))
                 {
                     cargarTodo();
+                    txtNombreNuevo.Clear();
+                    txtPrecioNuevo.Clear();
+                    nudStockNuevo.Value = 1;
+                    picboxNuevaImg.Image = null;
+                    picboxViejaImg.Image = null;
                     MessageBox.Show("Producto modificado correctamente.");
                 }
             }

@@ -6,7 +6,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-
+// Funcionalidad completa
 namespace Panaderia.Forms
 {
     public partial class MenuAdmin : Form
@@ -174,6 +174,11 @@ namespace Panaderia.Forms
                     e.IsInputKey = true;
                     break;
             }
+        }
+
+        private void btnSalir_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq; // Necesario para buscar en la lista
+using System.Linq; 
 using System.Windows.Forms;
 using Panaderia.Clases;
 using Panaderia.DAO;
-
+using Panaderia.Forms;
+// Funcionalidad completa
 namespace Panaderia
 {
     public partial class Ventas : Form
@@ -23,7 +24,7 @@ namespace Panaderia
             this.WindowState = FormWindowState.Maximized;
             lblFecha.Text = "Fecha: " + DateTime.Now.ToLongDateString();
             usuarioActual = UsuarioSesion.UsuarioActual;
-            lblUser.Text +=usuarioActual;
+            lblUser.Text += usuarioActual;
 
             carrito = new List<clsDetalleVenta>();
 
@@ -75,7 +76,7 @@ namespace Panaderia
             {
                 pb.SizeMode = PictureBoxSizeMode.Zoom;
                 pb.BackColor = Color.WhiteSmoke;
-                pb.Cursor = Cursors.Hand; 
+                pb.Cursor = Cursors.Hand;
                 pb.Click += Producto_Click;
             }
         }
@@ -251,5 +252,16 @@ namespace Panaderia
             }
         }
 
+        private void btnSalir_Click(object sender, EventArgs e)
+        {
+            if ((MessageBox.Show("¿Estás seguro de que deseas salir?", "Confirmar Salida", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes) && usuarioActual != "Admin")
+            {
+                Application.Exit();
+            }
+            else if (usuarioActual == "Admin")
+            {
+                this.Hide();
+            }
+        }
     }
 }

@@ -1,3 +1,4 @@
+-- Funcionalidad completa
 create database if not exists panaderia;
 #drop database panaderia;
 use panaderia;
