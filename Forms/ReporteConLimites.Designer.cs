@@ -35,6 +35,9 @@
             label3 = new Label();
             dgvVentas = new DataGridView();
             btnGenerarGrafica = new Button();
+            clbProductos = new CheckedListBox();
+            label4 = new Label();
+            btnFiltrar = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvVentas).BeginInit();
             SuspendLayout();
             // 
@@ -93,23 +96,53 @@
             dgvVentas.Name = "dgvVentas";
             dgvVentas.ReadOnly = true;
             dgvVentas.RowHeadersWidth = 51;
-            dgvVentas.Size = new Size(1797, 557);
+            dgvVentas.Size = new Size(993, 557);
             dgvVentas.TabIndex = 12;
             // 
             // btnGenerarGrafica
             // 
-            btnGenerarGrafica.Location = new Point(20, 796);
+            btnGenerarGrafica.Location = new Point(20, 777);
             btnGenerarGrafica.Name = "btnGenerarGrafica";
             btnGenerarGrafica.Size = new Size(330, 56);
             btnGenerarGrafica.TabIndex = 13;
             btnGenerarGrafica.Text = "Generar Grafica";
             btnGenerarGrafica.UseVisualStyleBackColor = true;
             // 
+            // clbProductos
+            // 
+            clbProductos.FormattingEnabled = true;
+            clbProductos.Location = new Point(1454, 82);
+            clbProductos.Name = "clbProductos";
+            clbProductos.Size = new Size(253, 554);
+            clbProductos.TabIndex = 14;
+            // 
+            // label4
+            // 
+            label4.Font = new Font("Arial Rounded MT Bold", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label4.Location = new Point(1454, 46);
+            label4.Name = "label4";
+            label4.Size = new Size(253, 27);
+            label4.TabIndex = 15;
+            label4.Text = "Filtrar por Productos";
+            // 
+            // btnFiltrar
+            // 
+            btnFiltrar.Location = new Point(1454, 648);
+            btnFiltrar.Name = "btnFiltrar";
+            btnFiltrar.Size = new Size(253, 56);
+            btnFiltrar.TabIndex = 16;
+            btnFiltrar.Text = "Filtrar";
+            btnFiltrar.UseVisualStyleBackColor = true;
+            btnFiltrar.Click += btnFiltrar_Click;
+            // 
             // ReporteConLimites
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1837, 976);
+            Controls.Add(btnFiltrar);
+            Controls.Add(label4);
+            Controls.Add(clbProductos);
             Controls.Add(btnGenerarGrafica);
             Controls.Add(dgvVentas);
             Controls.Add(label3);
@@ -133,5 +166,8 @@
         private Label label3;
         private DataGridView dgvVentas;
         private Button btnGenerarGrafica;
+        private CheckedListBox clbProductos;
+        private Label label4;
+        private Button btnFiltrar;
     }
 }
