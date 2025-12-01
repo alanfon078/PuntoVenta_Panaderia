@@ -158,5 +158,10 @@ namespace Panaderia.Forms
             frm.Show();
             frm.CargarDatos(dt, true);
         }
+
+        private void btnSalir_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

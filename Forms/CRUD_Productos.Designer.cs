@@ -33,6 +33,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmProductos));
             tbCtrlProductos = new TabControl();
             tbEliminar = new TabPage();
+            btnSalir = new Button();
             btnEliminar = new Button();
             dgvLista = new DataGridView();
             btnRight = new Button();
@@ -62,6 +63,7 @@
             pictureBox2 = new PictureBox();
             pictureBox1 = new PictureBox();
             tbAgregar = new TabPage();
+            button1 = new Button();
             nudStock = new NumericUpDown();
             btnAgregarProducto = new Button();
             lblStockvp = new Label();
@@ -119,6 +121,7 @@
             label19 = new Label();
             txtNombreNuevo = new TextBox();
             ofdArchivo = new OpenFileDialog();
+            button2 = new Button();
             lblPrecio = new Label();
             label20 = new Label();
             tbCtrlProductos.SuspendLayout();
@@ -190,6 +193,7 @@
             // 
             // tbEliminar
             // 
+            tbEliminar.Controls.Add(btnSalir);
             tbEliminar.Controls.Add(btnEliminar);
             tbEliminar.Controls.Add(dgvLista);
             tbEliminar.Controls.Add(btnRight);
@@ -226,6 +230,20 @@
             tbEliminar.TabIndex = 1;
             tbEliminar.Text = "Eliminar";
             tbEliminar.UseVisualStyleBackColor = true;
+            // 
+            // btnSalir
+            // 
+            btnSalir.BackColor = Color.Transparent;
+            btnSalir.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnSalir.ForeColor = Color.White;
+            btnSalir.Image = Properties.Resources.rojo;
+            btnSalir.Location = new Point(7, 821);
+            btnSalir.Name = "btnSalir";
+            btnSalir.Size = new Size(94, 29);
+            btnSalir.TabIndex = 60;
+            btnSalir.Text = "SALIR";
+            btnSalir.UseVisualStyleBackColor = false;
+            btnSalir.Click += btnSalir_Click;
             // 
             // btnEliminar
             // 
@@ -495,6 +513,7 @@
             // 
             // tbAgregar
             // 
+            tbAgregar.Controls.Add(button1);
             tbAgregar.Controls.Add(nudStock);
             tbAgregar.Controls.Add(btnAgregarProducto);
             tbAgregar.Controls.Add(lblStockvp);
@@ -515,6 +534,20 @@
             tbAgregar.TabIndex = 2;
             tbAgregar.Text = "Agregar";
             tbAgregar.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            button1.BackColor = Color.Transparent;
+            button1.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            button1.ForeColor = Color.White;
+            button1.Image = Properties.Resources.rojo;
+            button1.Location = new Point(7, 821);
+            button1.Name = "button1";
+            button1.Size = new Size(94, 29);
+            button1.TabIndex = 39;
+            button1.Text = "SALIR";
+            button1.UseVisualStyleBackColor = false;
+            button1.Click += button1_Click;
             // 
             // nudStock
             // 
@@ -638,6 +671,7 @@
             // 
             // tbModificar
             // 
+            tbModificar.Controls.Add(button2);
             tbModificar.Controls.Add(lblStockNuevo);
             tbModificar.Controls.Add(lblPrecioNuevo);
             tbModificar.Controls.Add(lblNombreNuevo);
@@ -1092,6 +1126,20 @@
             txtNombreNuevo.TextChanged += txtNombreNuevo_TextChanged;
             txtNombreNuevo.KeyDown += txtNombreNuevo_KeyDown;
             // 
+            // button2
+            // 
+            button2.BackColor = Color.Transparent;
+            button2.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            button2.ForeColor = Color.White;
+            button2.Image = Properties.Resources.rojo;
+            button2.Location = new Point(7, 821);
+            button2.Name = "button2";
+            button2.Size = new Size(94, 29);
+            button2.TabIndex = 89;
+            button2.Text = "SALIR";
+            button2.UseVisualStyleBackColor = false;
+            button2.Click += button2_Click;
+            // 
             // frmProductos
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -1234,5 +1282,8 @@
         private Label lblNombreNuevo;
         private PictureBox picboxNuevaImg;
         private Label label33;
+        private Button btnSalir;
+        private Button button1;
+        private Button button2;
     }
 }

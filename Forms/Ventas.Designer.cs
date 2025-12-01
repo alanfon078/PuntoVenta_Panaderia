@@ -433,7 +433,7 @@
             Controls.Add(btnRight);
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "Ventas";
-            Text = "Form2";
+            Text = "Ventas";
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();

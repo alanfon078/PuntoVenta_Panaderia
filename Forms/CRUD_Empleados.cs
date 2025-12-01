@@ -328,7 +328,7 @@ namespace Panaderia
             bool exito = false;
             DAOcls dao = new DAOcls();
 
-            exito = dao.modificarUsuario(idEmpleadoAModificar, 
+            exito = dao.modificarUsuario(idEmpleadoAModificar,
                 txtNuevoUs.Text,
                 txtNuevoNom.Text,
                 txtNuevoApellido.Text,
@@ -339,11 +339,32 @@ namespace Panaderia
             {
                 cargarTodo();
                 MessageBox.Show("Usuario modificado con exito", "Administrador de Usuarios", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }else
+            }
+            else
             {
                 MessageBox.Show("Ocurrio un error al modificar el usuario", "Administrador de Usuarios", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
+        }
+
+        private void salir()
+        {
+            this.Close();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            salir();
+        }
+
+        private void btnSalir2_Click(object sender, EventArgs e)
+        {
+            salir();
+        }
+
+        private void btnSalir_Click(object sender, EventArgs e)
+        {
+            salir();
         }
     }
 }

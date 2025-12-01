@@ -72,6 +72,9 @@
             btnConfirmarCambios = new Button();
             dgvModificar = new DataGridView();
             label4 = new Label();
+            btnSalir = new Button();
+            btnSalir2 = new Button();
+            button1 = new Button();
             tabControl1.SuspendLayout();
             tbCrearUsuario.SuspendLayout();
             tbEliminar.SuspendLayout();
@@ -94,6 +97,7 @@
             // tbCrearUsuario
             // 
             tbCrearUsuario.BackColor = Color.Transparent;
+            tbCrearUsuario.Controls.Add(btnSalir);
             tbCrearUsuario.Controls.Add(chBoxShowPass);
             tbCrearUsuario.Controls.Add(label2);
             tbCrearUsuario.Controls.Add(btnAgregar);
@@ -305,6 +309,7 @@
             // 
             // tbEliminar
             // 
+            tbEliminar.Controls.Add(btnSalir2);
             tbEliminar.Controls.Add(label3);
             tbEliminar.Controls.Add(btnEliminar);
             tbEliminar.Controls.Add(dgvUsuarios);
@@ -356,6 +361,7 @@
             // 
             // tbModificar
             // 
+            tbModificar.Controls.Add(button1);
             tbModificar.Controls.Add(cboNuevoRol);
             tbModificar.Controls.Add(label10);
             tbModificar.Controls.Add(txtNuevoTel);
@@ -508,6 +514,48 @@
             label4.TabIndex = 7;
             label4.Text = "Modificar Usuarios";
             // 
+            // btnSalir
+            // 
+            btnSalir.BackColor = Color.Transparent;
+            btnSalir.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnSalir.ForeColor = Color.White;
+            btnSalir.Image = Properties.Resources.rojo;
+            btnSalir.Location = new Point(6, 862);
+            btnSalir.Name = "btnSalir";
+            btnSalir.Size = new Size(94, 29);
+            btnSalir.TabIndex = 42;
+            btnSalir.Text = "SALIR";
+            btnSalir.UseVisualStyleBackColor = false;
+            btnSalir.Click += btnSalir_Click;
+            // 
+            // btnSalir2
+            // 
+            btnSalir2.BackColor = Color.Transparent;
+            btnSalir2.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnSalir2.ForeColor = Color.White;
+            btnSalir2.Image = Properties.Resources.rojo;
+            btnSalir2.Location = new Point(6, 862);
+            btnSalir2.Name = "btnSalir2";
+            btnSalir2.Size = new Size(94, 29);
+            btnSalir2.TabIndex = 39;
+            btnSalir2.Text = "SALIR";
+            btnSalir2.UseVisualStyleBackColor = false;
+            btnSalir2.Click += btnSalir2_Click;
+            // 
+            // button1
+            // 
+            button1.BackColor = Color.Transparent;
+            button1.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            button1.ForeColor = Color.White;
+            button1.Image = Properties.Resources.rojo;
+            button1.Location = new Point(6, 862);
+            button1.Name = "button1";
+            button1.Size = new Size(94, 29);
+            button1.TabIndex = 41;
+            button1.Text = "SALIR";
+            button1.UseVisualStyleBackColor = false;
+            button1.Click += button1_Click;
+            // 
             // CRUD_Empleados
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -574,5 +622,8 @@
         private Label label8;
         private TextBox txtNuevoUs;
         private Label label9;
+        private Button btnSalir;
+        private Button btnSalir2;
+        private Button button1;
     }
 }

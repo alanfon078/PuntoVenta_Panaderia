@@ -41,6 +41,7 @@
             btnFiltrar = new Button();
             btnEliminarFiltros = new Button();
             btnGenerarGraficaCantidad = new Button();
+            btnSalir = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvVentas).BeginInit();
             SuspendLayout();
             // 
@@ -163,11 +164,26 @@
             btnGenerarGraficaCantidad.UseVisualStyleBackColor = true;
             btnGenerarGraficaCantidad.Click += btnGenerarGraficaCantidad_Click;
             // 
+            // btnSalir
+            // 
+            btnSalir.BackColor = Color.Transparent;
+            btnSalir.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnSalir.ForeColor = Color.White;
+            btnSalir.Image = Properties.Resources.rojo;
+            btnSalir.Location = new Point(12, 935);
+            btnSalir.Name = "btnSalir";
+            btnSalir.Size = new Size(94, 29);
+            btnSalir.TabIndex = 39;
+            btnSalir.Text = "SALIR";
+            btnSalir.UseVisualStyleBackColor = false;
+            btnSalir.Click += btnSalir_Click;
+            // 
             // ReporteConLimites
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1837, 976);
+            Controls.Add(btnSalir);
             Controls.Add(btnGenerarGraficaCantidad);
             Controls.Add(btnEliminarFiltros);
             Controls.Add(btnFiltrar);
@@ -202,5 +218,6 @@
         private Button btnFiltrar;
         private Button btnEliminarFiltros;
         private Button btnGenerarGraficaCantidad;
+        private Button btnSalir;
     }
 }

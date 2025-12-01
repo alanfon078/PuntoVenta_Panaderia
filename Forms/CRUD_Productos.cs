@@ -266,7 +266,7 @@ namespace Panaderia
 
             }
 
-            
+
 
         }
 
@@ -550,6 +550,26 @@ namespace Panaderia
                 e.SuppressKeyPress = true;
                 this.SelectNextControl((Control)sender, true, true, true, true);
             }
+        }
+
+        private void salir()
+        {
+            this.Close();
+        }
+
+        private void btnSalir_Click(object sender, EventArgs e)
+        {
+            salir();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            salir();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            salir();
         }
     }
 }
