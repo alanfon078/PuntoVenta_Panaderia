@@ -38,6 +38,7 @@
             clbProductos = new CheckedListBox();
             label4 = new Label();
             btnFiltrar = new Button();
+            btnEliminarFiltros = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvVentas).BeginInit();
             SuspendLayout();
             // 
@@ -91,6 +92,8 @@
             // 
             dgvVentas.AllowUserToAddRows = false;
             dgvVentas.AllowUserToDeleteRows = false;
+            dgvVentas.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvVentas.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllHeaders;
             dgvVentas.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvVentas.Location = new Point(12, 46);
             dgvVentas.Name = "dgvVentas";
@@ -115,6 +118,8 @@
             clbProductos.Name = "clbProductos";
             clbProductos.Size = new Size(253, 554);
             clbProductos.TabIndex = 14;
+            clbProductos.ItemCheck += clbProductos_ItemCheck;
+            clbProductos.KeyDown += clbProductos_KeyDown;
             // 
             // label4
             // 
@@ -127,19 +132,30 @@
             // 
             // btnFiltrar
             // 
-            btnFiltrar.Location = new Point(1454, 648);
+            btnFiltrar.Location = new Point(1593, 648);
             btnFiltrar.Name = "btnFiltrar";
-            btnFiltrar.Size = new Size(253, 56);
+            btnFiltrar.Size = new Size(114, 56);
             btnFiltrar.TabIndex = 16;
             btnFiltrar.Text = "Filtrar";
             btnFiltrar.UseVisualStyleBackColor = true;
             btnFiltrar.Click += btnFiltrar_Click;
+            // 
+            // btnEliminarFiltros
+            // 
+            btnEliminarFiltros.Location = new Point(1454, 648);
+            btnEliminarFiltros.Name = "btnEliminarFiltros";
+            btnEliminarFiltros.Size = new Size(118, 56);
+            btnEliminarFiltros.TabIndex = 17;
+            btnEliminarFiltros.Text = "Quitar Filtros";
+            btnEliminarFiltros.UseVisualStyleBackColor = true;
+            btnEliminarFiltros.Click += btnEliminarFiltros_Click;
             // 
             // ReporteConLimites
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1837, 976);
+            Controls.Add(btnEliminarFiltros);
             Controls.Add(btnFiltrar);
             Controls.Add(label4);
             Controls.Add(clbProductos);
@@ -169,5 +185,6 @@
         private CheckedListBox clbProductos;
         private Label label4;
         private Button btnFiltrar;
+        private Button btnEliminarFiltros;
     }
 }

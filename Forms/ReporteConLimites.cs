@@ -1,10 +1,12 @@
-﻿using Panaderia.DAO;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
+using System.Windows.Forms;
+using Panaderia.DAO;
 using Panaderia.Clases;
 
 namespace Panaderia.Forms
 {
-
     public partial class ReporteConLimites : Form
     {
         DAOcls dao = new DAOcls();
@@ -12,50 +14,58 @@ namespace Panaderia.Forms
         public ReporteConLimites()
         {
             InitializeComponent();
-            cargarTodo();
-        }
-
-        private void cargarTodo()
-        {
+            dtpFechaInicio.Value = DateTime.Now;
+            dtpFechaFin.Value = DateTime.Now;
             CargarFiltroProductos();
             CargarReporte();
         }
 
-
         private void CargarFiltroProductos()
         {
-            List<clsProducto> productos = dao.ObtenerProductos();
-
-            clbProductos.DataSource = null;
-            clbProductos.DataSource = productos;
-            clbProductos.DisplayMember = "Nombre";
-            clbProductos.ValueMember = "ProductoID";
-
-            for (int i = 0; i < clbProductos.Items.Count; i++)
+            try
             {
-                clbProductos.SetItemChecked(i, true);
+                List<clsProducto> productos = dao.ObtenerProductos();
+                clbProductos.DataSource = null;
+                clbProductos.DataSource = productos;
+                clbProductos.DisplayMember = "Nombre";
+                clbProductos.ValueMember = "ProductoID";
+                clbProductos.CheckOnClick = true;
             }
-
-            clbProductos.CheckOnClick = true;
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         public void CargarReporte()
         {
-            List<int> idsSeleccionados = new List<int>();
-
-            foreach (var item in clbProductos.CheckedItems)
+            try
             {
-                clsProducto prod = (clsProducto)item;
-                idsSeleccionados.Add(prod.ProductoID);
+                List<int> idsSeleccionados = new List<int>();
+
+                foreach (var item in clbProductos.CheckedItems)
+                {
+                    clsProducto prod = (clsProducto)item;
+                    idsSeleccionados.Add(prod.ProductoID);
+                }
+
+                DataTable datos = dao.ObtenerReporteVentas(
+                    dtpFechaInicio.Value,
+                    dtpFechaFin.Value,
+                    idsSeleccionados
+                );
+
+                dgvVentas.DataSource = datos;
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
 
-            DataTable datos = dao.ObtenerReporteVentas(
-                dtpFechaInicio.Value,
-                dtpFechaFin.Value,
-                idsSeleccionados
-            );
-
-            dgvVentas.DataSource = datos;
+        private void btnGenerarGrafica_Click(object sender, EventArgs e)
+        {
+            CargarReporte();
         }
 
         private void dtpFechaInicio_ValueChanged(object sender, EventArgs e)
@@ -68,9 +78,44 @@ namespace Panaderia.Forms
             CargarReporte();
         }
 
+        private void clbProductos_ItemCheck(object sender, ItemCheckEventArgs e)
+        {
+            this.BeginInvoke(new Action(() =>
+            {
+                btnGenerarGrafica.PerformClick();
+            }));
+        }
+
+        private void clbProductos_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                if (clbProductos.SelectedIndex != -1)
+                {
+                    int index = clbProductos.SelectedIndex;
+                    bool estadoActual = clbProductos.GetItemChecked(index);
+                    clbProductos.SetItemChecked(index, !estadoActual);
+                    e.Handled = true;
+                    e.SuppressKeyPress = true;
+                }
+            }
+        }
+
         private void btnFiltrar_Click(object sender, EventArgs e)
         {
             CargarReporte();
         }
+
+        private void btnEliminarFiltros_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < clbProductos.Items.Count; i++)
+            {
+                clbProductos.SetItemChecked(i, false);
+            }
+            dtpFechaInicio.Value = DateTime.Now;
+            dtpFechaFin.Value = DateTime.Now;
+            CargarReporte();
+        }
+
     }
 }

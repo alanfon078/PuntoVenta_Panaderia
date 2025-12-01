@@ -478,59 +478,57 @@ namespace Panaderia.DAO
         /// <returns>DataTable con el reporte de ventas.</returns>
         // Asegúrate de usar System.Linq para facilitar el manejo de la lista
         public DataTable ObtenerReporteVentas(DateTime inicio, DateTime fin, List<int> listaIdsProductos = null)
+        {
+            DataTable tablaReporte = new DataTable();
+            try
             {
-                DataTable tablaReporte = new DataTable();
-                try
+                AsegurarConexion();
+
+                string consulta = @"
+            select 
+                p.ProductoID as 'ID', 
+                p.nombre as 'Producto', 
+                sum(dv.cantidad) as 'Cantidad', 
+                p.precio as 'Precio Unitario', 
+                SUM(dv.total) as 'Monto'
+            from Ventas v
+            join DetalleVentas dv ON v.ventaID = dv.ventaID
+            join Productos p ON dv.productoID = p.ProductoID
+            where date(v.fecha) between @fechaInicio and @fechaFin";
+
+                // Lógica de filtro: Si la lista no es nula y tiene elementos, filtramos.
+                if (listaIdsProductos != null && listaIdsProductos.Count > 0)
                 {
-                    AsegurarConexion();
-
-                    string consulta = @"
-                    select 
-                        p.ProductoID as 'ID', 
-                        p.nombre as 'Producto', 
-                        sum(dv.cantidad) as 'Cantidad', 
-                        p.precio as 'Precio Unitario', 
-                        SUM(dv.total) as 'Monto'
-                    from Ventas v
-                    join DetalleVentas dv ON v.ventaID = dv.ventaID
-                    join Productos p ON dv.productoID = p.ProductoID
-                    where date(v.fecha) between @fechaInicio and @fechaFin";
-
-                    if (listaIdsProductos != null && listaIdsProductos.Count > 0)
-                    {
-                        string ids = string.Join(",", listaIdsProductos);
-                        consulta += $" AND p.ProductoID IN ({ids})";
-                    }
-
-                    consulta += @" 
-                    group by p.ProductoID, p.nombre, p.precio
-                    order by sum(dv.cantidad) desc, sum(dv.total) desc";
-
-                    MySqlCommand comando = new MySqlCommand(consulta, cn);
-                    comando.CommandType = CommandType.Text;
-                    comando.Parameters.AddWithValue("@fechaInicio", inicio.ToString("yyyy-MM-dd"));
-                    comando.Parameters.AddWithValue("@fechaFin", fin.ToString("yyyy-MM-dd"));
-
-                    MySqlDataAdapter adaptador = new MySqlDataAdapter(comando);
-                    adaptador.Fill(tablaReporte);
+                    string ids = string.Join(",", listaIdsProductos);
+                    consulta += $" AND p.ProductoID IN ({ids})";
                 }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("Error en reporte: " + ex.Message);
-                }
-                return tablaReporte;
+
+                consulta += " group by p.ProductoID, p.nombre, p.precio order by sum(dv.cantidad) desc";
+
+                MySqlCommand comando = new MySqlCommand(consulta, cn);
+                comando.Parameters.AddWithValue("@fechaInicio", inicio.ToString("yyyy-MM-dd"));
+                comando.Parameters.AddWithValue("@fechaFin", fin.ToString("yyyy-MM-dd"));
+
+                MySqlDataAdapter adaptador = new MySqlDataAdapter(comando);
+                adaptador.Fill(tablaReporte);
             }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error en reporte: " + ex.Message);
+            }
+            return tablaReporte;
+        }
 
-    /// <summary>
-    /// Modifica un producto existente usando el SP spActProducto
-    /// </summary>
-    /// <param name="id">ID del producto a modificar</param>
-    /// <param name="nombre">Nuevo nombre</param>
-    /// <param name="precio">Nuevo precio</param>
-    /// <param name="stock">Nuevo stock</param>
-    /// <param name="imagen">Imagen en bytes (nueva o existente)</param>
-    /// <returns>True si la modificación fue exitosa.</returns>
-    public bool ModificarProducto(int id, string nombre, double precio, int stock, byte[] imagen)
+        /// <summary>
+        /// Modifica un producto existente usando el SP spActProducto
+        /// </summary>
+        /// <param name="id">ID del producto a modificar</param>
+        /// <param name="nombre">Nuevo nombre</param>
+        /// <param name="precio">Nuevo precio</param>
+        /// <param name="stock">Nuevo stock</param>
+        /// <param name="imagen">Imagen en bytes (nueva o existente)</param>
+        /// <returns>True si la modificación fue exitosa.</returns>
+        public bool ModificarProducto(int id, string nombre, double precio, int stock, byte[] imagen)
         {
             bool exito = false;
             MySqlTransaction transaction = null;
