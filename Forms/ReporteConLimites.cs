@@ -118,10 +118,13 @@ namespace Panaderia.Forms
             CargarReporte();
         }
 
+        // En ReporteConLimites.cs -> Método GenerarReporte
+
         private void GenerarReporte(bool abrirGraficaSiCerrada)
         {
             try
             {
+                // ... (Tu código de obtener IDs y Datos sigue igual) ...
                 List<int> idsSeleccionados = new List<int>();
                 foreach (var item in clbProductos.CheckedItems)
                 {
@@ -137,23 +140,31 @@ namespace Panaderia.Forms
 
                 dgvVentas.DataSource = datos;
 
+                // ... (Lógica de ventana) ...
+
                 if (_ventanaGrafica == null || _ventanaGrafica.IsDisposed)
                 {
                     if (abrirGraficaSiCerrada)
                     {
                         _ventanaGrafica = new GraficaForm();
                         _ventanaGrafica.Show();
+                        // El try-catch interno en GraficaForm ahora manejará errores de dibujo
                         _ventanaGrafica.CargarDatos(datos);
                     }
                 }
                 else
                 {
+                    // Si la ventana ya existe, actualizamos
                     _ventanaGrafica.CargarDatos(datos);
                     if (abrirGraficaSiCerrada) _ventanaGrafica.BringToFront();
                 }
             }
-            catch (Exception ex) { MessageBox.Show(ex.Message); }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error en el reporte: " + ex.Message);
+            }
         }
+
 
     }
 }
