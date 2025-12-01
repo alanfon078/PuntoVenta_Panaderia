@@ -1,78 +1,90 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
-using System.Windows.Forms.DataVisualization.Charting;
+using ScottPlot.WinForms; // Necesario para la versión 5
+using ScottPlot;
 
 namespace Panaderia.Forms
 {
     public partial class GraficaForm : Form
     {
-        private Chart ch;
+        private FormsPlot plotVentas;
 
         public GraficaForm()
         {
+            // InitializeComponent(); // Descomenta si usas el diseñador
+
             this.Text = "Visualización de Ventas";
+            this.Size = new Size(900, 600);
 
-            ch = new Chart();
-            ch.Dock = DockStyle.Fill;
-
-            ChartArea area = new ChartArea("AreaVentas");
-            area.AxisX.Title = "Producto";
-            area.AxisX.Interval = 1;
-            area.AxisY.Title = "Monto ($)";
-            ch.ChartAreas.Add(area);
-
-            ch.Titles.Add("Reporte de Ventas");
-            this.Controls.Add(ch);
+            // Instanciar el control FormsPlot (Versión 5)
+            plotVentas = new FormsPlot() { Dock = DockStyle.Fill };
+            this.Controls.Add(plotVentas);
         }
-
-        // En GraficaForm.cs
 
         public void CargarDatos(DataTable datos)
         {
             try
             {
-                // 1. Limpiar datos previos
-                ch.Series.Clear();
+                // 1. Limpiar gráfica anterior
+                plotVentas.Plot.Clear();
 
-                if (datos == null || datos.Rows.Count == 0) return;
+                if (datos == null || datos.Rows.Count == 0)
+                {
+                    plotVentas.Refresh();
+                    return;
+                }
 
-                // 2. Configurar la serie
-                Series serie = new Series("Ventas");
-                serie.ChartType = SeriesChartType.Column;
+                // 2. Preparar listas
+                List<double> valores = new List<double>();
+                List<ScottPlot.TickGenerators.NumericManual> ticks = new List<ScottPlot.TickGenerators.NumericManual>();
 
-                // Es importante asignar el ChartArea si se borraron las series
-                serie.ChartArea = "AreaVentas";
-
-                // 3. LLENADO MANUAL (SOLUCIÓN AL CRASH)
-                // Recorremos la tabla fila por fila. Esto evita el error de DataBind.
+                int i = 0;
                 foreach (DataRow row in datos.Rows)
                 {
                     string producto = row["Producto"].ToString();
 
-                    // Convertimos de forma segura a Decimal. 
-                    // Si viene nulo o vacío, usamos 0 para que no truene.
-                    decimal monto = 0;
+                    double monto = 0;
                     if (row["Monto"] != DBNull.Value)
                     {
-                        decimal.TryParse(row["Monto"].ToString(), out monto);
+                        double.TryParse(row["Monto"].ToString(), out monto);
                     }
 
-                    // Agregamos el punto a la gráfica
-                    serie.Points.AddXY(producto, monto);
+                    valores.Add(monto);
+
+                    // Crear etiqueta personalizada para el Eje X
+                    ticks.Add(new ScottPlot.TickGenerators.NumericManual.Tick(i, producto));
+                    i++;
                 }
 
-                serie.IsValueShownAsLabel = true;
+                // 3. Agregar Barras (Sintaxis v5)
+                var barPlot = plotVentas.Plot.Add.Bars(valores.ToArray());
 
-                // 4. Agregar la serie al control
-                ch.Series.Add(serie);
-                ch.Update();
+                // Color (Azul)
+                foreach (var bar in barPlot.Bars)
+                {
+                    bar.FillColor = ScottPlot.Color.FromHex("#1f77b4");
+                }
+
+                // 4. Configurar Eje X (Nombres de productos)
+                plotVentas.Plot.Axes.Bottom.TickGenerator = new ScottPlot.TickGenerators.NumericManual(ticks);
+                plotVentas.Plot.Axes.Bottom.TickLabelStyle.Rotation = 45;
+                plotVentas.Plot.Axes.Bottom.TickLabelStyle.Alignment = Alignment.MiddleLeft;
+
+                // 5. Títulos
+                plotVentas.Plot.Title("Ventas por Producto");
+                plotVentas.Plot.Axes.Left.Label.Text = "Monto ($)";
+
+                // Ajustar y mostrar
+                plotVentas.Plot.Axes.AutoScale();
+                plotVentas.Refresh();
             }
             catch (Exception ex)
             {
-                // Esto evitará que se cierre el programa si hay un error en la gráfica
-                MessageBox.Show("Error al dibujar la gráfica: " + ex.Message);
+                MessageBox.Show("Error al generar gráfica: " + ex.Message);
             }
         }
     }

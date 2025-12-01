@@ -12,38 +12,47 @@ namespace Panaderia.Forms
         DAOcls dao = new DAOcls();
         private GraficaForm _ventanaGrafica = null;
 
+        // --- PROTECCIÓN CONTRA CRASH ---
+        private bool _cargandoFiltros = false;
+
         public ReporteConLimites()
         {
             InitializeComponent();
             dtpFechaInicio.Value = DateTime.Now;
             dtpFechaFin.Value = DateTime.Now;
+
             CargarFiltroProductos();
-            CargarReporte();
+            GenerarReporte(false); // Carga inicial
         }
 
         private void CargarFiltroProductos()
         {
             try
             {
+                _cargandoFiltros = true; // Bloquear eventos
+
                 List<clsProducto> productos = dao.ObtenerProductos();
                 clbProductos.DataSource = null;
                 clbProductos.DataSource = productos;
                 clbProductos.DisplayMember = "Nombre";
                 clbProductos.ValueMember = "ProductoID";
                 clbProductos.CheckOnClick = true;
+
+                _cargandoFiltros = false; // Desbloquear
             }
             catch (Exception ex)
             {
+                _cargandoFiltros = false;
                 MessageBox.Show(ex.Message);
             }
         }
 
-        public void CargarReporte()
+        // Método centralizado
+        private void GenerarReporte(bool abrirGraficaSiCerrada)
         {
             try
             {
                 List<int> idsSeleccionados = new List<int>();
-
                 foreach (var item in clbProductos.CheckedItems)
                 {
                     clsProducto prod = (clsProducto)item;
@@ -57,10 +66,26 @@ namespace Panaderia.Forms
                 );
 
                 dgvVentas.DataSource = datos;
+
+                // Control de la ventana gráfica
+                if (_ventanaGrafica == null || _ventanaGrafica.IsDisposed)
+                {
+                    if (abrirGraficaSiCerrada)
+                    {
+                        _ventanaGrafica = new GraficaForm();
+                        _ventanaGrafica.Show();
+                        _ventanaGrafica.CargarDatos(datos);
+                    }
+                }
+                else
+                {
+                    _ventanaGrafica.CargarDatos(datos);
+                    if (abrirGraficaSiCerrada) _ventanaGrafica.BringToFront();
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("Error generando reporte: " + ex.Message);
             }
         }
 
@@ -79,92 +104,52 @@ namespace Panaderia.Forms
             GenerarReporte(false);
         }
 
+        private void btnFiltrar_Click(object sender, EventArgs e)
+        {
+            GenerarReporte(false);
+        }
+
+        // --- AQUÍ ESTÁ LA SOLUCIÓN AL CRASH ---
         private void clbProductos_ItemCheck(object sender, ItemCheckEventArgs e)
         {
+            // Si estamos limpiando todo, NO actualizamos la gráfica todavía
+            if (_cargandoFiltros) return;
+
             this.BeginInvoke(new Action(() =>
             {
                 GenerarReporte(false);
             }));
         }
 
-        private void clbProductos_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                if (clbProductos.SelectedIndex != -1)
-                {
-                    int index = clbProductos.SelectedIndex;
-                    bool estadoActual = clbProductos.GetItemChecked(index);
-                    clbProductos.SetItemChecked(index, !estadoActual);
-                    e.Handled = true;
-                    e.SuppressKeyPress = true;
-                }
-            }
-        }
-
-        private void btnFiltrar_Click(object sender, EventArgs e)
-        {
-            CargarReporte();
-        }
-
         private void btnEliminarFiltros_Click(object sender, EventArgs e)
         {
+            // 1. Activamos la protección
+            _cargandoFiltros = true;
+
+            // 2. Desmarcamos todo (esto ya no disparará 50 veces el reporte)
             for (int i = 0; i < clbProductos.Items.Count; i++)
             {
                 clbProductos.SetItemChecked(i, false);
             }
+
             dtpFechaInicio.Value = DateTime.Now;
             dtpFechaFin.Value = DateTime.Now;
-            CargarReporte();
+
+            // 3. Desactivamos protección y actualizamos UNA sola vez
+            _cargandoFiltros = false;
+            GenerarReporte(false);
         }
 
-        // En ReporteConLimites.cs -> Método GenerarReporte
-
-        private void GenerarReporte(bool abrirGraficaSiCerrada)
+        private void clbProductos_KeyDown(object sender, KeyEventArgs e)
         {
-            try
+            if (e.KeyCode == Keys.Enter && clbProductos.SelectedIndex != -1)
             {
-                // ... (Tu código de obtener IDs y Datos sigue igual) ...
-                List<int> idsSeleccionados = new List<int>();
-                foreach (var item in clbProductos.CheckedItems)
-                {
-                    clsProducto prod = (clsProducto)item;
-                    idsSeleccionados.Add(prod.ProductoID);
-                }
-
-                DataTable datos = dao.ObtenerReporteVentas(
-                    dtpFechaInicio.Value,
-                    dtpFechaFin.Value,
-                    idsSeleccionados
-                );
-
-                dgvVentas.DataSource = datos;
-
-                // ... (Lógica de ventana) ...
-
-                if (_ventanaGrafica == null || _ventanaGrafica.IsDisposed)
-                {
-                    if (abrirGraficaSiCerrada)
-                    {
-                        _ventanaGrafica = new GraficaForm();
-                        _ventanaGrafica.Show();
-                        // El try-catch interno en GraficaForm ahora manejará errores de dibujo
-                        _ventanaGrafica.CargarDatos(datos);
-                    }
-                }
-                else
-                {
-                    // Si la ventana ya existe, actualizamos
-                    _ventanaGrafica.CargarDatos(datos);
-                    if (abrirGraficaSiCerrada) _ventanaGrafica.BringToFront();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error en el reporte: " + ex.Message);
+                int index = clbProductos.SelectedIndex;
+                bool estadoActual = clbProductos.GetItemChecked(index);
+                clbProductos.SetItemChecked(index, !estadoActual);
+                e.Handled = true;
+                e.SuppressKeyPress = true;
             }
         }
-
-
     }
 }
