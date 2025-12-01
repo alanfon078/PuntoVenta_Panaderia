@@ -5,7 +5,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Panaderia.Clases;
 using Panaderia.DAO;
-using Panaderia.Forms;
+
 // Funcionalidad completa
 namespace Panaderia
 {
