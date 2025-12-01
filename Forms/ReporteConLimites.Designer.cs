@@ -40,6 +40,7 @@
             label4 = new Label();
             btnFiltrar = new Button();
             btnEliminarFiltros = new Button();
+            btnGenerarGraficaCantidad = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvVentas).BeginInit();
             SuspendLayout();
             // 
@@ -109,7 +110,7 @@
             btnGenerarGrafica.Name = "btnGenerarGrafica";
             btnGenerarGrafica.Size = new Size(330, 56);
             btnGenerarGrafica.TabIndex = 13;
-            btnGenerarGrafica.Text = "Generar Grafica";
+            btnGenerarGrafica.Text = "Reporte por monto";
             btnGenerarGrafica.UseVisualStyleBackColor = true;
             btnGenerarGrafica.Click += btnGenerarGrafica_Click;
             // 
@@ -152,11 +153,22 @@
             btnEliminarFiltros.UseVisualStyleBackColor = true;
             btnEliminarFiltros.Click += btnEliminarFiltros_Click;
             // 
+            // btnGenerarGraficaCantidad
+            // 
+            btnGenerarGraficaCantidad.Location = new Point(356, 777);
+            btnGenerarGraficaCantidad.Name = "btnGenerarGraficaCantidad";
+            btnGenerarGraficaCantidad.Size = new Size(330, 56);
+            btnGenerarGraficaCantidad.TabIndex = 18;
+            btnGenerarGraficaCantidad.Text = "Reporte por cantidad";
+            btnGenerarGraficaCantidad.UseVisualStyleBackColor = true;
+            btnGenerarGraficaCantidad.Click += btnGenerarGraficaCantidad_Click;
+            // 
             // ReporteConLimites
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1837, 976);
+            Controls.Add(btnGenerarGraficaCantidad);
             Controls.Add(btnEliminarFiltros);
             Controls.Add(btnFiltrar);
             Controls.Add(label4);
@@ -189,5 +201,6 @@
         private Label label4;
         private Button btnFiltrar;
         private Button btnEliminarFiltros;
+        private Button btnGenerarGraficaCantidad;
     }
 }

@@ -12,8 +12,7 @@ namespace Panaderia.Forms
         DAOcls dao = new DAOcls();
         private GraficaForm _ventanaGrafica = null;
 
-        // --- PROTECCIÓN CONTRA CRASH ---
-        private bool _cargandoFiltros = false;
+        private bool cargandoFiltros = false;
 
         public ReporteConLimites()
         {
@@ -22,14 +21,14 @@ namespace Panaderia.Forms
             dtpFechaFin.Value = DateTime.Now;
 
             CargarFiltroProductos();
-            GenerarReporte(false); // Carga inicial
+            GenerarReporte(false); 
         }
 
         private void CargarFiltroProductos()
         {
             try
             {
-                _cargandoFiltros = true; // Bloquear eventos
+                cargandoFiltros = true; 
 
                 List<clsProducto> productos = dao.ObtenerProductos();
                 clbProductos.DataSource = null;
@@ -38,16 +37,15 @@ namespace Panaderia.Forms
                 clbProductos.ValueMember = "ProductoID";
                 clbProductos.CheckOnClick = true;
 
-                _cargandoFiltros = false; // Desbloquear
+                cargandoFiltros = false; 
             }
             catch (Exception ex)
             {
-                _cargandoFiltros = false;
+                cargandoFiltros = false;
                 MessageBox.Show(ex.Message);
             }
         }
 
-        // Método centralizado
         private void GenerarReporte(bool abrirGraficaSiCerrada)
         {
             try
@@ -67,7 +65,6 @@ namespace Panaderia.Forms
 
                 dgvVentas.DataSource = datos;
 
-                // Control de la ventana gráfica
                 if (_ventanaGrafica == null || _ventanaGrafica.IsDisposed)
                 {
                     if (abrirGraficaSiCerrada)
@@ -109,11 +106,9 @@ namespace Panaderia.Forms
             GenerarReporte(false);
         }
 
-        // --- AQUÍ ESTÁ LA SOLUCIÓN AL CRASH ---
         private void clbProductos_ItemCheck(object sender, ItemCheckEventArgs e)
         {
-            // Si estamos limpiando todo, NO actualizamos la gráfica todavía
-            if (_cargandoFiltros) return;
+            if (cargandoFiltros) return;
 
             this.BeginInvoke(new Action(() =>
             {
@@ -123,10 +118,8 @@ namespace Panaderia.Forms
 
         private void btnEliminarFiltros_Click(object sender, EventArgs e)
         {
-            // 1. Activamos la protección
-            _cargandoFiltros = true;
+            cargandoFiltros = true;
 
-            // 2. Desmarcamos todo (esto ya no disparará 50 veces el reporte)
             for (int i = 0; i < clbProductos.Items.Count; i++)
             {
                 clbProductos.SetItemChecked(i, false);
@@ -135,8 +128,7 @@ namespace Panaderia.Forms
             dtpFechaInicio.Value = DateTime.Now;
             dtpFechaFin.Value = DateTime.Now;
 
-            // 3. Desactivamos protección y actualizamos UNA sola vez
-            _cargandoFiltros = false;
+            cargandoFiltros = false;
             GenerarReporte(false);
         }
 
@@ -150,6 +142,11 @@ namespace Panaderia.Forms
                 e.Handled = true;
                 e.SuppressKeyPress = true;
             }
+        }
+
+        private void btnGenerarGraficaCantidad_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
